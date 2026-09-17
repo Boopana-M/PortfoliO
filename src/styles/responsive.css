@@ -1,0 +1,23 @@
+/* Responsive adjustments for the Wizarding Book */
+
+@media (max-width: 1024px) {
+  :root {
+    --book-width: 90vw;
+    --book-height: 72vh;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --book-width: 94vw;
+    --book-height: 78vh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

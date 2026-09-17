@@ -1,0 +1,51 @@
+:root {
+  /* Ink & Text Colors */
+  --ink: #1f1810;
+  --ink-secondary: #423425;
+  --ink-muted: #6b563f;
+  --ink-faded: #8c7358;
+  --ink-accent: #8b2500;
+
+  /* Parchment Colors */
+  --parchment: #dfcca6;
+  --parchment-light: #ece0c2;
+  --parchment-mid: #d2bc90;
+  --parchment-dark: #bba274;
+  --parchment-edge: #82643e;
+  --parchment-burnt: #583e20;
+
+  /* Antique Book Materials */
+  --book-leather: #1c1108;
+  --book-leather-light: #2b1c10;
+  --book-brown: #24160d;
+  --book-spine: #140b05;
+  --aged-brown: #4a321d;
+
+  /* Gold & Metallic Accents */
+  --gold: #b99a58;
+  --gold-bright: #e5cb87;
+  --gold-dark: #7a6332;
+  --gold-emboss: rgba(229, 203, 135, 0.4);
+
+  /* Magical Study Atmosphere (Dark mode strictly) */
+  --bg-void: #060504;
+  --bg-dark: #0b0907;
+  --bg-study: #110e0a;
+  --magic-blue: #4c9fc4;
+  --magic-blue-glow: rgba(76, 159, 196, 0.35);
+  --magic-cyan: #6ed0e0;
+  --candle-glow: rgba(245, 170, 70, 0.18);
+  --candle-flicker: rgba(255, 190, 90, 0.25);
+
+  /* Typography */
+  --font-title: 'Cinzel', Georgia, 'Times New Roman', serif;
+  --font-display: 'Cinzel Decorative', 'Cinzel', Georgia, serif;
+  --font-body: 'Crimson Pro', Georgia, 'Times New Roman', serif;
+  --font-handwriting: 'Caveat', cursive, 'Brush Script MT', cursive;
+
+  /* Geometry & 3D */
+  --book-width: min(1040px, 86vw);
+  --book-height: min(680px, 80vh);
+  --book-perspective: 2000px;
+  --page-border-radius: 4px;
+}

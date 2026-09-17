@@ -1,0 +1,132 @@
+/* Side Navigation matching the wizarding reference */
+
+.side-navigation {
+  position: absolute;
+  left: 36px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  z-index: 50;
+  max-width: 240px;
+}
+
+/* Personal Crest / Header */
+.nav-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.nav-crest {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+}
+
+.crest-symbol {
+  font-size: 1.4rem;
+  color: var(--gold-bright);
+  filter: drop-shadow(0 0 8px rgba(229, 203, 135, 0.5));
+}
+
+.nav-author-name {
+  font-family: var(--font-title);
+  font-size: 1.15rem;
+  color: #ede2cf;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.nav-author-title {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--parchment-dark);
+}
+
+/* Navigation Chapters List */
+.nav-chapters-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.nav-chapter-item {
+  margin: 0;
+}
+
+.nav-chapter-button {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: transparent;
+  border: none;
+  color: #a8947b;
+  font-family: var(--font-title);
+  font-size: 0.88rem;
+  letter-spacing: 0.06em;
+  padding: 0.35rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: all 0.25s ease;
+}
+
+.nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: var(--gold-dark);
+  transition: all 0.25s ease;
+}
+
+.nav-label {
+  transition: color 0.25s ease;
+}
+
+.nav-chapter-button:hover {
+  color: #f7ebd4;
+  transform: translateX(4px);
+}
+
+.nav-chapter-button:hover .nav-icon {
+  color: var(--gold-bright);
+  filter: drop-shadow(0 0 6px rgba(229, 203, 135, 0.6));
+}
+
+.nav-chapter-button.active {
+  color: var(--gold-bright);
+  font-weight: 700;
+  background: linear-gradient(90deg, rgba(185, 154, 88, 0.12) 0%, transparent 100%);
+  border-left: 2px solid var(--gold);
+}
+
+.nav-chapter-button.active .nav-icon {
+  color: var(--gold-bright);
+  filter: drop-shadow(0 0 8px rgba(229, 203, 135, 0.8));
+}
+
+@media (max-width: 1180px) {
+  .side-navigation {
+    left: 18px;
+    gap: 1.2rem;
+  }
+  .nav-chapter-button {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .side-navigation {
+    display: none;
+  }
+}

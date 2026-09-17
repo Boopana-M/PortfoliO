@@ -1,0 +1,483 @@
+/* =========================================
+   Wizarding Book & Manuscript Styling
+   ========================================= */
+
+.book-stage {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  perspective: var(--book-perspective);
+  z-index: 10;
+}
+
+/* Ambient Blue & Warm Glow behind the Book */
+.book-ambient-glow {
+  position: absolute;
+  width: calc(var(--book-width) + 80px);
+  height: calc(var(--book-height) + 60px);
+  border-radius: 20px;
+  background: radial-gradient(ellipse at center, rgba(76, 159, 196, 0.22) 0%, rgba(200, 140, 50, 0.12) 45%, transparent 70%);
+  filter: blur(28px);
+  pointer-events: none;
+  z-index: -2;
+  transform: translateZ(-30px);
+}
+
+/* Ground shadow beneath the standing upright book */
+.book-ground-shadow {
+  position: absolute;
+  bottom: calc(50% - (var(--book-height) / 2) - 35px);
+  width: calc(var(--book-width) * 0.96);
+  height: 60px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 80%);
+  filter: blur(14px);
+  transform: rotateX(85deg) translateZ(-10px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Main Upright Book Container */
+.book-container {
+  position: relative;
+  width: var(--book-width);
+  height: var(--book-height);
+  display: flex;
+  transform-style: preserve-3d;
+  box-shadow:
+    0 25px 60px -10px rgba(0, 0, 0, 0.9),
+    0 10px 30px rgba(0, 0, 0, 0.8),
+    inset 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Outer Hardcover Shell Frame */
+.book-cover-frame {
+  position: absolute;
+  inset: -6px -10px -8px -10px;
+  background: 
+    linear-gradient(90deg, #120b06 0%, #2a1b10 15%, #180e07 48%, #0f0804 50%, #180e07 52%, #2a1b10 85%, #120b06 100%);
+  border-radius: 8px;
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.95),
+    inset 0 2px 4px rgba(230, 200, 140, 0.15),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.9);
+  z-index: 1;
+  pointer-events: none;
+  border: 1px solid rgba(185, 154, 88, 0.2);
+}
+
+/* Corner metal brackets */
+.book-corner {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-color: var(--gold);
+  border-style: solid;
+  opacity: 0.7;
+  pointer-events: none;
+}
+.book-corner-tl { top: 4px; left: 4px; border-width: 2px 0 0 2px; border-top-left-radius: 4px; }
+.book-corner-tr { top: 4px; right: 4px; border-width: 2px 2px 0 0; border-top-right-radius: 4px; }
+.book-corner-bl { bottom: 4px; left: 4px; border-width: 0 0 2px 2px; border-bottom-left-radius: 4px; }
+.book-corner-br { bottom: 4px; right: 4px; border-width: 0 2px 2px 0; border-bottom-right-radius: 4px; }
+
+/* Spine depth overlay */
+.book-center-spine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 16px);
+  width: 32px;
+  background: linear-gradient(90deg, 
+    rgba(0, 0, 0, 0.5) 0%, 
+    rgba(30, 20, 10, 0.8) 35%, 
+    rgba(10, 5, 2, 0.95) 50%, 
+    rgba(30, 20, 10, 0.8) 65%, 
+    rgba(0, 0, 0, 0.5) 100%
+  );
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.9);
+  z-index: 30;
+  pointer-events: none;
+}
+
+/* Stacked Page Leaves Block */
+.book-page-spread {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  transform-style: preserve-3d;
+}
+
+/* Individual Left and Right Pages */
+.parchment-page {
+  flex: 1;
+  position: relative;
+  height: 100%;
+  background: 
+    radial-gradient(ellipse at 50% 50%, #f4e8cb 0%, #e2cfab 55%, #cbb185 85%, #ad9163 100%);
+  padding: 2.2rem 2.4rem;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Page inner border decoration */
+.page-border-inner {
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(120, 94, 59, 0.4);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.page-border-inner::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 1px dashed rgba(185, 154, 88, 0.35);
+}
+
+/* Corner filigree dots */
+.page-corner-ornament {
+  position: absolute;
+  font-size: 0.75rem;
+  color: var(--gold-dark);
+  line-height: 1;
+  opacity: 0.75;
+}
+.pco-tl { top: 4px; left: 4px; }
+.pco-tr { top: 4px; right: 4px; }
+.pco-bl { bottom: 4px; left: 4px; }
+.pco-br { bottom: 4px; right: 4px; }
+
+/* Left Page Specifics */
+.parchment-page-left {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  box-shadow:
+    inset -25px 0 35px -10px rgba(40, 25, 10, 0.35),
+    inset 0 0 40px rgba(160, 120, 60, 0.2);
+  background: 
+    radial-gradient(ellipse at 75% 50%, #f6ebd0 0%, #e4d2ae 60%, #c9af82 90%, #9e8052 100%);
+}
+
+/* Right Page Specifics */
+.parchment-page-right {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  box-shadow:
+    inset 25px 0 35px -10px rgba(40, 25, 10, 0.35),
+    inset 0 0 40px rgba(160, 120, 60, 0.2);
+  background: 
+    radial-gradient(ellipse at 25% 50%, #f6ebd0 0%, #e4d2ae 60%, #c9af82 90%, #9e8052 100%);
+}
+
+/* Page Footer with Page Number */
+.page-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 0.5rem;
+  font-family: var(--font-title);
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.15em;
+  z-index: 5;
+}
+
+/* Page Content Formatting */
+.page-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  z-index: 4;
+}
+
+.manuscript-body {
+  font-size: 0.95rem;
+  color: var(--ink-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  line-height: 1.6;
+}
+
+.illuminated-initial {
+  float: left;
+  font-family: var(--font-display);
+  font-size: 3rem;
+  line-height: 0.85;
+  padding-top: 4px;
+  padding-right: 8px;
+  padding-bottom: 2px;
+  color: var(--ink-accent);
+  font-weight: 900;
+  text-shadow: 1px 1px 0 rgba(185, 154, 88, 0.5);
+}
+
+.manuscript-quote {
+  border-left: 2px solid var(--gold-dark);
+  padding-left: 0.85rem;
+  margin: 0.5rem 0;
+  font-style: italic;
+  color: var(--ink);
+  font-size: 0.92rem;
+}
+
+.signature-container {
+  margin-top: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.signature-prefix {
+  font-size: 0.75rem;
+  font-family: var(--font-title);
+  color: var(--ink-muted);
+  letter-spacing: 0.08em;
+}
+
+/* Skills Layout inside Manuscript */
+.skills-scroll-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 0.25rem;
+}
+
+.skill-category-title {
+  font-size: 0.95rem;
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+  font-family: var(--font-title);
+  letter-spacing: 0.05em;
+}
+
+.bullet-rune {
+  color: var(--gold-dark);
+  font-size: 0.75rem;
+}
+
+.skill-badges-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.manuscript-badge {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  background: rgba(120, 90, 50, 0.09);
+  border: 1px solid rgba(120, 90, 50, 0.28);
+  border-radius: 3px;
+  color: var(--ink);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.4);
+}
+
+/* Manuscript Cards (Projects, Experience, Achievements, Open Source) */
+.manuscript-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+.manuscript-card {
+  padding: 0.75rem;
+  background: rgba(120, 90, 50, 0.06);
+  border: 1px solid rgba(120, 90, 50, 0.25);
+  border-radius: 4px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.25rem;
+}
+
+.card-title {
+  font-size: 0.98rem;
+  color: var(--ink);
+}
+
+.card-category, .card-year, .card-stars {
+  font-size: 0.75rem;
+  font-family: var(--font-title);
+  color: var(--ink-muted);
+}
+
+.card-description {
+  font-size: 0.88rem;
+  color: var(--ink-secondary);
+  line-height: 1.45;
+  margin-bottom: 0.4rem;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.mini-tag {
+  font-size: 0.72rem;
+  padding: 0.1rem 0.4rem;
+  background: rgba(185, 154, 88, 0.15);
+  border: 1px solid rgba(185, 154, 88, 0.3);
+  border-radius: 2px;
+  color: var(--ink);
+}
+
+/* Buttons */
+.antique-action-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.2rem;
+  font-family: var(--font-title);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: #f1dfbf;
+  background: linear-gradient(180deg, #3c2918 0%, #20140a 100%);
+  border: 1px solid var(--gold-dark);
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease;
+}
+
+.antique-action-button:hover {
+  background: linear-gradient(180deg, #4d3620 0%, #2d1d0e 100%);
+  border-color: var(--gold-bright);
+  box-shadow: 0 0 10px rgba(229, 203, 135, 0.35);
+  transform: translateY(-1px);
+}
+
+/* Contact Form */
+.manuscript-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-top: 0.4rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.form-label {
+  font-family: var(--font-title);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+}
+
+.manuscript-input, .manuscript-textarea {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  padding: 0.45rem 0.6rem;
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(120, 90, 50, 0.4);
+  border-radius: 3px;
+  color: var(--ink);
+  outline: none;
+}
+
+.manuscript-input:focus, .manuscript-textarea:focus {
+  border-color: var(--gold-dark);
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 6px rgba(185, 154, 88, 0.3);
+}
+
+.social-runes-footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  font-family: var(--font-title);
+  padding-top: 0.5rem;
+}
+
+.rune-link {
+  color: var(--ink-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.rune-link:hover {
+  color: var(--ink-accent);
+  text-decoration: underline;
+}
+
+.rune-dot {
+  color: var(--gold-dark);
+}
+
+/* Controls Bar (NEXT PAGE, PREV PAGE, SHARE, EDIT) */
+.book-bottom-controls {
+  position: absolute;
+  bottom: 22px;
+  right: 36px;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  z-index: 40;
+}
+
+.page-turn-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: linear-gradient(180deg, #26190e 0%, #150d07 100%);
+  border: 1px solid var(--gold);
+  color: var(--gold-bright);
+  font-family: var(--font-title);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.65rem 1.3rem;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow:
+    0 4px 14px rgba(0, 0, 0, 0.6),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.page-turn-btn:hover:not(:disabled) {
+  background: linear-gradient(180deg, #382414 0%, #1f140b 100%);
+  border-color: #ffd88a;
+  color: #fff1cb;
+  box-shadow:
+    0 0 16px rgba(215, 185, 107, 0.45),
+    0 4px 15px rgba(0, 0, 0, 0.8);
+  transform: translateY(-2px);
+}
+
+.page-turn-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  filter: grayscale(0.8);
+}
