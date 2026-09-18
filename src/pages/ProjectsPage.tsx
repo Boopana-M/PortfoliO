@@ -1,4 +1,5 @@
 import React from 'react';
+import { ExternalLink, Code2 } from 'lucide-react';
 import { portfolio } from '../data/portfolio';
 
 export const ProjectsPage: React.FC = () => {
@@ -18,10 +19,40 @@ export const ProjectsPage: React.FC = () => {
               <span className="card-category">{project.category}</span>
             </div>
             <p className="card-description">{project.description}</p>
-            <div className="card-tags">
-              {project.technologies.map((tech, i) => (
-                <span key={i} className="mini-tag">{tech}</span>
-              ))}
+            <div className="card-footer-row">
+              <div className="card-tags">
+                {project.technologies.map((tech, i) => (
+                  <span key={i} className="mini-tag">{tech}</span>
+                ))}
+              </div>
+              <div className="card-links">
+                {project.github && (
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="card-action-link"
+                    title="View Source Code"
+                    aria-label={`View ${project.title} source code`}
+                  >
+                    <Code2 size={13} />
+                    <span>Source</span>
+                  </a>
+                )}
+                {project.live && (
+                  <a
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="card-action-link"
+                    title="Launch Live Grimoire"
+                    aria-label={`Launch ${project.title} live demo`}
+                  >
+                    <ExternalLink size={13} />
+                    <span>Demo</span>
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         ))}
@@ -29,3 +60,5 @@ export const ProjectsPage: React.FC = () => {
     </div>
   );
 };
+
+

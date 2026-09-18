@@ -8,15 +8,16 @@ export interface NavItem {
 }
 
 export const navigationItems: NavItem[] = [
-  { id: 'about', label: 'About Me', iconName: 'Compass', spreadIndex: 0, pageSide: 'left', pageNumber: 1 },
+  { id: 'about', label: 'About Me', iconName: 'User', spreadIndex: 0, pageSide: 'left', pageNumber: 1 },
   { id: 'skills', label: 'Skills', iconName: 'Sparkles', spreadIndex: 0, pageSide: 'right', pageNumber: 2 },
-  { id: 'projects', label: 'Projects', iconName: 'FolderGit2', spreadIndex: 1, pageSide: 'left', pageNumber: 3 },
-  { id: 'experience', label: 'Experience', iconName: 'Hourglass', spreadIndex: 1, pageSide: 'right', pageNumber: 4 },
-  { id: 'achievements', label: 'Achievements', iconName: 'Award', spreadIndex: 2, pageSide: 'left', pageNumber: 5 },
-  { id: 'opensource', label: 'Open Source', iconName: 'Code2', spreadIndex: 2, pageSide: 'right', pageNumber: 6 },
-  { id: 'resume', label: 'Resume', iconName: 'Scroll', spreadIndex: 3, pageSide: 'left', pageNumber: 7 },
+  { id: 'projects', label: 'Projects', iconName: 'Folder', spreadIndex: 1, pageSide: 'left', pageNumber: 3 },
+  { id: 'experience', label: 'Experience', iconName: 'Briefcase', spreadIndex: 1, pageSide: 'right', pageNumber: 4 },
+  { id: 'achievements', label: 'Achievements', iconName: 'Trophy', spreadIndex: 2, pageSide: 'left', pageNumber: 5 },
+  { id: 'opensource', label: 'Open Source', iconName: 'Code', spreadIndex: 2, pageSide: 'right', pageNumber: 6 },
+  { id: 'resume', label: 'Resume', iconName: 'FileText', spreadIndex: 3, pageSide: 'left', pageNumber: 7 },
   { id: 'contact', label: 'Contact', iconName: 'Mail', spreadIndex: 3, pageSide: 'right', pageNumber: 8 },
 ];
+
 
 export interface SpreadDefinition {
   id: string;

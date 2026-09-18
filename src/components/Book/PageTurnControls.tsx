@@ -1,5 +1,5 @@
-import React from 'react';
-import { ArrowRight, ArrowLeft } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowRight, ArrowLeft, Share2, Check } from 'lucide-react';
 
 interface PageTurnControlsProps {
   currentSpread: number;
@@ -16,34 +16,75 @@ export const PageTurnControls: React.FC<PageTurnControlsProps> = ({
   onNext,
   onPrev,
 }) => {
+  const [copied, setCopied] = useState(false);
   const canGoNext = currentSpread < totalSpreads - 1;
   const canGoPrev = currentSpread > 0;
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "Boopana M — Wizard's Tome Portfolio",
+          text: "Explore this magical antique developer portfolio!",
+          url: window.location.href,
+        });
+        return;
+      } catch {
+        // Fallback to clipboard
+      }
+    }
+
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch {
+      // ignore
+    }
+  };
 
   return (
     <div className="book-bottom-controls" role="toolbar" aria-label="Book page navigation">
       {canGoPrev && (
         <button
           type="button"
-          className="page-turn-btn"
+          className="cartouche-nav-btn prev-cartouche-btn"
           onClick={onPrev}
           disabled={isTurning || !canGoPrev}
           aria-label="Turn to previous page"
         >
-          <ArrowLeft size={16} aria-hidden="true" />
-          <span>Prev Page</span>
+          <ArrowLeft size={15} aria-hidden="true" />
+          <span>PREV PAGE</span>
         </button>
       )}
 
       <button
         type="button"
-        className="page-turn-btn"
+        className="cartouche-nav-btn next-cartouche-btn"
         onClick={onNext}
         disabled={isTurning || !canGoNext}
         aria-label="Turn to next page"
       >
-        <span>Next Page</span>
-        <ArrowRight size={16} aria-hidden="true" />
+        <span>NEXT PAGE</span>
+        <ArrowRight size={15} aria-hidden="true" />
       </button>
+
+      <button
+        type="button"
+        className="antique-share-circle-btn"
+        onClick={handleShare}
+        aria-label="Share Portfolio Link"
+        title={copied ? "Link copied to clipboard!" : "Share Grimoire"}
+      >
+        {copied ? <Check size={18} className="share-copied-icon" /> : <Share2 size={18} />}
+      </button>
+
+      {copied && (
+        <div className="share-toast-bubble" role="status">
+          ✦ Inscribed URL copied to clipboard! ✦
+        </div>
+      )}
     </div>
   );
 };
+

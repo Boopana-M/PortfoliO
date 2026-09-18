@@ -1,14 +1,13 @@
 import React from 'react';
 import {
-  Compass,
+  User,
   Sparkles,
-  FolderGit2,
-  Hourglass,
-  Award,
-  Code2,
-  Scroll,
-  Mail,
-  Flame
+  Folder,
+  Briefcase,
+  Trophy,
+  Code,
+  FileText,
+  Mail
 } from 'lucide-react';
 import { navigationItems, spreads } from '../../data/navigation';
 import { portfolio } from '../../data/portfolio';
@@ -17,43 +16,50 @@ import './navigation.css';
 interface SideNavigationProps {
   currentSpread: number;
   onSelectSpread: (spreadIndex: number) => void;
+  onOpenEdit?: () => void;
 }
 
 export const SideNavigation: React.FC<SideNavigationProps> = ({
   currentSpread,
   onSelectSpread,
+  onOpenEdit,
 }) => {
   const getIcon = (iconName: string) => {
     switch (iconName) {
-      case 'Compass':
-        return <Compass size={18} />;
+      case 'User':
+        return <User size={17} />;
       case 'Sparkles':
-        return <Sparkles size={18} />;
-      case 'FolderGit2':
-        return <FolderGit2 size={18} />;
-      case 'Hourglass':
-        return <Hourglass size={18} />;
-      case 'Award':
-        return <Award size={18} />;
-      case 'Code2':
-        return <Code2 size={18} />;
-      case 'Scroll':
-        return <Scroll size={18} />;
+        return <Sparkles size={17} />;
+      case 'Folder':
+        return <Folder size={17} />;
+      case 'Briefcase':
+        return <Briefcase size={17} />;
+      case 'Trophy':
+        return <Trophy size={17} />;
+      case 'Code':
+        return <Code size={17} />;
+      case 'FileText':
+        return <FileText size={17} />;
       case 'Mail':
-        return <Mail size={18} />;
+        return <Mail size={17} />;
       default:
-        return <Sparkles size={18} />;
+        return <Sparkles size={17} />;
     }
   };
 
   const activeSpread = spreads[currentSpread];
 
   return (
-    <nav className="side-navigation" aria-label="Book Chapters">
+    <aside className="side-navigation" aria-label="Book Chapters">
       <div className="nav-header">
-        <div className="nav-crest">
-          <Flame className="crest-symbol" size={24} />
-          <span>Grimoire</span>
+        <div className="nav-crest-monogram" aria-hidden="true">
+          <div className="monogram-outer-ring" />
+          <div className="monogram-inner-ring" />
+          <span className="monogram-letter">B</span>
+          <div className="monogram-accent mon-top" />
+          <div className="monogram-accent mon-bottom" />
+          <div className="monogram-accent mon-left" />
+          <div className="monogram-accent mon-right" />
         </div>
         <h1 className="nav-author-name">{portfolio.person.name}</h1>
         <p className="nav-author-title">{portfolio.person.title}</p>
@@ -80,6 +86,18 @@ export const SideNavigation: React.FC<SideNavigationProps> = ({
           );
         })}
       </ul>
-    </nav>
+
+      <div className="nav-footer-controls">
+        <button
+          type="button"
+          className="nav-edit-pill-btn"
+          onClick={onOpenEdit}
+          aria-label="Edit Portfolio Information"
+        >
+          Edit
+        </button>
+      </div>
+    </aside>
   );
 };
+

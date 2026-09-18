@@ -2,6 +2,7 @@ import React from 'react';
 import { BookCover } from './BookCover';
 import { BookPage } from './BookPage';
 import { PageTurnControls } from './PageTurnControls';
+import { CastleEtching } from '../common/CastleEtching';
 import { AboutPage } from '../../pages/AboutPage';
 import { SkillsPage } from '../../pages/SkillsPage';
 import { ProjectsPage } from '../../pages/ProjectsPage';
@@ -16,6 +17,7 @@ import './book.css';
 interface PortfolioBookProps {
   currentSpread: number;
   isTurning: boolean;
+  turnDirection: 'next' | 'prev' | null;
   onNextSpread: () => void;
   onPrevSpread: () => void;
 }
@@ -23,6 +25,7 @@ interface PortfolioBookProps {
 export const PortfolioBook: React.FC<PortfolioBookProps> = ({
   currentSpread,
   isTurning,
+  turnDirection,
   onNextSpread,
   onPrevSpread,
 }) => {
@@ -60,7 +63,7 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
       <div className="book-lectern-rest" aria-hidden="true" />
 
       {/* Main Physical Book Container */}
-      <div className="book-container">
+      <div className={`book-container ${isTurning ? 'book-is-flipping' : ''}`}>
         <BookCover />
 
         {/* Spread Leaves with 3D physical curvature */}
@@ -86,6 +89,46 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
               {renderPageContent(activeSpread.rightPageId)}
             </BookPage>
           </div>
+
+          {/* Realistic 3D Physical Turning Page Leaf */}
+          {isTurning && (
+            <div
+              className={`turning-page-leaf-container leaf-turn-${turnDirection || 'next'}`}
+              aria-hidden="true"
+            >
+              <div className="turning-leaf-sheet">
+                {/* Front Face of Turning Sheet (Curled parchment with Castle Etching) */}
+                <div className="leaf-face leaf-face-front">
+                  <div className="parchment-noise-texture" />
+                  <div className="leaf-curl-highlight" />
+                  <div className="leaf-castle-artwork">
+                    <CastleEtching className="turning-leaf-castle" />
+                  </div>
+                  <div className="leaf-edge-border" />
+                </div>
+
+                {/* Back Face of Turning Sheet */}
+                <div className="leaf-face leaf-face-back">
+                  <div className="parchment-noise-texture" />
+                  <div className="leaf-curl-shadow-back" />
+                  <div className="leaf-edge-border" />
+                </div>
+              </div>
+              <div className="turning-leaf-cast-shadow" />
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Centered Antique Plinth Clasp with Glowing Cyan Crystal */}
+      <div className="plinth-crystal-clasp-wrapper" aria-hidden="true">
+        <div className="plinth-ornate-plate">
+          <div className="plinth-filigree-left" />
+          <div className="plinth-gem-socket">
+            <div className="plinth-gem-halo" />
+            <div className="plinth-faceted-gem" />
+          </div>
+          <div className="plinth-filigree-right" />
         </div>
       </div>
 
@@ -100,3 +143,4 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
     </main>
   );
 };
+

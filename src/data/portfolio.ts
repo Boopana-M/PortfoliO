@@ -104,10 +104,10 @@ export interface PortfolioData {
 
 export const portfolio: PortfolioData = {
   person: {
-    name: "Boopana",
-    title: "Full-Stack Software Engineer",
-    tagline: "Architecting immersive web systems & resilient backends",
-    location: "Earth / Realm of Code",
+    name: "Boopana M",
+    title: "SOFTWARE ENGINEER",
+    tagline: "Turning ideas into impactful digital experiences",
+    location: "Global / Remote",
     email: "boopana@example.com",
     signature: "Boopana M."
   },
@@ -115,27 +115,31 @@ export const portfolio: PortfolioData = {
     title: "About Me",
     chapterNumber: "01",
     paragraphs: [
-      "Welcome, traveler, to this archive of craft and code. I am a software engineer dedicated to creating resilient distributed architectures and enchanting interactive interfaces.",
-      "With a strong foundation in modern web technologies, algorithm design, and system thinking, I transform intricate problems into elegant, maintainable solutions.",
-      "When not weaving code spells, you can find me exploring open-source grimoires, honing UI micro-interactions, and studying distributed systems."
+      "Hi! I'm Boopana, a passionate Software Engineer who loves turning ideas into impactful digital experiences.",
+      "I enjoy building clean, efficient and meaningful solutions that solve real-world problems.",
+      "I'm a lifelong learner, problem solver and a builder at heart."
     ],
     quote: "“The craft of software is indistinguishable from real magic when executed with mastery and heart.”"
   },
   skills: {
-    title: "Skills & Grimoires",
+    title: "Skills",
     chapterNumber: "02",
     categories: [
       {
-        title: "Languages & Runes",
-        skills: ["TypeScript", "JavaScript", "Python", "Java", "C++", "SQL"]
+        title: "Languages",
+        skills: ["JavaScript", "Python", "Java", "C++"]
       },
       {
-        title: "Frameworks & Arcana",
-        skills: ["React", "Next.js", "Node.js", "Express", "Spring Boot", "TailwindCSS"]
+        title: "Web Development",
+        skills: ["React", "Node.js", "Express", "MongoDB"]
       },
       {
-        title: "Tools, Relics & Cloud",
-        skills: ["Git", "Docker", "PostgreSQL", "MongoDB", "Redis", "AWS", "Vite"]
+        title: "Tools & Technologies",
+        skills: ["Git", "GitHub", "VS Code", "Docker"]
+      },
+      {
+        title: "Other Skills",
+        skills: ["DSA", "Problem Solving", "System Design", "OOPs"]
       }
     ]
   },
