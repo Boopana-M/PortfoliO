@@ -16,13 +16,11 @@ import './navigation.css';
 interface SideNavigationProps {
   currentSpread: number;
   onSelectSpread: (spreadIndex: number) => void;
-  onOpenEdit?: () => void;
 }
 
 export const SideNavigation: React.FC<SideNavigationProps> = ({
   currentSpread,
   onSelectSpread,
-  onOpenEdit,
 }) => {
   const getIcon = (iconName: string) => {
     switch (iconName) {
@@ -86,17 +84,6 @@ export const SideNavigation: React.FC<SideNavigationProps> = ({
           );
         })}
       </ul>
-
-      <div className="nav-footer-controls">
-        <button
-          type="button"
-          className="nav-edit-pill-btn"
-          onClick={onOpenEdit}
-          aria-label="Edit Portfolio Information"
-        >
-          Edit
-        </button>
-      </div>
     </aside>
   );
 };

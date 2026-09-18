@@ -4,9 +4,7 @@ import { SideNavigation } from './components/Navigation/SideNavigation';
 import { Candlelight } from './components/Effects/Candlelight';
 import { MagicalParticles } from './components/Effects/MagicalParticles';
 import { ArcaneCircles } from './components/Effects/ArcaneCircles';
-import { EditPortfolioModal } from './components/common/EditPortfolioModal';
 import { spreads } from './data/navigation';
-import { portfolio, type PortfolioData } from './data/portfolio';
 import './styles/global.css';
 import './styles/responsive.css';
 
@@ -14,8 +12,6 @@ export const App: React.FC = () => {
   const [currentSpread, setCurrentSpread] = useState<number>(0);
   const [isTurning, setIsTurning] = useState<boolean>(false);
   const [turnDirection, setTurnDirection] = useState<'next' | 'prev' | null>(null);
-  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
-  const [, setPortfolioRevision] = useState<number>(0);
 
   const handleNextSpread = useCallback(() => {
     if (isTurning || currentSpread >= spreads.length - 1) return;
@@ -66,10 +62,6 @@ export const App: React.FC = () => {
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (isEditModalOpen) {
-        if (e.key === 'Escape') setIsEditModalOpen(false);
-        return;
-      }
       if (e.key === 'ArrowRight' || e.key === 'PageDown') {
         handleNextSpread();
       } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
@@ -79,17 +71,7 @@ export const App: React.FC = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleNextSpread, handlePrevSpread, isEditModalOpen]);
-
-  const handleSavePortfolio = (updatedData: Partial<PortfolioData>) => {
-    if (updatedData.person) {
-      Object.assign(portfolio.person, updatedData.person);
-    }
-    if (updatedData.about) {
-      Object.assign(portfolio.about, updatedData.about);
-    }
-    setPortfolioRevision((r) => r + 1);
-  };
+  }, [handleNextSpread, handlePrevSpread]);
 
   return (
     <div className="study-environment">
@@ -106,7 +88,6 @@ export const App: React.FC = () => {
       <SideNavigation
         currentSpread={currentSpread}
         onSelectSpread={handleSelectSpread}
-        onOpenEdit={() => setIsEditModalOpen(true)}
       />
 
       {/* Hero Physical Book */}
@@ -116,13 +97,6 @@ export const App: React.FC = () => {
         turnDirection={turnDirection}
         onNextSpread={handleNextSpread}
         onPrevSpread={handlePrevSpread}
-      />
-
-      {/* Live Data Inscription Editor Modal */}
-      <EditPortfolioModal
-        isOpen={isEditModalOpen}
-        onClose={() => setIsEditModalOpen(false)}
-        onSave={handleSavePortfolio}
       />
     </div>
   );
