@@ -53,25 +53,39 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
 
   return (
     <main className="book-stage" aria-label="Magical Portfolio Book">
-      {/* Atmosphere Glow & Standing Ground Shadow */}
+      {/* Atmosphere Glows & Multi-tier Realistic Ground Shadows */}
       <div className="book-ambient-glow" aria-hidden="true" />
-      <div className="book-ground-shadow" aria-hidden="true" />
+      <div className="book-ground-shadow-wide" aria-hidden="true" />
+      <div className="book-ground-shadow-contact" aria-hidden="true" />
+      <div className="book-lectern-rest" aria-hidden="true" />
 
       {/* Main Physical Book Container */}
       <div className="book-container">
         <BookCover />
 
-        {/* Spread Leaves */}
+        {/* Spread Leaves with 3D physical curvature */}
         <div className="book-page-spread">
-          <BookPage side="left" pageNumber={activeSpread.leftPageNumber}>
-            {renderPageContent(activeSpread.leftPageId)}
-          </BookPage>
+          <div className="book-page-wing book-page-wing-left">
+            <BookPage side="left" pageNumber={activeSpread.leftPageNumber}>
+              {renderPageContent(activeSpread.leftPageId)}
+            </BookPage>
+          </div>
 
-          <div className="book-center-spine" aria-hidden="true" />
+          {/* Deep center gutter, physical spine fold, and binding stitches */}
+          <div className="book-center-spine" aria-hidden="true">
+            <div className="spine-crease-shadow" />
+            <div className="spine-highlight-ridge" />
+            <div className="spine-stitch stitch-1" />
+            <div className="spine-stitch stitch-2" />
+            <div className="spine-stitch stitch-3" />
+            <div className="spine-stitch stitch-4" />
+          </div>
 
-          <BookPage side="right" pageNumber={activeSpread.rightPageNumber}>
-            {renderPageContent(activeSpread.rightPageId)}
-          </BookPage>
+          <div className="book-page-wing book-page-wing-right">
+            <BookPage side="right" pageNumber={activeSpread.rightPageNumber}>
+              {renderPageContent(activeSpread.rightPageId)}
+            </BookPage>
+          </div>
         </div>
       </div>
 

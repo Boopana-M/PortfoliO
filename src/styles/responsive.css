@@ -3,14 +3,49 @@
 @media (max-width: 1024px) {
   :root {
     --book-width: 90vw;
-    --book-height: 72vh;
+    --book-height: 74vh;
+  }
+
+  .parchment-page {
+    padding: 1.8rem 1.8rem;
   }
 }
 
 @media (max-width: 768px) {
   :root {
-    --book-width: 94vw;
-    --book-height: 78vh;
+    --book-width: 95vw;
+    --book-height: 82vh;
+  }
+
+  .parchment-page {
+    padding: 1.4rem 1.2rem;
+  }
+
+  .illuminated-initial {
+    font-size: 2.4rem;
+  }
+
+  .page-block-left, .page-block-right {
+    width: 8px;
+  }
+
+  .book-silk-ribbon {
+    width: 8px;
+  }
+
+  .ribbon-tail {
+    width: 8px;
+  }
+
+  .book-bottom-controls {
+    right: 18px;
+    bottom: 14px;
+    gap: 0.6rem;
+  }
+
+  .page-turn-btn {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.75rem;
   }
 }
 
@@ -21,3 +56,4 @@
     transition-duration: 0.01ms !important;
   }
 }
+

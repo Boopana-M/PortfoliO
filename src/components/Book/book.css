@@ -1,7 +1,10 @@
 /* =========================================
-   Wizarding Book & Manuscript Styling
+   Wizarding Book & Manuscript Styling (Phase 2 Realism)
    ========================================= */
 
+/* -----------------------------------------
+   1. Book Stage & 3D Environment
+   ----------------------------------------- */
 .book-stage {
   position: relative;
   display: flex;
@@ -11,101 +14,334 @@
   height: 100%;
   transform-style: preserve-3d;
   perspective: var(--book-perspective);
+  perspective-origin: 50% 50%;
   z-index: 10;
 }
 
-/* Ambient Blue & Warm Glow behind the Book */
+/* Ambient Magical Blue & Candle Warmth Glow */
 .book-ambient-glow {
   position: absolute;
-  width: calc(var(--book-width) + 80px);
-  height: calc(var(--book-height) + 60px);
-  border-radius: 20px;
-  background: radial-gradient(ellipse at center, rgba(76, 159, 196, 0.22) 0%, rgba(200, 140, 50, 0.12) 45%, transparent 70%);
-  filter: blur(28px);
+  width: calc(var(--book-width) + 120px);
+  height: calc(var(--book-height) + 90px);
+  border-radius: 28px;
+  background: 
+    radial-gradient(ellipse at 50% 45%, rgba(76, 159, 196, 0.24) 0%, rgba(200, 140, 50, 0.14) 42%, transparent 72%),
+    radial-gradient(circle at 50% 50%, rgba(110, 208, 224, 0.12) 0%, transparent 60%);
+  filter: blur(34px);
   pointer-events: none;
-  z-index: -2;
-  transform: translateZ(-30px);
+  z-index: -3;
+  transform: translateZ(-40px);
 }
 
-/* Ground shadow beneath the standing upright book */
-.book-ground-shadow {
+/* Multi-tier Ground Shadows */
+.book-ground-shadow-wide {
   position: absolute;
-  bottom: calc(50% - (var(--book-height) / 2) - 35px);
-  width: calc(var(--book-width) * 0.96);
-  height: 60px;
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 80%);
-  filter: blur(14px);
-  transform: rotateX(85deg) translateZ(-10px);
+  bottom: calc(50% - (var(--book-height) / 2) - 45px);
+  width: calc(var(--book-width) * 1.08);
+  height: 80px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.95) 0%, rgba(5, 4, 3, 0.6) 45%, rgba(0, 0, 0, 0) 75%);
+  filter: blur(18px);
+  transform: rotateX(85deg) translateZ(-15px);
+  pointer-events: none;
+  z-index: -2;
+}
+
+.book-ground-shadow-contact {
+  position: absolute;
+  bottom: calc(50% - (var(--book-height) / 2) - 12px);
+  width: calc(var(--book-width) * 0.94);
+  height: 24px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.98) 0%, rgba(10, 5, 2, 0.75) 50%, transparent 80%);
+  filter: blur(6px);
+  transform: rotateX(80deg) translateZ(-5px);
   pointer-events: none;
   z-index: -1;
 }
 
-/* Main Upright Book Container */
+/* Antique Wooden Lectern / Shelf Rest */
+.book-lectern-rest {
+  position: absolute;
+  bottom: calc(50% - (var(--book-height) / 2) - 14px);
+  width: calc(var(--book-width) + 36px);
+  height: 12px;
+  background: linear-gradient(180deg, #3d2615 0%, #201309 60%, #100804 100%);
+  border-radius: 4px;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.9),
+    inset 0 1px 1px rgba(229, 203, 135, 0.25),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(185, 154, 88, 0.25);
+  pointer-events: none;
+  z-index: 5;
+  transform: translateZ(-2px);
+}
+
+/* -----------------------------------------
+   2. Main Upright Book Container
+   ----------------------------------------- */
 .book-container {
   position: relative;
   width: var(--book-width);
   height: var(--book-height);
   display: flex;
   transform-style: preserve-3d;
+  transform: rotateX(2.2deg);
   box-shadow:
-    0 25px 60px -10px rgba(0, 0, 0, 0.9),
-    0 10px 30px rgba(0, 0, 0, 0.8),
-    inset 0 0 10px rgba(0, 0, 0, 0.5);
-  border-radius: 8px;
+    0 35px 80px -15px rgba(0, 0, 0, 0.95),
+    0 15px 40px rgba(0, 0, 0, 0.85);
+  border-radius: 6px;
   transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-/* Outer Hardcover Shell Frame */
-.book-cover-frame {
+/* -----------------------------------------
+   3. Physical Book Cover System
+   ----------------------------------------- */
+.book-cover-system {
   position: absolute;
-  inset: -6px -10px -8px -10px;
-  background: 
-    linear-gradient(90deg, #120b06 0%, #2a1b10 15%, #180e07 48%, #0f0804 50%, #180e07 52%, #2a1b10 85%, #120b06 100%);
-  border-radius: 8px;
-  box-shadow:
-    0 30px 70px rgba(0, 0, 0, 0.95),
-    inset 0 2px 4px rgba(230, 200, 140, 0.15),
-    inset 0 -3px 6px rgba(0, 0, 0, 0.9);
-  z-index: 1;
+  inset: 0;
   pointer-events: none;
-  border: 1px solid rgba(185, 154, 88, 0.2);
+  z-index: 1;
+  transform-style: preserve-3d;
 }
 
-/* Corner metal brackets */
+/* Heavy Leather Hardcover Base Backplate */
+.book-hardcover-back {
+  position: absolute;
+  inset: -10px -14px -12px -14px;
+  background: 
+    radial-gradient(circle at 50% 30%, rgba(65, 42, 22, 0.5) 0%, transparent 70%),
+    linear-gradient(90deg, 
+      #130a05 0%, 
+      #25160d 4%, 
+      #352113 15%, 
+      #23150c 46%, 
+      #120904 49%, 
+      #0a0502 50%, 
+      #120904 51%, 
+      #23150c 54%, 
+      #352113 85%, 
+      #25160d 96%, 
+      #130a05 100%
+    );
+  border-radius: 10px;
+  box-shadow:
+    0 25px 65px rgba(0, 0, 0, 0.95),
+    inset 0 2px 3px rgba(230, 200, 140, 0.2),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.9);
+  border: 1px solid rgba(185, 154, 88, 0.3);
+  transform: translateZ(-12px);
+}
+
+/* Hardcover Frame Overhang */
+.book-hardcover-frame {
+  position: absolute;
+  inset: -8px -12px -10px -12px;
+  border-radius: 8px;
+  pointer-events: none;
+  transform: translateZ(-4px);
+}
+
+/* Embossed Gilded Leather Line along Cover Rim */
+.leather-emboss-border {
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(185, 154, 88, 0.35);
+  border-radius: 6px;
+  box-shadow: 
+    inset 0 0 4px rgba(0, 0, 0, 0.8),
+    0 0 4px rgba(185, 154, 88, 0.15);
+}
+
+/* Stacked Paper Block Edges (Simulating 500 stacked parchment pages) */
+.page-block-edge {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Left Stacked Page Block Edge */
+.page-block-left {
+  top: 2px;
+  bottom: 2px;
+  left: -11px;
+  width: 12px;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      #9a7f53 0px,
+      #9a7f53 1px,
+      #c4aa7b 2px,
+      #eedeb8 3px,
+      #a88c5f 4px,
+      #79603a 5px
+    );
+  box-shadow:
+    inset 3px 0 5px rgba(0, 0, 0, 0.6),
+    inset -2px 0 3px rgba(0, 0, 0, 0.4);
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  transform: rotateY(-35deg) translateZ(-4px);
+  transform-origin: right center;
+}
+
+/* Right Stacked Page Block Edge */
+.page-block-right {
+  top: 2px;
+  bottom: 2px;
+  right: -11px;
+  width: 12px;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      #9a7f53 0px,
+      #9a7f53 1px,
+      #c4aa7b 2px,
+      #eedeb8 3px,
+      #a88c5f 4px,
+      #79603a 5px
+    );
+  box-shadow:
+    inset -3px 0 5px rgba(0, 0, 0, 0.6),
+    inset 2px 0 3px rgba(0, 0, 0, 0.4);
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  transform: rotateY(35deg) translateZ(-4px);
+  transform-origin: left center;
+}
+
+/* Bottom Stacked Page Block Edge */
+.page-block-bottom {
+  bottom: -9px;
+  left: 6px;
+  right: 6px;
+  height: 10px;
+  background: 
+    repeating-linear-gradient(
+      90deg,
+      #79603a 0px,
+      #b59a6b 2px,
+      #dcc89f 3px,
+      #9e8254 4px,
+      #6a512d 6px
+    );
+  box-shadow:
+    inset 0 3px 4px rgba(0, 0, 0, 0.7),
+    0 2px 5px rgba(0, 0, 0, 0.8);
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  transform: rotateX(-45deg) translateZ(-4px);
+  transform-origin: center top;
+}
+
+/* Antique Brass Corner Guards */
 .book-corner {
   position: absolute;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-color: var(--gold);
   border-style: solid;
-  opacity: 0.7;
+  opacity: 0.85;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
   pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, rgba(229, 203, 135, 0.25) 0%, transparent 70%);
 }
-.book-corner-tl { top: 4px; left: 4px; border-width: 2px 0 0 2px; border-top-left-radius: 4px; }
-.book-corner-tr { top: 4px; right: 4px; border-width: 2px 2px 0 0; border-top-right-radius: 4px; }
-.book-corner-bl { bottom: 4px; left: 4px; border-width: 0 0 2px 2px; border-bottom-left-radius: 4px; }
-.book-corner-br { bottom: 4px; right: 4px; border-width: 0 2px 2px 0; border-bottom-right-radius: 4px; }
 
-/* Spine depth overlay */
-.book-center-spine {
+.book-corner-tl {
+  top: 2px;
+  left: 2px;
+  border-width: 3px 0 0 3px;
+  border-top-left-radius: 6px;
+}
+.book-corner-tr {
+  top: 2px;
+  right: 2px;
+  border-width: 3px 3px 0 0;
+  border-top-right-radius: 6px;
+}
+.book-corner-bl {
+  bottom: 2px;
+  left: 2px;
+  border-width: 0 0 3px 3px;
+  border-bottom-left-radius: 6px;
+}
+.book-corner-br {
+  bottom: 2px;
+  right: 2px;
+  border-width: 0 3px 3px 0;
+  border-bottom-right-radius: 6px;
+}
+
+/* Brass Rivet Studs in Corners */
+.corner-rivet {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fff3cf 0%, #b99a58 60%, #4a3818 100%);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+.book-corner-tl .corner-rivet { top: 3px; left: 3px; }
+.book-corner-tr .corner-rivet { top: 3px; right: 3px; }
+.book-corner-bl .corner-rivet { bottom: 3px; left: 3px; }
+.book-corner-br .corner-rivet { bottom: 3px; right: 3px; }
+
+/* Spine Headbands (Top & Bottom woven embroidery tape) */
+.spine-headband {
+  position: absolute;
+  left: calc(50% - 14px);
+  width: 28px;
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    #8b151b 0px,
+    #8b151b 3px,
+    #d4af37 3px,
+    #d4af37 6px
+  );
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  z-index: 25;
+}
+.spine-headband-top { top: -4px; }
+.spine-headband-bottom { bottom: -4px; }
+
+/* Hanging Silk Bookmark Ribbon */
+.book-silk-ribbon {
   position: absolute;
   top: 0;
-  bottom: 0;
-  left: calc(50% - 16px);
-  width: 32px;
-  background: linear-gradient(90deg, 
-    rgba(0, 0, 0, 0.5) 0%, 
-    rgba(30, 20, 10, 0.8) 35%, 
-    rgba(10, 5, 2, 0.95) 50%, 
-    rgba(30, 20, 10, 0.8) 65%, 
-    rgba(0, 0, 0, 0.5) 100%
+  left: calc(50% - 6px);
+  width: 12px;
+  height: calc(var(--book-height) + 40px);
+  background: linear-gradient(
+    90deg,
+    #660a10 0%,
+    #9e1b24 35%,
+    #c42e39 50%,
+    #9e1b24 65%,
+    #660a10 100%
   );
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.9);
-  z-index: 30;
+  box-shadow: 
+    3px 6px 12px rgba(0, 0, 0, 0.6),
+    inset 0 1px 2px rgba(255, 200, 200, 0.4);
+  transform-origin: top center;
+  transform: translateZ(16px) rotate(1.8deg);
   pointer-events: none;
+  z-index: 35;
 }
 
-/* Stacked Page Leaves Block */
+.ribbon-tail {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 12px;
+  height: 10px;
+  background: inherit;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 60%, 0% 100%);
+}
+
+/* -----------------------------------------
+   4. 3D Page Spread & Physical Spine Gutter
+   ----------------------------------------- */
 .book-page-spread {
   position: relative;
   display: flex;
@@ -115,92 +351,223 @@
   transform-style: preserve-3d;
 }
 
-/* Individual Left and Right Pages */
-.parchment-page {
+/* 3D Angled Left & Right Wings (Simulating book opening angle) */
+.book-page-wing {
   flex: 1;
-  position: relative;
   height: 100%;
-  background: 
-    radial-gradient(ellipse at 50% 50%, #f4e8cb 0%, #e2cfab 55%, #cbb185 85%, #ad9163 100%);
-  padding: 2.2rem 2.4rem;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.book-page-wing-left {
+  transform-origin: right center;
+  transform: rotateY(3.2deg) translateZ(1px);
+}
+
+.book-page-wing-right {
+  transform-origin: left center;
+  transform: rotateY(-3.2deg) translateZ(1px);
+}
+
+/* Deep Center Gutter Spine Structure */
+.book-center-spine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 18px);
+  width: 36px;
+  z-index: 30;
+  pointer-events: none;
+  transform-style: preserve-3d;
+  transform: translateZ(8px);
+}
+
+.spine-crease-shadow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, 
+    rgba(15, 10, 5, 0.6) 0%, 
+    rgba(25, 15, 8, 0.85) 30%, 
+    rgba(5, 3, 1, 0.98) 50%, 
+    rgba(25, 15, 8, 0.85) 70%, 
+    rgba(15, 10, 5, 0.6) 100%
+  );
+  box-shadow: 
+    inset 0 0 14px rgba(0, 0, 0, 0.95),
+    0 0 12px rgba(0, 0, 0, 0.7);
+}
+
+.spine-highlight-ridge {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 1px);
+  width: 2px;
+  background: linear-gradient(180deg, 
+    rgba(229, 203, 135, 0.3) 0%, 
+    rgba(185, 154, 88, 0.15) 50%, 
+    rgba(229, 203, 135, 0.3) 100%
+  );
+  filter: blur(0.5px);
+}
+
+/* Golden Thread Binding Stitches along Spine */
+.spine-stitch {
+  position: absolute;
+  left: calc(50% - 4px);
+  width: 8px;
+  height: 2px;
+  background: #d4af37;
+  border-radius: 1px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+}
+.stitch-1 { top: 15%; }
+.stitch-2 { top: 38%; }
+.stitch-3 { top: 62%; }
+.stitch-4 { top: 85%; }
+
+/* -----------------------------------------
+   5. Aged Parchment Page Styling
+   ----------------------------------------- */
+.parchment-page {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 2.3rem 2.6rem;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   overflow: hidden;
+  background: 
+    radial-gradient(ellipse at 50% 50%, #faf1dc 0%, #ecd9b3 55%, #d4bc8f 82%, #b59b6c 100%);
+  box-shadow:
+    inset 0 0 50px rgba(130, 95, 45, 0.28),
+    0 4px 15px rgba(0, 0, 0, 0.5);
 }
-
-/* Page inner border decoration */
-.page-border-inner {
-  position: absolute;
-  inset: 12px;
-  border: 1px solid rgba(120, 94, 59, 0.4);
-  pointer-events: none;
-  z-index: 2;
-}
-
-.page-border-inner::after {
-  content: '';
-  position: absolute;
-  inset: 3px;
-  border: 1px dashed rgba(185, 154, 88, 0.35);
-}
-
-/* Corner filigree dots */
-.page-corner-ornament {
-  position: absolute;
-  font-size: 0.75rem;
-  color: var(--gold-dark);
-  line-height: 1;
-  opacity: 0.75;
-}
-.pco-tl { top: 4px; left: 4px; }
-.pco-tr { top: 4px; right: 4px; }
-.pco-bl { bottom: 4px; left: 4px; }
-.pco-br { bottom: 4px; right: 4px; }
 
 /* Left Page Specifics */
 .parchment-page-left {
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-  box-shadow:
-    inset -25px 0 35px -10px rgba(40, 25, 10, 0.35),
-    inset 0 0 40px rgba(160, 120, 60, 0.2);
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
   background: 
-    radial-gradient(ellipse at 75% 50%, #f6ebd0 0%, #e4d2ae 60%, #c9af82 90%, #9e8052 100%);
+    radial-gradient(ellipse at 80% 50%, #fcf4e2 0%, #ebd7b0 55%, #cfae7d 85%, #9d7d4c 100%);
+  box-shadow:
+    inset -32px 0 45px -12px rgba(35, 20, 8, 0.42),
+    inset 0 0 45px rgba(150, 110, 50, 0.22);
 }
 
 /* Right Page Specifics */
 .parchment-page-right {
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
-  box-shadow:
-    inset 25px 0 35px -10px rgba(40, 25, 10, 0.35),
-    inset 0 0 40px rgba(160, 120, 60, 0.2);
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
   background: 
-    radial-gradient(ellipse at 25% 50%, #f6ebd0 0%, #e4d2ae 60%, #c9af82 90%, #9e8052 100%);
+    radial-gradient(ellipse at 20% 50%, #fcf4e2 0%, #ebd7b0 55%, #cfae7d 85%, #9d7d4c 100%);
+  box-shadow:
+    inset 32px 0 45px -12px rgba(35, 20, 8, 0.42),
+    inset 0 0 45px rgba(150, 110, 50, 0.22);
 }
 
-/* Page Footer with Page Number */
-.page-footer {
-  margin-top: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 0.5rem;
-  font-family: var(--font-title);
-  font-size: 0.8rem;
-  color: var(--ink-muted);
-  letter-spacing: 0.15em;
-  z-index: 5;
+/* Dynamic Paper Curvature Lighting Overlay */
+.page-curvature-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
 }
 
-/* Page Content Formatting */
+.curve-left {
+  background: linear-gradient(90deg, 
+    rgba(0, 0, 0, 0.12) 0%, 
+    rgba(255, 255, 255, 0.08) 25%, 
+    rgba(255, 255, 255, 0.18) 55%, 
+    rgba(0, 0, 0, 0.05) 85%, 
+    rgba(0, 0, 0, 0.42) 100%
+  );
+}
+
+.curve-right {
+  background: linear-gradient(90deg, 
+    rgba(0, 0, 0, 0.42) 0%, 
+    rgba(0, 0, 0, 0.05) 15%, 
+    rgba(255, 255, 255, 0.18) 45%, 
+    rgba(255, 255, 255, 0.08) 75%, 
+    rgba(0, 0, 0, 0.12) 100%
+  );
+}
+
+/* Authentic Paper Grain / Fiber Texture via SVG filter */
+.parchment-noise-texture {
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 2;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Aged Tea Stain / Vignette Edges */
+.parchment-vignette-stain {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 5% 5%, rgba(110, 75, 30, 0.25) 0%, transparent 40%),
+    radial-gradient(circle at 95% 5%, rgba(110, 75, 30, 0.25) 0%, transparent 40%),
+    radial-gradient(circle at 5% 95%, rgba(110, 75, 30, 0.25) 0%, transparent 40%),
+    radial-gradient(circle at 95% 95%, rgba(110, 75, 30, 0.25) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* -----------------------------------------
+   6. Manuscript Decorative Borders & Filigree
+   ----------------------------------------- */
+.page-border-outer {
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(135, 105, 65, 0.45);
+  pointer-events: none;
+  z-index: 4;
+}
+
+.page-border-inner {
+  position: absolute;
+  inset: 3px;
+  border: 1px dashed rgba(185, 154, 88, 0.4);
+}
+
+/* Corner Filigree Ornaments */
+.page-corner-ornament {
+  position: absolute;
+  font-size: 0.85rem;
+  color: var(--gold-dark);
+  line-height: 1;
+  opacity: 0.85;
+}
+.pco-tl { top: 2px; left: 2px; }
+.pco-tr { top: 2px; right: 2px; }
+.pco-bl { bottom: 2px; left: 2px; }
+.pco-br { bottom: 2px; right: 2px; }
+
+/* Side Edge Runic Flourishes */
+.page-edge-rune {
+  position: absolute;
+  font-size: 0.65rem;
+  color: var(--gold);
+  opacity: 0.6;
+}
+.rune-top { top: -5px; left: calc(50% - 4px); }
+.rune-bottom { bottom: -5px; left: calc(50% - 4px); }
+
+/* -----------------------------------------
+   7. Page Content Wrapper & Typography
+   ----------------------------------------- */
 .page-content-wrapper {
   display: flex;
   flex-direction: column;
   height: 100%;
   position: relative;
-  z-index: 4;
+  z-index: 6;
 }
 
 .manuscript-body {
@@ -215,14 +582,14 @@
 .illuminated-initial {
   float: left;
   font-family: var(--font-display);
-  font-size: 3rem;
-  line-height: 0.85;
+  font-size: 3.1rem;
+  line-height: 0.82;
   padding-top: 4px;
-  padding-right: 8px;
+  padding-right: 10px;
   padding-bottom: 2px;
   color: var(--ink-accent);
   font-weight: 900;
-  text-shadow: 1px 1px 0 rgba(185, 154, 88, 0.5);
+  text-shadow: 1px 1px 0 rgba(185, 154, 88, 0.6);
 }
 
 .manuscript-quote {
@@ -235,7 +602,7 @@
 }
 
 .signature-container {
-  margin-top: 0.2rem;
+  margin-top: 0.3rem;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -248,7 +615,33 @@
   letter-spacing: 0.08em;
 }
 
-/* Skills Layout inside Manuscript */
+/* Page Footer with Page Number */
+.page-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+  padding-top: 0.5rem;
+  font-family: var(--font-title);
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.15em;
+  z-index: 6;
+}
+
+.page-footer-decor {
+  font-size: 0.65rem;
+  color: var(--gold-dark);
+}
+
+.page-number-text {
+  font-weight: 600;
+}
+
+/* -----------------------------------------
+   8. Skills Layout inside Manuscript
+   ----------------------------------------- */
 .skills-scroll-container {
   display: flex;
   flex-direction: column;
@@ -287,7 +680,9 @@
   box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.4);
 }
 
-/* Manuscript Cards (Projects, Experience, Achievements, Open Source) */
+/* -----------------------------------------
+   9. Manuscript Cards (Projects, Experience, etc.)
+   ----------------------------------------- */
 .manuscript-items-list {
   display: flex;
   flex-direction: column;
@@ -343,7 +738,9 @@
   color: var(--ink);
 }
 
-/* Buttons */
+/* -----------------------------------------
+   10. Action Buttons & Form Elements
+   ----------------------------------------- */
 .antique-action-button {
   display: inline-flex;
   align-items: center;
@@ -370,7 +767,6 @@
   transform: translateY(-1px);
 }
 
-/* Contact Form */
 .manuscript-form {
   display: flex;
   flex-direction: column;
@@ -434,7 +830,9 @@
   color: var(--gold-dark);
 }
 
-/* Controls Bar (NEXT PAGE, PREV PAGE, SHARE, EDIT) */
+/* -----------------------------------------
+   11. Controls Bar (NEXT PAGE, PREV PAGE, SHARE, EDIT)
+   ----------------------------------------- */
 .book-bottom-controls {
   position: absolute;
   bottom: 22px;
