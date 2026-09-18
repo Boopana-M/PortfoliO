@@ -33,11 +33,6 @@ export const BookCover: React.FC = () => {
       {/* Spine Headbands (Top & Bottom woven fabric edge) */}
       <div className="spine-headband spine-headband-top" />
       <div className="spine-headband spine-headband-bottom" />
-
-      {/* Hanging Silk Bookmark Ribbon */}
-      <div className="book-silk-ribbon">
-        <div className="ribbon-tail" />
-      </div>
     </div>
   );
 };

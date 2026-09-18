@@ -293,10 +293,10 @@
   height: 6px;
   background: repeating-linear-gradient(
     90deg,
-    #8b151b 0px,
-    #8b151b 3px,
-    #d4af37 3px,
-    #d4af37 6px
+    #2c1a0e 0px,
+    #2c1a0e 3px,
+    #b99a58 3px,
+    #b99a58 6px
   );
   border-radius: 2px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
@@ -304,40 +304,6 @@
 }
 .spine-headband-top { top: -4px; }
 .spine-headband-bottom { bottom: -4px; }
-
-/* Hanging Silk Bookmark Ribbon */
-.book-silk-ribbon {
-  position: absolute;
-  top: 0;
-  left: calc(50% - 6px);
-  width: 12px;
-  height: calc(var(--book-height) + 40px);
-  background: linear-gradient(
-    90deg,
-    #660a10 0%,
-    #9e1b24 35%,
-    #c42e39 50%,
-    #9e1b24 65%,
-    #660a10 100%
-  );
-  box-shadow: 
-    3px 6px 12px rgba(0, 0, 0, 0.6),
-    inset 0 1px 2px rgba(255, 200, 200, 0.4);
-  transform-origin: top center;
-  transform: translateZ(16px) rotate(1.8deg);
-  pointer-events: none;
-  z-index: 35;
-}
-
-.ribbon-tail {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 12px;
-  height: 10px;
-  background: inherit;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 60%, 0% 100%);
-}
 
 /* -----------------------------------------
    4. 3D Page Spread & Physical Spine Gutter
