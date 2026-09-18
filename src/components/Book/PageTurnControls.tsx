@@ -24,8 +24,8 @@ export const PageTurnControls: React.FC<PageTurnControlsProps> = ({
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "Boopana M — Wizard's Tome Portfolio",
-          text: "Explore this magical antique developer portfolio!",
+          title: "Boopana M — Developer Portfolio",
+          text: "Check out Boopana's developer portfolio!",
           url: window.location.href,
         });
         return;
@@ -74,14 +74,14 @@ export const PageTurnControls: React.FC<PageTurnControlsProps> = ({
         className="antique-share-circle-btn"
         onClick={handleShare}
         aria-label="Share Portfolio Link"
-        title={copied ? "Link copied to clipboard!" : "Share Grimoire"}
+        title={copied ? "Link copied to clipboard!" : "Share Portfolio"}
       >
         {copied ? <Check size={18} className="share-copied-icon" /> : <Share2 size={18} />}
       </button>
 
       {copied && (
         <div className="share-toast-bubble" role="status">
-          ✦ Inscribed URL copied to clipboard! ✦
+          ✦ Portfolio URL copied to clipboard! ✦
         </div>
       )}
     </div>

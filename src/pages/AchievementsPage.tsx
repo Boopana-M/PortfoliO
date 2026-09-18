@@ -17,7 +17,7 @@ export const AchievementsPage: React.FC = () => {
               <h3 className="card-title">{item.title}</h3>
               <span className="card-year">{item.year}</span>
             </div>
-            <div className="card-issuer">Granted by: {item.issuer}</div>
+            <div className="card-issuer">Issued by: {item.issuer}</div>
             <p className="card-description">{item.description}</p>
           </div>
         ))}

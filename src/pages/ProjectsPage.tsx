@@ -45,7 +45,7 @@ export const ProjectsPage: React.FC = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="card-action-link"
-                    title="Launch Live Grimoire"
+                    title="Launch Live Demo"
                     aria-label={`Launch ${project.title} live demo`}
                   >
                     <ExternalLink size={13} />

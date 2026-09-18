@@ -7,7 +7,7 @@ export const ContactPage: React.FC = () => {
   const [senderName, setSenderName] = useState('');
   const [message, setMessage] = useState('');
 
-  const handleSendOwl = (e: React.FormEvent) => {
+  const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
     if (!senderName.trim() || !message.trim()) return;
     setFormSent(true);
@@ -28,38 +28,38 @@ export const ContactPage: React.FC = () => {
 
       {formSent ? (
         <div className="owl-sent-message">
-          <div className="owl-icon">🦉 ✨</div>
-          <h4>The owl has taken flight!</h4>
-          <p>Your dispatch has been committed to the magical ether.</p>
+          <div className="owl-icon">✉ ✓</div>
+          <h4>Message Sent Successfully!</h4>
+          <p>Thank you for reaching out. I'll get back to you as soon as possible.</p>
         </div>
       ) : (
-        <form className="manuscript-form" onSubmit={handleSendOwl}>
+        <form className="manuscript-form" onSubmit={handleSendMessage}>
           <div className="form-group">
-            <label className="form-label" htmlFor="contact-sender">Your Name / Title</label>
+            <label className="form-label" htmlFor="contact-sender">Your Name</label>
             <input 
               id="contact-sender"
               type="text" 
               className="manuscript-input" 
-              placeholder="e.g. Archmage Alex"
+              placeholder="e.g. Alex Johnson"
               value={senderName}
               onChange={(e) => setSenderName(e.target.value)}
               required
             />
           </div>
           <div className="form-group">
-            <label className="form-label" htmlFor="contact-msg">Message Scroll</label>
+            <label className="form-label" htmlFor="contact-msg">Message</label>
             <textarea 
               id="contact-msg"
               rows={3} 
               className="manuscript-textarea" 
-              placeholder="Your dispatch or invitation..."
+              placeholder="Write your message here..."
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               required
             />
           </div>
           <button type="submit" className="antique-action-button submit-dispatch-btn">
-            🦉 Dispatch Owl
+            Send Message
           </button>
         </form>
       )}

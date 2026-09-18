@@ -13,7 +13,7 @@ export const ResumePage: React.FC = () => {
       <div className="manuscript-body">
         <p className="body-paragraph">{resume.summary}</p>
         
-        <h3 className="section-subheading">Academia & Alchemy</h3>
+        <h3 className="section-subheading">Education & Qualifications</h3>
         {resume.education.map((edu, idx) => (
           <div key={idx} className="education-block">
             <div className="edu-degree">{edu.degree}</div>
@@ -23,7 +23,7 @@ export const ResumePage: React.FC = () => {
 
         <div className="resume-download-box">
           <a href={resume.downloadUrl} className="antique-action-button" target="_blank" rel="noopener noreferrer">
-            📜 Inscribe & Download Scroll
+            Download Resume / CV
           </a>
         </div>
       </div>

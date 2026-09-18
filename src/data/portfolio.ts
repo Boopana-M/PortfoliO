@@ -106,7 +106,7 @@ export const portfolio: PortfolioData = {
   person: {
     name: "Boopana M",
     title: "SOFTWARE ENGINEER",
-    tagline: "Turning ideas into impactful digital experiences",
+    tagline: "Building scalable web solutions and high-performance digital experiences",
     location: "Global / Remote",
     email: "boopana@example.com",
     signature: "Boopana M."
@@ -115,36 +115,36 @@ export const portfolio: PortfolioData = {
     title: "About Me",
     chapterNumber: "01",
     paragraphs: [
-      "Hi! I'm Boopana, a passionate Software Engineer who loves turning ideas into impactful digital experiences.",
-      "I enjoy building clean, efficient and meaningful solutions that solve real-world problems.",
-      "I'm a lifelong learner, problem solver and a builder at heart."
+      "Hi! I'm Boopana, a passionate Software Engineer who specializes in building scalable web applications and high-performance user interfaces.",
+      "I focus on writing clean, maintainable code and solving complex real-world problems with robust engineering principles.",
+      "Driven by curiosity and continuous learning, I am eager to contribute to forward-thinking engineering teams."
     ],
-    quote: "“The craft of software is indistinguishable from real magic when executed with mastery and heart.”"
+    quote: "“Software engineering is the discipline of creating reliable, elegant, and impactful systems that stand the test of time.”"
   },
   skills: {
-    title: "Skills",
+    title: "Technical Skills",
     chapterNumber: "02",
     categories: [
       {
-        title: "Languages",
+        title: "Programming Languages",
         skills: ["JavaScript", "Python", "Java", "C++"]
       },
       {
-        title: "Web Development",
+        title: "Full-Stack Development",
         skills: ["React", "Node.js", "Express", "MongoDB"]
       },
       {
-        title: "Tools & Technologies",
+        title: "Tools & DevOps",
         skills: ["Git", "GitHub", "VS Code", "Docker"]
       },
       {
-        title: "Other Skills",
+        title: "Core Competencies",
         skills: ["DSA", "Problem Solving", "System Design", "OOPs"]
       }
     ]
   },
   projects: {
-    title: "Notable Incantations",
+    title: "Featured Projects",
     chapterNumber: "03",
     items: [
       {
@@ -158,9 +158,9 @@ export const portfolio: PortfolioData = {
       },
       {
         id: "chronicle",
-        title: "Aetherial Visual Engine",
+        title: "Interactive 3D Graphics Engine",
         category: "Graphics & UI Library",
-        description: "High-performance shader-driven micro-interaction framework with realistic physical sheet deformation and particles.",
+        description: "High-performance shader-driven micro-interaction framework with realistic physical transformations and rendering optimizations.",
         technologies: ["TypeScript", "WebGL", "CSS 3D", "Canvas API"],
         github: "https://github.com",
         live: "https://example.com"
@@ -168,13 +168,13 @@ export const portfolio: PortfolioData = {
     ]
   },
   experience: {
-    title: "Chronicles & Quests",
+    title: "Experience",
     chapterNumber: "04",
     items: [
       {
         id: "exp-1",
-        role: "Software Engineering Scholar",
-        organization: "Tech Guild Arcana",
+        role: "Software Engineering Intern",
+        organization: "Tech Solutions Inc.",
         period: "2024 — Present",
         description: [
           "Engineered high-throughput REST APIs and microservice endpoints.",
@@ -185,46 +185,46 @@ export const portfolio: PortfolioData = {
       {
         id: "exp-2",
         role: "Open Source Contributor",
-        organization: "Global Open Source Fellowships",
+        organization: "Global Open Source Programs",
         period: "2023 — 2024",
         description: [
-          "Contributed optimizations and security patches to core ecosystem tooling.",
-          "Mentored aspiring developers through technical documentation and reviews."
+          "Contributed performance optimizations and bug fixes to core developer tooling.",
+          "Collaborated with global engineering communities through code reviews and documentation."
         ],
         skills: ["Git", "CI/CD", "JavaScript", "Docker"]
       }
     ]
   },
   achievements: {
-    title: "Honors & Trophies",
+    title: "Honors & Achievements",
     chapterNumber: "05",
     items: [
       {
         id: "ach-1",
-        title: "Grand Hackathon Champion",
+        title: "National Hackathon Winner",
         issuer: "National Tech Conclave",
         year: "2025",
-        description: "Ranked 1st among 300+ teams for architecting an intelligent distributed crisis-response system."
+        description: "Secured 1st place among 300+ teams for architecting an intelligent distributed crisis-response management platform."
       },
       {
         id: "ach-2",
         title: "GSSoC Top Contributor",
         issuer: "GirlScript Summer of Code",
         year: "2024",
-        description: "Recognized as a premier contributor for outstanding code submissions and peer reviews."
+        description: "Recognized as a top-tier contributor for high-impact code submissions and active open-source peer reviews."
       }
     ]
   },
   openSource: {
-    title: "Open Source Artifacts",
+    title: "Open Source Contributions",
     chapterNumber: "06",
     items: [
       {
         id: "os-1",
-        title: "wizard-page-engine",
-        repo: "Boopana-M/wizard-page-engine",
+        title: "page-flip-engine",
+        repo: "Boopana-M/page-flip-engine",
         stars: 142,
-        description: "Lightweight CSS 3D realistic turning engine with dual-face illumination.",
+        description: "Lightweight CSS 3D realistic page-turn animation engine with dual-face illumination.",
         link: "https://github.com"
       },
       {
@@ -232,15 +232,15 @@ export const portfolio: PortfolioData = {
         title: "react-parchment-ui",
         repo: "Boopana-M/react-parchment-ui",
         stars: 98,
-        description: "Manuscript components, antique seals, and parchment textures for React.",
+        description: "Custom UI component library with bespoke textures and accessibility-focused interactions.",
         link: "https://github.com"
       }
     ]
   },
   resume: {
-    title: "Curriculum Vitae",
+    title: "Resume & Education",
     chapterNumber: "07",
-    summary: "Dedicated software engineer with demonstrable expertise across modern web infrastructure, distributed systems, and refined UI craftsmanship.",
+    summary: "Dedicated software engineer with strong technical foundations in full-stack web development, data structures, algorithms, and system design.",
     education: [
       {
         degree: "Bachelor of Technology in Computer Science",
@@ -251,9 +251,9 @@ export const portfolio: PortfolioData = {
     downloadUrl: "#"
   },
   contact: {
-    title: "Dispatch An Owl",
+    title: "Get In Touch",
     chapterNumber: "08",
-    subtitle: "Send a dispatch across the ether for collaborations, quests, or discussions.",
+    subtitle: "I am actively looking for software engineering opportunities. Let's connect!",
     email: "boopana@example.com",
     github: "https://github.com/Boopana-M",
     linkedin: "https://linkedin.com",
