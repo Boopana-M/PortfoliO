@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { PortfolioBook } from './components/Book/PortfolioBook';
-import { ClosedBookLanding } from './components/Book/ClosedBookLanding';
 import { SideNavigation } from './components/Navigation/SideNavigation';
 import { Candlelight } from './components/Effects/Candlelight';
 import { MagicalParticles } from './components/Effects/MagicalParticles';
@@ -20,11 +19,11 @@ export const App: React.FC = () => {
     if (isOpening || isBookOpen) return;
     setIsOpening(true);
 
-    // Coordinate realistic physical book-opening animation
+    // Realistic physical 3D book-opening transition
     setTimeout(() => {
       setIsBookOpen(true);
       setIsOpening(false);
-    }, 1100);
+    }, 1300);
   }, [isOpening, isBookOpen]);
 
   const handleCloseBook = useCallback(() => {
@@ -106,37 +105,31 @@ export const App: React.FC = () => {
       <div className="study-vignette" aria-hidden="true" />
       <div className="study-table-plinth" aria-hidden="true" />
 
-      {/* Atmospheric Effects & Arcane Glowing Rings */}
-      {/* Landing State: Fullscreen Cinematic Closed Grimoire Scene */}
-      {!isBookOpen && (
-        <ClosedBookLanding
-          isOpening={isOpening}
-          onOpen={handleOpenBook}
+      {/* Atmospheric Effects & Arcane Glowing Rings (2 Blue Circles) */}
+      <Candlelight />
+      <MagicalParticles />
+      <ArcaneCircles />
+
+      {/* Side Navigation (visible when book is open) */}
+      {isBookOpen && (
+        <SideNavigation
+          currentSpread={currentSpread}
+          onSelectSpread={handleSelectSpread}
+          onCloseBook={handleCloseBook}
         />
       )}
 
-      {/* Open Book State: Atmospheric Effects, Side Navigation & Dual-Page Spread */}
-      {isBookOpen && (
-        <>
-          <Candlelight />
-          <MagicalParticles />
-          <ArcaneCircles />
-
-          <SideNavigation
-            currentSpread={currentSpread}
-            onSelectSpread={handleSelectSpread}
-            onCloseBook={handleCloseBook}
-          />
-
-          <PortfolioBook
-            currentSpread={currentSpread}
-            isTurning={isTurning}
-            turnDirection={turnDirection}
-            onNextSpread={handleNextSpread}
-            onPrevSpread={handlePrevSpread}
-          />
-        </>
-      )}
+      {/* Hero Physical Book with 3D Opening Animation */}
+      <PortfolioBook
+        isOpen={isBookOpen}
+        isOpening={isOpening}
+        onOpenBook={handleOpenBook}
+        currentSpread={currentSpread}
+        isTurning={isTurning}
+        turnDirection={turnDirection}
+        onNextSpread={handleNextSpread}
+        onPrevSpread={handlePrevSpread}
+      />
     </div>
   );
 };
