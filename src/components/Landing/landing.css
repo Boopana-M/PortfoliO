@@ -1,19 +1,18 @@
 /* =========================================
-   Landing Screen Styling (Exact Fit Across All Devices)
+   Landing Screen Styling (Full-Screen Responsive Cover Background)
    ========================================= */
 
 .landing-screen-container {
   position: fixed;
   inset: 0;
-  width: 100vw;
+  width: 100%;
+  min-height: 100vh;
   height: 100vh;
   z-index: 100;
   overflow: hidden;
-  background: 
-    radial-gradient(ellipse 70% 60% at 50% 50%, rgba(26, 20, 15, 0.7) 0%, rgba(10, 8, 6, 0.96) 75%, #050403 100%),
-    #060504;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-end;
   align-items: center;
   perspective: 2000px;
   transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1), transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
@@ -25,82 +24,63 @@
   transform: scale(1.04);
 }
 
-/* Contained Cinematic Grimoire Stage (Maintains exact 3:2 scene aspect ratio) */
-.landing-scene-stage {
-  position: relative;
-  width: min(100vw, calc(100vh * 1.5));
-  height: min(100vh, calc(100vw / 1.5));
-  max-width: 100vw;
-  max-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform-style: preserve-3d;
-}
-
-/* Full High-Resolution Cinematic Scene */
+/* Full-Screen Cover Background - 100vw x 100vh, object-fit: cover, center center */
 .landing-cinematic-backdrop {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  min-height: 100vh;
   z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
 }
 
 .landing-scene-image {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: center;
+  min-height: 100vh;
+  object-fit: cover;
+  object-position: center center;
   pointer-events: none;
   filter: contrast(1.04) brightness(0.98);
-}
-
-/* Subtle Vignette Framing around Stage */
-.landing-scene-vignette {
-  position: absolute;
-  inset: 0;
-  box-shadow:
-    inset 0 0 90px 25px rgba(0, 0, 0, 0.8),
-    inset 0 -50px 70px 20px rgba(0, 0, 0, 0.9);
-  pointer-events: none;
-  z-index: 2;
 }
 
 /* Candlelight Warm Flicker on the right candles */
 .landing-candle-aura {
   position: absolute;
-  top: 42%;
-  right: 9%;
-  width: 28%;
-  height: 48%;
+  top: 50%;
+  right: 12%;
+  transform: translateY(-50%);
+  width: min(350px, 30vw);
+  height: min(450px, 45vh);
   border-radius: 50%;
   background: radial-gradient(circle at 60% 45%, rgba(255, 175, 75, 0.18) 0%, rgba(240, 130, 40, 0.06) 50%, transparent 70%);
-  filter: blur(28px);
+  filter: blur(30px);
   pointer-events: none;
-  z-index: 3;
+  z-index: 2;
   animation: candleFlickerAnim 3.5s ease-in-out infinite alternate;
 }
 
 @keyframes candleFlickerAnim {
-  0% { opacity: 0.7; transform: scale(0.97); }
-  50% { opacity: 1; transform: scale(1.03); }
-  100% { opacity: 0.85; transform: scale(0.99); }
+  0% { opacity: 0.7; transform: translateY(-50%) scale(0.97); }
+  50% { opacity: 1; transform: translateY(-50%) scale(1.03); }
+  100% { opacity: 0.85; transform: translateY(-50%) scale(0.99); }
 }
 
 /* Arcane Blue Core Pulse behind the Grimoire */
 .landing-arcane-aura {
   position: absolute;
-  top: 44%;
+  top: 48%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 44%;
-  height: 58%;
+  width: min(520px, 70vw);
+  height: min(520px, 70vw);
   border-radius: 50%;
   background: radial-gradient(circle, rgba(76, 159, 196, 0.24) 0%, rgba(110, 208, 224, 0.07) 50%, transparent 70%);
   filter: blur(24px);
   pointer-events: none;
-  z-index: 3;
+  z-index: 2;
   animation: arcanePulseAnim 4.5s ease-in-out infinite alternate;
 }
 
@@ -109,17 +89,17 @@
   100% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
 }
 
-/* Interactive Center Hotspot exactly over the Grimoire in the scene */
+/* Interactive Center Hotspot exactly over the centered Grimoire */
 .landing-book-interactive-hotspot {
   position: absolute;
-  top: 44.5%;
-  left: 50.1%;
+  top: 48%;
+  left: 50%;
   transform: translate(-50%, -50%);
-  width: 43.8%;
-  height: 74.8%;
+  width: min(450px, 62vw);
+  height: min(650px, 76vh);
   z-index: 10;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 12px;
   outline: none;
 }
 
@@ -151,11 +131,11 @@
 /* 3D Physical Opening Cover Leaf */
 .landing-opening-3d-leaf {
   position: absolute;
-  top: 44.5%;
-  left: 50.1%;
+  top: 48%;
+  left: 50%;
   transform: translate(-50%, -50%);
-  width: 43.5%;
-  height: 74.2%;
+  width: min(440px, 60vw);
+  height: min(640px, 74vh);
   transform-style: preserve-3d;
   pointer-events: none;
   z-index: 15;
@@ -212,11 +192,9 @@
 
 /* "OPEN PORTFOLIO" CTA Bottom Controls */
 .landing-cta-controls {
-  position: absolute;
-  bottom: 2.5%;
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
   z-index: 30;
+  margin-bottom: max(20px, 3.5vh);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -228,9 +206,9 @@
   align-items: center;
   justify-content: center;
   gap: clamp(8px, 1.2vw, 14px);
-  padding: clamp(9px, 1.4vh, 13px) clamp(24px, 2.6vw, 42px);
+  padding: clamp(10px, 1.5vh, 14px) clamp(26px, 2.8vw, 44px);
   font-family: var(--font-title, 'Cinzel', serif);
-  font-size: clamp(0.78rem, 1.2vh, 0.92rem);
+  font-size: clamp(0.82rem, 1.25vh, 0.95rem);
   font-weight: 700;
   letter-spacing: 0.26em;
   text-transform: uppercase;
@@ -310,39 +288,24 @@
   white-space: nowrap;
 }
 
-/* Mobile Portrait Responsiveness */
-@media (max-width: 640px) or (max-aspect-ratio: 1/1) {
-  .landing-scene-stage {
-    width: 100vw;
-    height: 100vh;
-    max-width: 100vw;
-    max-height: 100vh;
-  }
-
-  .landing-scene-image {
-    object-fit: cover;
-    object-position: center 42%;
-  }
-
+/* Mobile Responsiveness */
+@media (max-width: 640px) {
   .landing-book-interactive-hotspot {
     width: min(340px, 86vw);
-    height: min(480px, 66vh);
-    top: 42%;
+    height: min(500px, 68vh);
   }
 
   .landing-opening-3d-leaf {
     width: min(336px, 85vw);
-    height: min(475px, 65vh);
-    top: 42%;
+    height: min(495px, 67vh);
   }
 
   .landing-arcane-aura {
-    top: 42%;
-    width: 75vw;
-    height: 75vw;
+    width: 80vw;
+    height: 80vw;
   }
 
   .landing-cta-controls {
-    bottom: max(16px, 4vh);
+    margin-bottom: max(16px, 3vh);
   }
 }
