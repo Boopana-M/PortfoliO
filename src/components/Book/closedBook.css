@@ -1,0 +1,331 @@
+/* =========================================
+   Closed Book Landing Screen & Opening Transition
+   (Faithful recreation of reference cinematic scene)
+   ========================================= */
+
+.closed-book-stage {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  perspective: 2000px;
+  overflow: hidden;
+  background-color: #060504;
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.closed-book-stage.opening {
+  pointer-events: none;
+}
+
+/* -----------------------------------------
+   1. Full Cinematic Scene Backdrop
+   ----------------------------------------- */
+.closed-book-backdrop-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.closed-book-backdrop-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 48%;
+  filter: contrast(1.04) brightness(0.98);
+  pointer-events: none;
+}
+
+/* Cinematic Atmospheric Vignette */
+.closed-book-scene-vignette {
+  position: absolute;
+  inset: 0;
+  box-shadow: 
+    inset 0 0 140px 60px rgba(0, 0, 0, 0.75),
+    inset 0 -80px 100px 40px rgba(0, 0, 0, 0.9);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Subtle Warm Candlelight Flicker on the right candles */
+.closed-scene-candle-glow {
+  position: absolute;
+  top: 45%;
+  right: 8%;
+  width: 380px;
+  height: 480px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 60% 45%, rgba(255, 175, 75, 0.18) 0%, rgba(240, 130, 40, 0.08) 45%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 3;
+  animation: candleAmbientFlicker 3.5s ease-in-out infinite alternate;
+}
+
+@keyframes candleAmbientFlicker {
+  0% { opacity: 0.75; transform: scale(0.96) translateY(0); }
+  35% { opacity: 1; transform: scale(1.03) translateY(-3px); }
+  70% { opacity: 0.85; transform: scale(0.98) translateY(2px); }
+  100% { opacity: 0.95; transform: scale(1.02) translateY(-1px); }
+}
+
+/* Subtle Cyan Arcane Core Glow behind the Grimoire */
+.closed-scene-arcane-glow {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(550px, 75vw);
+  height: min(550px, 75vw);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(76, 159, 196, 0.22) 0%, rgba(110, 208, 224, 0.06) 45%, transparent 70%);
+  filter: blur(30px);
+  pointer-events: none;
+  z-index: 3;
+  animation: arcaneCorePulse 5s ease-in-out infinite alternate;
+}
+
+@keyframes arcaneCorePulse {
+  0% { opacity: 0.6; transform: translate(-50%, -50%) scale(0.94); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1.06); }
+}
+
+/* -----------------------------------------
+   2. Interactive Book Hotspot
+   ----------------------------------------- */
+.closed-book-interactive-area {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(460px, 60vw);
+  height: min(650px, 78vh);
+  z-index: 10;
+  cursor: pointer;
+  border-radius: 12px;
+  outline: none;
+}
+
+/* Subtle ethereal sheen on hovering over the book */
+.closed-book-interactive-area::after {
+  content: '';
+  position: absolute;
+  inset: 10% 12% 16% 12%;
+  border-radius: 8px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(229, 203, 135, 0.08) 48%,
+    rgba(110, 208, 224, 0.12) 52%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  background-size: 250% 250%;
+  background-position: 100% 100%;
+  transition: background-position 0.7s ease, opacity 0.4s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.closed-book-interactive-area:hover::after {
+  opacity: 1;
+  background-position: 0% 0%;
+}
+
+/* -----------------------------------------
+   3. 3D Book-Opening Animation Layer
+   ----------------------------------------- */
+.book-opening-leaf-layer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(440px, 58vw);
+  height: min(620px, 74vh);
+  transform-style: preserve-3d;
+  pointer-events: none;
+  z-index: 15;
+  opacity: 0;
+}
+
+.closed-book-stage.opening .book-opening-leaf-layer {
+  opacity: 1;
+  animation: openingLeaf3D 1.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.opening-cover-panel {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #090d14 0%, #161c28 50%, #0a0d14 100%);
+  border: 1px solid rgba(212, 181, 104, 0.5);
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.95),
+    inset 0 0 40px rgba(0, 0, 0, 0.9);
+  transform-origin: left center;
+  transform-style: preserve-3d;
+}
+
+.opening-cover-panel-inner {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 50% 50%, rgba(223, 204, 166, 0.95) 0%, rgba(187, 162, 116, 0.95) 100%),
+    #d7c29b;
+  border: 1px solid #82643e;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+}
+
+@keyframes openingLeaf3D {
+  0% {
+    transform: translate(-50%, -50%) rotateY(0deg) scale(1);
+    opacity: 1;
+  }
+  40% {
+    transform: translate(-50%, -50%) rotateY(-70deg) scale(1.04);
+    opacity: 1;
+  }
+  80% {
+    transform: translate(-50%, -50%) rotateY(-150deg) scale(1.02);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotateY(-180deg) scale(1);
+    opacity: 0;
+  }
+}
+
+/* -----------------------------------------
+   4. "OPEN PORTFOLIO" CTA Interface
+   ----------------------------------------- */
+.closed-book-bottom-bar {
+  position: relative;
+  z-index: 30;
+  margin-top: auto;
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.open-portfolio-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 14px 42px;
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #f7e8c6;
+  background: linear-gradient(180deg, #241910 0%, #130c06 60%, #0a0603 100%);
+  border: 1.5px solid rgba(212, 181, 104, 0.55);
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.9),
+    0 0 24px rgba(76, 159, 196, 0.25),
+    inset 0 1px 1px rgba(255, 235, 175, 0.35),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.9);
+  transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.open-portfolio-button::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, transparent, rgba(110, 208, 224, 0.3), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.open-portfolio-button:hover {
+  color: #fffaf0;
+  border-color: rgba(235, 210, 145, 0.9);
+  box-shadow:
+    0 14px 36px rgba(0, 0, 0, 0.95),
+    0 0 35px rgba(110, 208, 224, 0.5),
+    inset 0 1px 2px rgba(255, 245, 210, 0.6);
+  transform: translateY(-2px) scale(1.025);
+}
+
+.open-portfolio-button:hover::before {
+  opacity: 1;
+}
+
+.open-portfolio-button:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.cta-button-gem {
+  width: 9px;
+  height: 9px;
+  background: radial-gradient(circle, #baf7ff 0%, #1c9cb8 80%);
+  transform: rotate(45deg);
+  box-shadow: 0 0 8px rgba(110, 208, 224, 0.95);
+}
+
+.cta-button-arrow {
+  transition: transform 0.3s ease;
+  color: #e5cb87;
+}
+
+.open-portfolio-button:hover .cta-button-arrow {
+  transform: translateX(5px);
+  color: #ffffff;
+}
+
+.cta-subtext {
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-size: 0.88rem;
+  font-style: italic;
+  letter-spacing: 0.08em;
+  color: #a8906c;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+}
+
+/* -----------------------------------------
+   5. Responsive Styles
+   ----------------------------------------- */
+@media (max-width: 768px) {
+  .closed-book-backdrop-image {
+    object-position: center 46%;
+  }
+
+  .closed-book-interactive-area {
+    width: min(340px, 85vw);
+    height: min(490px, 68vh);
+  }
+
+  .open-portfolio-button {
+    padding: 12px 30px;
+    font-size: 0.85rem;
+    letter-spacing: 0.22em;
+  }
+
+  .closed-book-bottom-bar {
+    margin-bottom: 20px;
+  }
+}

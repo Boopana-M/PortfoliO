@@ -16,11 +16,13 @@ import './navigation.css';
 interface SideNavigationProps {
   currentSpread: number;
   onSelectSpread: (spreadIndex: number) => void;
+  onCloseBook?: () => void;
 }
 
 export const SideNavigation: React.FC<SideNavigationProps> = ({
   currentSpread,
   onSelectSpread,
+  onCloseBook,
 }) => {
   const getIcon = (iconName: string) => {
     switch (iconName) {
@@ -49,7 +51,20 @@ export const SideNavigation: React.FC<SideNavigationProps> = ({
 
   return (
     <aside className="side-navigation" aria-label="Book Chapters">
-      <div className="nav-header">
+      <div 
+        className="nav-header"
+        role={onCloseBook ? "button" : undefined}
+        tabIndex={onCloseBook ? 0 : undefined}
+        onClick={onCloseBook}
+        onKeyDown={(e) => {
+          if (onCloseBook && (e.key === 'Enter' || e.key === ' ')) {
+            e.preventDefault();
+            onCloseBook();
+          }
+        }}
+        title={onCloseBook ? "Close book and return to cover" : undefined}
+        style={{ cursor: onCloseBook ? 'pointer' : 'default' }}
+      >
         <div className="nav-crest-monogram" aria-hidden="true">
           <div className="monogram-outer-ring" />
           <div className="monogram-inner-ring" />
