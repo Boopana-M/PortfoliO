@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { PortfolioBook } from './components/Book/PortfolioBook';
+import { LandingScreen } from './components/Landing/LandingScreen';
 import { SideNavigation } from './components/Navigation/SideNavigation';
 import { Candlelight } from './components/Effects/Candlelight';
 import { MagicalParticles } from './components/Effects/MagicalParticles';
@@ -19,11 +20,11 @@ export const App: React.FC = () => {
     if (isOpening || isBookOpen) return;
     setIsOpening(true);
 
-    // Realistic physical 3D book-opening transition
+    // Coordinate realistic 3D book-opening transition
     setTimeout(() => {
       setIsBookOpen(true);
       setIsOpening(false);
-    }, 1300);
+    }, 1150);
   }, [isOpening, isBookOpen]);
 
   const handleCloseBook = useCallback(() => {
@@ -110,26 +111,32 @@ export const App: React.FC = () => {
       <MagicalParticles />
       <ArcaneCircles />
 
-      {/* Side Navigation (visible when book is open) */}
-      {isBookOpen && (
-        <SideNavigation
-          currentSpread={currentSpread}
-          onSelectSpread={handleSelectSpread}
-          onCloseBook={handleCloseBook}
+      {/* 1. Landing Screen: Exact Reference Grimoire Scene */}
+      {!isBookOpen && (
+        <LandingScreen
+          isOpening={isOpening}
+          onOpen={handleOpenBook}
         />
       )}
 
-      {/* Hero Physical Book with 3D Opening Animation */}
-      <PortfolioBook
-        isOpen={isBookOpen}
-        isOpening={isOpening}
-        onOpenBook={handleOpenBook}
-        currentSpread={currentSpread}
-        isTurning={isTurning}
-        turnDirection={turnDirection}
-        onNextSpread={handleNextSpread}
-        onPrevSpread={handlePrevSpread}
-      />
+      {/* 2. Open Portfolio State: Side Navigation & Open Grimoire */}
+      {isBookOpen && (
+        <>
+          <SideNavigation
+            currentSpread={currentSpread}
+            onSelectSpread={handleSelectSpread}
+            onCloseBook={handleCloseBook}
+          />
+
+          <PortfolioBook
+            currentSpread={currentSpread}
+            isTurning={isTurning}
+            turnDirection={turnDirection}
+            onNextSpread={handleNextSpread}
+            onPrevSpread={handlePrevSpread}
+          />
+        </>
+      )}
     </div>
   );
 };

@@ -1,5 +1,4 @@
 import React from 'react';
-import { ArrowRight, Sparkles } from 'lucide-react';
 import { BookCover } from './BookCover';
 import { BookPage } from './BookPage';
 import { PageTurnControls } from './PageTurnControls';
@@ -16,9 +15,6 @@ import { spreads } from '../../data/navigation';
 import './book.css';
 
 interface PortfolioBookProps {
-  isOpen: boolean;
-  isOpening: boolean;
-  onOpenBook: () => void;
   currentSpread: number;
   isTurning: boolean;
   turnDirection: 'next' | 'prev' | null;
@@ -27,22 +23,20 @@ interface PortfolioBookProps {
 }
 
 export const PortfolioBook: React.FC<PortfolioBookProps> = ({
-  isOpen,
-  isOpening,
-  onOpenBook,
   currentSpread,
   isTurning,
   turnDirection,
   onNextSpread,
   onPrevSpread,
 }) => {
-  const activeSpread = spreads[currentSpread] || spreads[0];
+  const [mobileActiveSide, setMobileActiveSide] = React.useState<'left' | 'right'>('left');
 
-  const bookStateClass = !isOpen
-    ? isOpening
-      ? 'book-state-opening'
-      : 'book-state-closed'
-    : 'book-state-open';
+  // Reset to left page on spread change
+  React.useEffect(() => {
+    setMobileActiveSide('left');
+  }, [currentSpread]);
+
+  const activeSpread = spreads[currentSpread] || spreads[0];
 
   const renderPageContent = (pageId: string) => {
     switch (pageId) {
@@ -67,12 +61,6 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
     }
   };
 
-  const handleCoverClick = () => {
-    if (!isOpen && !isOpening) {
-      onOpenBook();
-    }
-  };
-
   return (
     <main className="book-stage" aria-label="Magical Portfolio Book">
       {/* Atmosphere Glows & Multi-tier Realistic Ground Shadows */}
@@ -81,42 +69,28 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
       <div className="book-ground-shadow-contact" aria-hidden="true" />
       <div className="book-lectern-rest" aria-hidden="true" />
 
+      {/* Mobile Spread Page Switcher Tab Bar */}
+      <div className="mobile-spread-tabs" aria-label="Mobile page selector">
+        <button
+          type="button"
+          className={`mobile-tab-btn ${mobileActiveSide === 'left' ? 'active' : ''}`}
+          onClick={() => setMobileActiveSide('left')}
+        >
+          <span>Page {activeSpread.leftPageNumber}</span>
+        </button>
+        <span className="mobile-tab-divider">✦</span>
+        <button
+          type="button"
+          className={`mobile-tab-btn ${mobileActiveSide === 'right' ? 'active' : ''}`}
+          onClick={() => setMobileActiveSide('right')}
+        >
+          <span>Page {activeSpread.rightPageNumber}</span>
+        </button>
+      </div>
+
       {/* Main Physical Book Container */}
-      <div
-        className={`book-container ${bookStateClass} ${isTurning ? 'book-is-flipping' : ''}`}
-        onClick={handleCoverClick}
-        role={!isOpen ? 'button' : undefined}
-        tabIndex={!isOpen ? 0 : undefined}
-        onKeyDown={(e) => {
-          if (!isOpen && !isOpening && (e.key === 'Enter' || e.key === ' ')) {
-            e.preventDefault();
-            onOpenBook();
-          }
-        }}
-        aria-label={!isOpen ? 'Click to open Boopana M\'s Portfolio Book' : 'Portfolio Book Spread'}
-      >
+      <div className={`book-container ${isTurning ? 'book-is-flipping' : ''} mobile-show-${mobileActiveSide}`}>
         <BookCover />
-
-        {/* 3D Physical Front Cover Leaf (flips open when clicked) */}
-        {(!isOpen || isOpening) && (
-          <div className="book-front-cover-leaf" aria-hidden="true">
-            {/* Outer Face: High-Res Antique Grimoire Artwork */}
-            <div className="front-cover-face-outer">
-              <img
-                src="/closed-book-cover.jpg"
-                alt="Boopana M Antique Grimoire Cover"
-                className="cover-outer-image"
-                loading="eager"
-              />
-              <div className="cover-outer-sheen" />
-            </div>
-
-            {/* Inner Face: Marbled Gilded Manuscript Endpaper */}
-            <div className="front-cover-face-inner">
-              <div className="cover-inner-border" />
-            </div>
-          </div>
-        )}
 
         {/* Spread Leaves with 3D physical curvature */}
         <div className="book-page-spread">
@@ -149,7 +123,7 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
               aria-hidden="true"
             >
               <div className="turning-leaf-sheet">
-                {/* Front Face of Turning Sheet */}
+                {/* Front Face of Turning Sheet (Curled parchment with Castle Etching) */}
                 <div className="leaf-face leaf-face-front">
                   <div className="parchment-noise-texture" />
                   <div className="leaf-curl-highlight" />
@@ -184,40 +158,14 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
         </div>
       </div>
 
-      {/* Landing State: "OPEN PORTFOLIO" CTA Button */}
-      {!isOpen && (
-        <div className={`book-opening-cta-wrapper ${isOpening ? 'opening-hidden' : ''}`}>
-          <button
-            type="button"
-            className="open-portfolio-main-btn"
-            onClick={onOpenBook}
-            disabled={isOpening}
-            aria-label="Open Portfolio Grimoire"
-          >
-            <span className="cta-button-gem" aria-hidden="true" />
-            <span>OPEN PORTFOLIO</span>
-            <ArrowRight size={17} className="cta-button-arrow" aria-hidden="true" />
-          </button>
-
-          <p className="cta-subtext-hint" aria-hidden="true">
-            <Sparkles size={13} />
-            Click grimoire or press Enter to open
-            <Sparkles size={13} />
-          </p>
-        </div>
-      )}
-
-      {/* Open Book State: Bottom Right Controls */}
-      {isOpen && (
-        <PageTurnControls
-          currentSpread={currentSpread}
-          totalSpreads={spreads.length}
-          isTurning={isTurning}
-          onNext={onNextSpread}
-          onPrev={onPrevSpread}
-        />
-      )}
+      {/* Bottom Right Controls */}
+      <PageTurnControls
+        currentSpread={currentSpread}
+        totalSpreads={spreads.length}
+        isTurning={isTurning}
+        onNext={onNextSpread}
+        onPrev={onPrevSpread}
+      />
     </main>
   );
 };
-

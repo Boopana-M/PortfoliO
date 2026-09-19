@@ -1,43 +1,87 @@
 /* Responsive adjustments for the Wizarding Book */
 
-@media (max-width: 1024px) {
+/* Widescreen and Standard Desktop / Laptops */
+@media (max-width: 1280px) {
   :root {
-    --book-width: 90vw;
-    --book-height: 74vh;
-  }
-
-  .parchment-page {
-    padding: 1.8rem 1.8rem;
+    --book-width: min(920px, calc(100vw - 230px), calc((100vh - 100px) * 1.48));
+    --book-height: min(600px, calc(100vh - 100px), calc(var(--book-width) / 1.48));
   }
 }
 
-@media (max-width: 768px) {
+/* Tablet & Compact Laptops */
+@media (max-width: 960px) {
   :root {
-    --book-width: 95vw;
-    --book-height: 82vh;
+    --book-width: min(94vw, calc((100vh - 90px) * 1.45));
+    --book-height: min(580px, calc(100vh - 90px), calc(var(--book-width) / 1.45));
   }
 
   .parchment-page {
-    padding: 1.4rem 1.2rem;
+    padding: clamp(0.9rem, 2vh, 1.6rem) clamp(1rem, 2.2vw, 1.8rem);
+  }
+}
+
+/* Mobile Screens (Single Page Leaf presentation) */
+@media (max-width: 640px) {
+  :root {
+    --book-width: min(92vw, 420px);
+    --book-height: min(72vh, 560px);
+  }
+
+  .mobile-spread-tabs {
+    display: flex !important;
+  }
+
+  .book-container {
+    width: var(--book-width);
+    height: var(--book-height);
+  }
+
+  .book-container.mobile-show-left .book-page-wing-right {
+    display: none !important;
+  }
+
+  .book-container.mobile-show-right .book-page-wing-left {
+    display: none !important;
+  }
+
+  .book-container.mobile-show-left .book-page-wing-left,
+  .book-container.mobile-show-right .book-page-wing-right {
+    transform: none !important;
+    width: 100% !important;
+    flex: 1;
+  }
+
+  .book-center-spine {
+    display: none !important;
+  }
+
+  .parchment-page {
+    padding: 1.2rem 1.1rem !important;
+    border-radius: 5px !important;
   }
 
   .illuminated-initial {
-    font-size: 2.4rem;
+    font-size: 2.2rem !important;
   }
 
   .page-block-left, .page-block-right {
-    width: 8px;
+    width: 6px !important;
   }
 
   .book-bottom-controls {
-    right: 18px;
-    bottom: 14px;
-    gap: 0.6rem;
+    right: 14px !important;
+    bottom: 12px !important;
+    gap: 0.5rem !important;
   }
 
-  .page-turn-btn {
-    padding: 0.5rem 0.9rem;
-    font-size: 0.75rem;
+  .cartouche-nav-btn {
+    padding: 0.45rem 0.85rem !important;
+    font-size: 0.72rem !important;
+    letter-spacing: 0.12em !important;
+  }
+
+  .plinth-crystal-clasp-wrapper {
+    display: none !important;
   }
 }
 
@@ -48,4 +92,3 @@
     transition-duration: 0.01ms !important;
   }
 }
-

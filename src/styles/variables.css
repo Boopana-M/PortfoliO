@@ -43,9 +43,9 @@
   --font-body: 'Crimson Pro', Georgia, 'Times New Roman', serif;
   --font-handwriting: 'Caveat', cursive, 'Brush Script MT', cursive;
 
-  /* Geometry & 3D */
-  --book-width: min(1040px, 86vw);
-  --book-height: min(680px, 80vh);
+  /* Geometry & 3D (Carefully constrained for exact viewport fit on all screens) */
+  --book-width: min(960px, calc(100vw - 280px), calc((100vh - 100px) * 1.48));
+  --book-height: min(620px, calc(100vh - 100px), calc(var(--book-width) / 1.48));
   --book-perspective: 2000px;
   --page-border-radius: 4px;
 }
