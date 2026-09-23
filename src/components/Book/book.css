@@ -2879,7 +2879,7 @@
 }
 
 /* -----------------------------------------
-   PAGE 09: Problem Solving
+   PAGE 09: Problem Solving (Full Page Expansion)
    ----------------------------------------- */
 .problemsolving-manuscript-page {
   display: flex;
@@ -2888,26 +2888,28 @@
   width: 100%;
   box-sizing: border-box;
   padding-right: 6px;
+  padding-bottom: 0.35rem;
 }
 
 .ps-global-stats-banner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(135deg, rgba(185, 154, 88, 0.18) 0%, rgba(120, 90, 50, 0.08) 100%);
+  background: linear-gradient(135deg, rgba(185, 154, 88, 0.2) 0%, rgba(120, 90, 50, 0.09) 100%);
   border: 1px solid rgba(185, 154, 88, 0.45);
   border-radius: 6px;
-  padding: 0.35rem 0.65rem;
-  margin-bottom: 0.5rem;
+  padding: clamp(6px, 1vh, 10px) clamp(10px, 1.2vw, 14px);
+  margin-bottom: clamp(6px, 1vh, 10px);
   box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.4), 0 2px 6px rgba(0, 0, 0, 0.08);
   box-sizing: border-box;
   width: 100%;
+  flex-shrink: 0;
 }
 
 .ps-banner-left {
   display: flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.5rem;
   min-width: 0;
 }
 
@@ -2918,7 +2920,7 @@
 
 .ps-total-number {
   font-family: var(--font-title);
-  font-size: 0.84rem;
+  font-size: clamp(0.86rem, 1.4vh, 0.98rem);
   font-weight: 700;
   color: #24160d;
   letter-spacing: 0.03em;
@@ -2927,7 +2929,7 @@
 
 .ps-banner-subtext {
   font-family: var(--font-body);
-  font-size: 0.72rem;
+  font-size: clamp(0.72rem, 1.2vh, 0.8rem);
   font-style: italic;
   color: #6d5435;
   white-space: nowrap;
@@ -2938,59 +2940,66 @@
 .problem-solving-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(5px, 0.8vh, 7px);
+  grid-template-rows: repeat(3, 1fr);
+  gap: clamp(7px, 1.2vh, 11px);
   width: 100%;
+  flex: 1;
   box-sizing: border-box;
-  margin-top: 2px;
 }
 
 .ps-platform-card {
-  background: rgba(120, 90, 50, 0.06);
-  border: 1px solid rgba(120, 90, 50, 0.28);
-  border-radius: 5px;
-  padding: 5px 7px;
+  background: rgba(120, 90, 50, 0.07);
+  border: 1px solid rgba(120, 90, 50, 0.3);
+  border-radius: 6px;
+  padding: clamp(7px, 1.2vh, 11px) clamp(9px, 1.1vw, 13px);
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  justify-content: space-between;
   min-width: 0;
+  height: 100%;
   box-sizing: border-box;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
 }
 
 .ps-platform-card:hover {
-  background: rgba(185, 154, 88, 0.14);
-  border-color: rgba(185, 154, 88, 0.6);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transform: translateY(-1px);
+  background: rgba(185, 154, 88, 0.16);
+  border-color: rgba(185, 154, 88, 0.7);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
 }
 
 .ps-card-top-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 4px;
+  gap: 6px;
   min-width: 0;
 }
 
 .ps-platform-brand {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   min-width: 0;
   overflow: hidden;
 }
 
 .ps-platform-icon-wrap {
-  color: var(--gold-dark);
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  background: rgba(185, 154, 88, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--gold-dark);
   flex-shrink: 0;
 }
 
 .ps-platform-name {
   font-family: var(--font-title, 'Cinzel', serif);
-  font-size: 0.74rem;
+  font-size: clamp(0.82rem, 1.3vh, 0.92rem);
   font-weight: 700;
   color: #24160a;
   margin: 0;
@@ -3002,15 +3011,15 @@
 .ps-platform-nav-link {
   display: inline-flex;
   align-items: center;
-  gap: 2px;
+  gap: 3px;
   font-family: var(--font-title);
-  font-size: 0.62rem;
-  font-weight: 600;
-  color: #4a321d;
-  background: rgba(185, 154, 88, 0.18);
-  border: 1px solid rgba(185, 154, 88, 0.45);
-  border-radius: 10px;
-  padding: 1px 5px;
+  font-size: clamp(0.66rem, 1.1vh, 0.74rem);
+  font-weight: 700;
+  color: #3e2614;
+  background: linear-gradient(180deg, rgba(230, 205, 150, 0.4) 0%, rgba(185, 154, 88, 0.2) 100%);
+  border: 1px solid rgba(185, 154, 88, 0.55);
+  border-radius: 12px;
+  padding: 2px 7px;
   text-decoration: none;
   transition: all 0.2s ease;
   white-space: nowrap;
@@ -3018,41 +3027,40 @@
 }
 
 .ps-platform-nav-link:hover {
-  background: rgba(185, 154, 88, 0.35);
-  color: #1c1006;
+  background: rgba(185, 154, 88, 0.45);
+  color: #120903;
   border-color: var(--gold-dark);
   text-decoration: none;
-  transform: scale(1.04);
+  transform: scale(1.05);
+  box-shadow: 0 2px 6px rgba(185, 154, 88, 0.3);
 }
 
-.ps-card-metric {
+.ps-card-metric-block {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 3px;
+  flex-direction: column;
+  gap: 2px;
   min-width: 0;
-  margin-top: 1px;
+  margin-top: 3px;
 }
 
 .ps-metric-number {
   font-family: var(--font-title, 'Cinzel', serif);
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #4a341a;
-  white-space: nowrap;
-  flex-shrink: 0;
+  font-size: clamp(0.95rem, 1.6vh, 1.15rem);
+  font-weight: 800;
+  color: #3b2510;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
 }
 
 .ps-metric-highlight {
   font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
-  font-size: 0.68rem;
+  font-size: clamp(0.72rem, 1.2vh, 0.8rem);
   font-style: italic;
   color: #694e2b;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   min-width: 0;
-  text-align: right;
 }
 
 /* -----------------------------------------

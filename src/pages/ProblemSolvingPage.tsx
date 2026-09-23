@@ -27,12 +27,13 @@ export const ProblemSolvingPage: React.FC = () => {
   return (
     <div className="page-content-wrapper problemsolving-manuscript-page">
       <h2 className="page-title">{problemSolving.title}</h2>
+      <div className="page-subtitle-hint">Algorithmic Mastery &amp; Competitive Platforms</div>
       <div className="manuscript-divider">✦ ✤ ✦</div>
 
       {/* Top Overall Solved Count Banner */}
       <div className="ps-global-stats-banner">
         <div className="ps-banner-left">
-          <Sparkles size={15} className="ps-sparkle-icon" />
+          <Sparkles size={16} className="ps-sparkle-icon" />
           <span className="ps-total-number">{problemSolving.totalProblemsSolved} Problems Solved</span>
         </div>
         <span className="ps-banner-subtext">Across {problemSolving.platformsCount} Competitive Coding Platforms</span>
@@ -60,11 +61,11 @@ export const ProblemSolvingPage: React.FC = () => {
                 title={`Visit ${plat.platform} Profile`}
               >
                 <span>Profile</span>
-                <ArrowUpRight size={11} />
+                <ArrowUpRight size={12} />
               </a>
             </div>
 
-            <div className="ps-card-metric">
+            <div className="ps-card-metric-block">
               <span className="ps-metric-number">{plat.solved}</span>
               <span className="ps-metric-highlight">{plat.highlight}</span>
             </div>
