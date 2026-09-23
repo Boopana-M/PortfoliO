@@ -3333,6 +3333,149 @@
   color: #120904;
 }
 
+/* -----------------------------------------
+   PAGE 14: Epilogue & Colophon
+   ----------------------------------------- */
+.epilogue-content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(6px, 1.2vh, 12px);
+  margin-top: 4px;
+  width: 100%;
+}
+
+.epilogue-seal-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.epilogue-seal-ring {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #3d2615 0%, #201309 70%, #0d0704 100%);
+  border: 1.5px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(229, 203, 135, 0.5);
+}
+
+.epilogue-seal-icon {
+  color: var(--gold-bright);
+}
+
+.epilogue-message-cartouche {
+  background: rgba(185, 154, 88, 0.1);
+  border: 1px solid rgba(185, 154, 88, 0.35);
+  border-radius: 5px;
+  padding: clamp(8px, 1.3vh, 12px) clamp(10px, 1.4vw, 16px);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 380px;
+}
+
+.epilogue-creed-text {
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-size: clamp(0.85rem, 1.4vh, 0.96rem);
+  font-style: italic;
+  font-weight: 600;
+  color: #2b1c0e;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.epilogue-subtext {
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-size: clamp(0.78rem, 1.25vh, 0.86rem);
+  line-height: 1.4;
+  color: #42301c;
+  margin: 0;
+}
+
+.epilogue-spec-card {
+  background: rgba(60, 40, 20, 0.08);
+  border: 1px dashed rgba(140, 105, 55, 0.4);
+  border-radius: 4px;
+  padding: 6px 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: 340px;
+}
+
+.epilogue-spec-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #6e522d;
+  font-weight: 700;
+}
+
+.spec-star-icon {
+  color: var(--gold-dark);
+}
+
+.epilogue-spec-body {
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-size: 0.74rem;
+  color: #4a3824;
+  margin: 0;
+}
+
+.epilogue-signature-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.epilogue-signature-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.epilogue-handwritten {
+  font-family: var(--font-handwriting, 'Caveat', cursive);
+  font-size: 1.45rem;
+  color: #1a0f07;
+  line-height: 1.1;
+}
+
+.epilogue-inscription-date {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7d633d;
+}
+
+.epilogue-footer-note {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-size: 0.72rem;
+  font-style: italic;
+  color: #7a613d;
+  opacity: 0.85;
+}
+
+.epilogue-heart-icon {
+  color: #8b2500;
+}
+
+
 
 @keyframes insideCastShadowSweep1 {
   0% { opacity: 0; transform: scaleX(0.1); }
