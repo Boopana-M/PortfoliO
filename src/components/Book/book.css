@@ -572,6 +572,49 @@
   transform-style: preserve-3d;
 }
 
+/* StPageFlip Dynamic Peeling Integration */
+.grimoire-page-flip-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 15;
+}
+
+.grimoire-page-flip-container .stf__parent {
+  position: relative;
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+.grimoire-page-flip-container .stf__wrapper {
+  position: relative;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.grimoire-page-flip-container .stf__block {
+  position: absolute;
+  width: 100% !important;
+  height: 100% !important;
+  perspective: 2200px;
+}
+
+.grimoire-page-flip-container .grimoire-page-sheet {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background: transparent;
+  overflow: hidden;
+  user-select: none;
+}
+
+.grimoire-page-flip-container .stf__outerShadow,
+.grimoire-page-flip-container .stf__innerShadow {
+  pointer-events: none;
+  z-index: 40 !important;
+}
+
 /* 3D Angled Left & Right Wings (Simulating book opening angle) */
 .book-page-wing {
   flex: 1;
@@ -1500,64 +1543,203 @@
   animation: cast-shadow-sweep-prev 1.35s cubic-bezier(0.35, 0.0, 0.2, 1) forwards;
 }
 
-/* Forward Page Turn: Right to Left (0deg -> -180deg) */
+/* ===================================================
+   Realistic Paper Physics: Curvature, Flutter, Wave & Soft Settling
+   =================================================== */
+
+/* Forward Page Turn: Right to Left (0deg -> -180deg) with Paper Flex & Aerodynamic Flutter */
 @keyframes leaf-turn-forward {
   0% {
-    transform: rotateY(0deg) translateZ(2px);
-    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
+    transform: rotateY(0deg) rotateZ(0deg) rotateX(0deg) skewY(0deg) scaleX(1) translateZ(2px);
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
   }
-  25% {
-    transform: rotateY(-45deg) translateZ(30px) skewY(-2.5deg);
+  14% {
+    transform: rotateY(-18deg) rotateZ(1.8deg) rotateX(1.2deg) skewY(-4.5deg) scaleX(0.96) translateZ(18px);
+    filter: drop-shadow(-8px 10px 22px rgba(0, 0, 0, 0.65));
+  }
+  32% {
+    transform: rotateY(-58deg) rotateZ(2.8deg) rotateX(0.5deg) skewY(-6.2deg) scaleX(0.93) translateZ(48px);
     filter: drop-shadow(-18px 18px 36px rgba(0, 0, 0, 0.85));
   }
   50% {
-    transform: rotateY(-90deg) translateZ(42px) skewY(0deg);
-    filter: drop-shadow(-24px 20px 42px rgba(0, 0, 0, 0.9));
+    transform: rotateY(-92deg) rotateZ(-0.5deg) rotateX(-0.8deg) skewY(-1.2deg) scaleX(0.96) translateZ(58px);
+    filter: drop-shadow(-26px 22px 45px rgba(0, 0, 0, 0.9));
   }
-  75% {
-    transform: rotateY(-135deg) translateZ(30px) skewY(2.5deg);
-    filter: drop-shadow(-12px 14px 28px rgba(0, 0, 0, 0.75));
+  68% {
+    transform: rotateY(-126deg) rotateZ(-2.8deg) rotateX(-1.5deg) skewY(5.2deg) scaleX(0.94) translateZ(46px);
+    filter: drop-shadow(-18px 18px 36px rgba(0, 0, 0, 0.8));
+  }
+  84% {
+    transform: rotateY(-158deg) rotateZ(-1.4deg) rotateX(-0.5deg) skewY(3.2deg) scaleX(0.97) translateZ(22px);
+    filter: drop-shadow(-10px 12px 24px rgba(0, 0, 0, 0.65));
+  }
+  94% {
+    transform: rotateY(-176deg) rotateZ(-0.4deg) rotateX(0deg) skewY(1.2deg) scaleX(0.99) translateZ(7px);
+    filter: drop-shadow(-4px 6px 14px rgba(0, 0, 0, 0.45));
+  }
+  97.5% {
+    transform: rotateY(-181.2deg) rotateZ(0.2deg) rotateX(0deg) skewY(-0.4deg) scaleX(1.002) translateZ(3px);
+    filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.35));
   }
   100% {
-    transform: rotateY(-180deg) translateZ(2px) skewY(0deg);
-    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
+    transform: rotateY(-180deg) rotateZ(0deg) rotateX(0deg) skewY(0deg) scaleX(1) translateZ(2px);
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
   }
 }
 
-/* Backward Page Turn: Left to Right (-180deg -> 0deg) */
+/* Backward Page Turn: Left to Right (-180deg -> 0deg) with Paper Flex & Aerodynamic Flutter */
 @keyframes leaf-turn-backward {
   0% {
-    transform: rotateY(0deg) translateZ(2px);
-    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
+    transform: rotateY(0deg) rotateZ(0deg) rotateX(0deg) skewY(0deg) scaleX(1) translateZ(2px);
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
   }
-  25% {
-    transform: rotateY(45deg) translateZ(30px) skewY(2.5deg);
+  14% {
+    transform: rotateY(18deg) rotateZ(-1.8deg) rotateX(1.2deg) skewY(4.5deg) scaleX(0.96) translateZ(18px);
+    filter: drop-shadow(8px 10px 22px rgba(0, 0, 0, 0.65));
+  }
+  32% {
+    transform: rotateY(58deg) rotateZ(-2.8deg) rotateX(0.5deg) skewY(6.2deg) scaleX(0.93) translateZ(48px);
     filter: drop-shadow(18px 18px 36px rgba(0, 0, 0, 0.85));
   }
   50% {
-    transform: rotateY(90deg) translateZ(42px) skewY(0deg);
-    filter: drop-shadow(24px 20px 42px rgba(0, 0, 0, 0.9));
+    transform: rotateY(92deg) rotateZ(0.5deg) rotateX(-0.8deg) skewY(1.2deg) scaleX(0.96) translateZ(58px);
+    filter: drop-shadow(26px 22px 45px rgba(0, 0, 0, 0.9));
   }
-  75% {
-    transform: rotateY(135deg) translateZ(30px) skewY(-2.5deg);
-    filter: drop-shadow(12px 14px 28px rgba(0, 0, 0, 0.75));
+  68% {
+    transform: rotateY(126deg) rotateZ(2.8deg) rotateX(-1.5deg) skewY(-5.2deg) scaleX(0.94) translateZ(46px);
+    filter: drop-shadow(18px 18px 36px rgba(0, 0, 0, 0.8));
+  }
+  84% {
+    transform: rotateY(158deg) rotateZ(1.4deg) rotateX(-0.5deg) skewY(-3.2deg) scaleX(0.97) translateZ(22px);
+    filter: drop-shadow(10px 12px 24px rgba(0, 0, 0, 0.65));
+  }
+  94% {
+    transform: rotateY(176deg) rotateZ(0.4deg) rotateX(0deg) skewY(-1.2deg) scaleX(0.99) translateZ(7px);
+    filter: drop-shadow(4px 6px 14px rgba(0, 0, 0, 0.45));
+  }
+  97.5% {
+    transform: rotateY(181.2deg) rotateZ(-0.2deg) rotateX(0deg) skewY(0.4deg) scaleX(1.002) translateZ(3px);
+    filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.35));
   }
   100% {
-    transform: rotateY(180deg) translateZ(2px) skewY(0deg);
-    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
+    transform: rotateY(180deg) rotateZ(0deg) rotateX(0deg) skewY(0deg) scaleX(1) translateZ(2px);
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
   }
 }
 
+/* Cast Shadows on Adjacent Wing during Natural Page Turning */
 @keyframes cast-shadow-sweep-next {
-  0% { opacity: 0; transform: scaleX(0.1); }
-  45% { opacity: 0.85; transform: scaleX(1); }
-  100% { opacity: 0; transform: scaleX(0.1); }
+  0% { opacity: 0; transform: scaleX(0.08) translateX(0); }
+  25% { opacity: 0.55; transform: scaleX(0.65) translateX(15px); }
+  50% { opacity: 0.85; transform: scaleX(1) translateX(0); }
+  75% { opacity: 0.55; transform: scaleX(0.65) translateX(-15px); }
+  100% { opacity: 0; transform: scaleX(0.08) translateX(0); }
 }
 
 @keyframes cast-shadow-sweep-prev {
-  0% { opacity: 0; transform: scaleX(0.1); }
-  45% { opacity: 0.85; transform: scaleX(1); }
-  100% { opacity: 0; transform: scaleX(0.1); }
+  0% { opacity: 0; transform: scaleX(0.08) translateX(0); }
+  25% { opacity: 0.55; transform: scaleX(0.65) translateX(-15px); }
+  50% { opacity: 0.85; transform: scaleX(1) translateX(0); }
+  75% { opacity: 0.55; transform: scaleX(0.65) translateX(15px); }
+  100% { opacity: 0; transform: scaleX(0.08) translateX(0); }
+}
+
+/* -----------------------------------------
+   Inside UI: 2-Turn Initial Paper Leafing Animations with Paper Physics
+   ----------------------------------------- */
+
+@keyframes insideBlankLeafTurn1 {
+  0% {
+    transform: rotateY(0deg) rotateZ(0deg) rotateX(0deg) skewY(0deg) scaleX(1) translateZ(2px);
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
+  }
+  14% {
+    transform: rotateY(-18deg) rotateZ(1.8deg) rotateX(1.2deg) skewY(-4.5deg) scaleX(0.96) translateZ(18px);
+    filter: drop-shadow(-8px 10px 22px rgba(0, 0, 0, 0.65));
+  }
+  32% {
+    transform: rotateY(-58deg) rotateZ(2.8deg) rotateX(0.5deg) skewY(-6.2deg) scaleX(0.93) translateZ(48px);
+    filter: drop-shadow(-18px 18px 36px rgba(0, 0, 0, 0.85));
+  }
+  50% {
+    transform: rotateY(-92deg) rotateZ(-0.5deg) rotateX(-0.8deg) skewY(-1.2deg) scaleX(0.96) translateZ(58px);
+    filter: drop-shadow(-26px 22px 45px rgba(0, 0, 0, 0.9));
+  }
+  68% {
+    transform: rotateY(-126deg) rotateZ(-2.8deg) rotateX(-1.5deg) skewY(5.2deg) scaleX(0.94) translateZ(46px);
+    filter: drop-shadow(-18px 18px 36px rgba(0, 0, 0, 0.8));
+  }
+  84% {
+    transform: rotateY(-158deg) rotateZ(-1.4deg) rotateX(-0.5deg) skewY(3.2deg) scaleX(0.97) translateZ(22px);
+    filter: drop-shadow(-10px 12px 24px rgba(0, 0, 0, 0.65));
+  }
+  94% {
+    transform: rotateY(-176deg) rotateZ(-0.4deg) rotateX(0deg) skewY(1.2deg) scaleX(0.99) translateZ(7px);
+    filter: drop-shadow(-4px 6px 14px rgba(0, 0, 0, 0.45));
+  }
+  97.5% {
+    transform: rotateY(-181.2deg) rotateZ(0.2deg) rotateX(0deg) skewY(-0.4deg) scaleX(1.002) translateZ(3px);
+    filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.35));
+  }
+  100% {
+    transform: rotateY(-180deg) rotateZ(0deg) rotateX(0deg) skewY(0deg) scaleX(1) translateZ(2px);
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
+  }
+}
+
+@keyframes insideRevealLeafTurn {
+  0% {
+    transform: rotateY(0deg) rotateZ(0deg) rotateX(0deg) skewY(0deg) scaleX(1) translateZ(3px);
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
+  }
+  14% {
+    transform: rotateY(-18deg) rotateZ(2deg) rotateX(1.2deg) skewY(-4.8deg) scaleX(0.96) translateZ(20px);
+    filter: drop-shadow(-8px 10px 22px rgba(0, 0, 0, 0.65));
+  }
+  32% {
+    transform: rotateY(-60deg) rotateZ(3deg) rotateX(0.5deg) skewY(-6.5deg) scaleX(0.92) translateZ(52px);
+    filter: drop-shadow(-18px 18px 36px rgba(0, 0, 0, 0.85));
+  }
+  50% {
+    transform: rotateY(-94deg) rotateZ(-0.6deg) rotateX(-0.8deg) skewY(-1.5deg) scaleX(0.96) translateZ(62px);
+    filter: drop-shadow(-26px 22px 45px rgba(0, 0, 0, 0.9));
+  }
+  68% {
+    transform: rotateY(-128deg) rotateZ(-3deg) rotateX(-1.5deg) skewY(5.5deg) scaleX(0.93) translateZ(48px);
+    filter: drop-shadow(-18px 18px 36px rgba(0, 0, 0, 0.8));
+  }
+  84% {
+    transform: rotateY(-160deg) rotateZ(-1.5deg) rotateX(-0.5deg) skewY(3.5deg) scaleX(0.97) translateZ(24px);
+    filter: drop-shadow(-10px 12px 24px rgba(0, 0, 0, 0.65));
+  }
+  94% {
+    transform: rotateY(-177deg) rotateZ(-0.4deg) rotateX(0deg) skewY(1.2deg) scaleX(0.99) translateZ(7px);
+    filter: drop-shadow(-4px 6px 14px rgba(0, 0, 0, 0.45));
+  }
+  97.5% {
+    transform: rotateY(-181.4deg) rotateZ(0.2deg) rotateX(0deg) skewY(-0.4deg) scaleX(1.002) translateZ(3px);
+    filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.35));
+  }
+  100% {
+    transform: rotateY(-180deg) rotateZ(0deg) rotateX(0deg) skewY(0deg) scaleX(1) translateZ(2px);
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
+  }
+}
+
+@keyframes insideCastShadowSweep1 {
+  0% { opacity: 0; transform: scaleX(0.08) translateX(0); }
+  25% { opacity: 0.55; transform: scaleX(0.65) translateX(15px); }
+  50% { opacity: 0.85; transform: scaleX(1) translateX(0); }
+  75% { opacity: 0.55; transform: scaleX(0.65) translateX(-15px); }
+  100% { opacity: 0; transform: scaleX(0.08) translateX(0); }
+}
+
+@keyframes insideCastShadowSweep3 {
+  0% { opacity: 0; transform: scaleX(0.08) translateX(0); }
+  25% { opacity: 0.55; transform: scaleX(0.65) translateX(15px); }
+  50% { opacity: 0.85; transform: scaleX(1) translateX(0); }
+  75% { opacity: 0.55; transform: scaleX(0.65) translateX(-15px); }
+  100% { opacity: 0; transform: scaleX(0.08) translateX(0); }
 }
 
 /* -----------------------------------------

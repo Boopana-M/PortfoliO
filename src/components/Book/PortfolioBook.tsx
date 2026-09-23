@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { PageFlip } from 'page-flip';
 import { BookCover } from './BookCover';
 import { BookPage, BlankParchmentPage } from './BookPage';
 import { PageTurnControls } from './PageTurnControls';
@@ -15,142 +16,285 @@ import './book.css';
 
 interface PortfolioBookProps {
   currentSpread: number;
-  targetSpread?: number;
-  isTurning: boolean;
-  turnDirection: 'next' | 'prev' | null;
-  onNextSpread: () => void;
-  onPrevSpread: () => void;
+  onSpreadChange: (spreadIndex: number) => void;
   isInitialOpening?: boolean;
 }
 
 export const PortfolioBook: React.FC<PortfolioBookProps> = ({
   currentSpread,
-  targetSpread = currentSpread,
-  isTurning,
-  turnDirection,
-  onNextSpread,
-  onPrevSpread,
+  onSpreadChange,
   isInitialOpening = true,
 }) => {
-  const [mobileActiveSide, setMobileActiveSide] = useState<'left' | 'right'>('left');
-  const [openingStage, setOpeningStage] = useState<'blank1' | 'reveal' | 'ready'>(
-    isInitialOpening ? 'blank1' : 'ready'
-  );
+  const bookContainerRef = useRef<HTMLDivElement>(null);
+  const pageFlipRef = useRef<PageFlip | null>(null);
+  const [isBookReady, setIsBookReady] = useState(false);
+  const [isFlipping, setIsFlipping] = useState(false);
+  const [openingFinished, setOpeningFinished] = useState(!isInitialOpening);
 
+  // Safe wrapper methods for page-flip operations
+  const safeFlipNext = useCallback(() => {
+    try {
+      if (pageFlipRef.current) {
+        pageFlipRef.current.flipNext('bottom');
+      }
+    } catch (e) {
+      console.warn('PageFlip flipNext ignored:', e);
+    }
+  }, []);
+
+  const safeFlipPrev = useCallback(() => {
+    try {
+      if (pageFlipRef.current) {
+        pageFlipRef.current.flipPrev('bottom');
+      }
+    } catch (e) {
+      console.warn('PageFlip flipPrev ignored:', e);
+    }
+  }, []);
+
+  const safeFlipTo = useCallback((targetPage: number) => {
+    try {
+      if (pageFlipRef.current) {
+        pageFlipRef.current.flip(targetPage, 'bottom');
+      }
+    } catch (e) {
+      console.warn('PageFlip flipTo ignored:', e);
+    }
+  }, []);
+
+  // Initialize PageFlip instance
   useEffect(() => {
+    if (!bookContainerRef.current) return;
+
+    let isMounted = true;
+
+    // Small timeout to guarantee DOM geometry is fully computed
+    const initTimer = setTimeout(() => {
+      if (!isMounted || !bookContainerRef.current) return;
+
+      if (pageFlipRef.current) {
+        try {
+          pageFlipRef.current.destroy();
+        } catch {
+          // ignore
+        }
+        pageFlipRef.current = null;
+      }
+
+      const container = bookContainerRef.current;
+      const pageFlip = new PageFlip(container, {
+        width: 480,
+        height: 620,
+        size: 'stretch',
+        minWidth: 260,
+        maxWidth: 600,
+        minHeight: 380,
+        maxHeight: 740,
+        drawShadow: true,
+        maxShadowOpacity: 0.85,
+        flippingTime: 1200,
+        usePortrait: false, // Grimoire is always a dual-page spread
+        startPage: 0,
+        showCover: false,
+        autoSize: false,
+        mobileScrollSupport: false,
+        swipeDistance: 30,
+        clickEventForward: true,
+        useMouseEvents: true,
+        showPageCorners: true,
+        disableFlipByClick: false,
+      });
+
+      const pageElements = container.querySelectorAll<HTMLElement>('.grimoire-page-sheet');
+      if (pageElements.length > 0) {
+        pageFlip.loadFromHTML(pageElements);
+      }
+
+      pageFlip.on('init', () => {
+        if (isMounted) {
+          setIsBookReady(true);
+        }
+      });
+
+      pageFlip.on('flip', (e) => {
+        const pageIndex = typeof e.data === 'number' ? e.data : parseInt(String(e.data), 10);
+        if (pageIndex >= 4) {
+          const spreadIdx = Math.min(spreads.length - 1, Math.max(0, Math.floor((pageIndex - 4) / 2)));
+          onSpreadChange(spreadIdx);
+        }
+      });
+
+      pageFlip.on('changeState', (e) => {
+        const state = String(e.data);
+        if (isMounted) {
+          setIsFlipping(state === 'flipping' || state === 'user_fold');
+        }
+      });
+
+      pageFlipRef.current = pageFlip;
+    }, 50);
+
+    return () => {
+      isMounted = false;
+      clearTimeout(initTimer);
+      if (pageFlipRef.current) {
+        try {
+          pageFlipRef.current.destroy();
+        } catch {
+          // ignore
+        }
+        pageFlipRef.current = null;
+      }
+    };
+  }, []);
+
+  // Handle Initial 2-Turn Blank Leaf Sequence
+  useEffect(() => {
+    if (!isBookReady || !pageFlipRef.current) return;
+
     if (!isInitialOpening) {
-      setOpeningStage('ready');
+      setOpeningFinished(true);
+      try {
+        pageFlipRef.current.turnToPage(4);
+      } catch {
+        // ignore
+      }
       return;
     }
 
-    // Exact 2-Page Leafing Sequence:
-    // 0.00s - 1.15s: Turn 1 -> Left & Right wings are empty blank parchment. 1st blank leaf turns.
-    // 1.15s - 2.30s: Turn 2 -> 2nd leaf turns. Front is blank, uncovering Technical Skills on the right. Back has About Me swinging over to the left!
-    // 2.30s+: Ready -> About Me settled on left, Technical Skills on right. Book fully open!
+    setOpeningFinished(false);
 
-    setOpeningStage('blank1');
+    // Turn 1: 1st blank leaf peels from bottom corner (blank -> blank)
+    const timer1 = setTimeout(() => {
+      safeFlipNext();
+    }, 500);
 
-    const timerReveal = setTimeout(() => {
-      setOpeningStage('reveal');
-    }, 1150);
+    // Turn 2: 2nd blank leaf peels from bottom corner, revealing About Me & Skills!
+    const timer2 = setTimeout(() => {
+      safeFlipNext();
+    }, 1900);
 
-    const timerReady = setTimeout(() => {
-      setOpeningStage('ready');
-    }, 2300);
+    // Opening sequence completed
+    const timerDone = setTimeout(() => {
+      setOpeningFinished(true);
+    }, 3300);
 
     return () => {
-      clearTimeout(timerReveal);
-      clearTimeout(timerReady);
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearTimeout(timerDone);
     };
-  }, [isInitialOpening]);
+  }, [isBookReady, isInitialOpening, safeFlipNext]);
 
+  // Synchronize target spread when changed externally via SideNavigation
   useEffect(() => {
-    setMobileActiveSide('left');
-  }, [currentSpread]);
+    if (!pageFlipRef.current || !openingFinished) return;
 
-  const activeSpread = spreads[currentSpread] || spreads[0];
-  const destSpread = spreads[targetSpread] || activeSpread;
+    try {
+      const currentBookPage = pageFlipRef.current.getCurrentPageIndex();
+      const targetBookPage = 4 + currentSpread * 2;
 
-  const renderPageContent = (pageId: string) => {
-    switch (pageId) {
-      case 'about':
-        return <AboutPage />;
-      case 'skills':
-        return <SkillsPage />;
-      case 'projects':
-        return <ProjectsPage />;
-      case 'experience':
-        return <ExperiencePage />;
-      case 'achievements':
-        return <AchievementsPage />;
-      case 'opensource':
-        return <OpenSourcePage />;
-      case 'resume':
-        return <ResumePage />;
-      case 'contact':
-        return <ContactPage />;
-      default:
-        return <AboutPage />;
+      if (currentBookPage !== targetBookPage && currentBookPage !== targetBookPage + 1) {
+        safeFlipTo(targetBookPage);
+      }
+    } catch {
+      // ignore
     }
-  };
+  }, [currentSpread, openingFinished, safeFlipTo]);
 
-  // Stationary wings during normal page turning
-  const leftStationaryPage = isTurning && turnDirection === 'prev' ? destSpread : activeSpread;
-  const rightStationaryPage = isTurning && turnDirection === 'next' ? destSpread : activeSpread;
+  const handleNext = useCallback(() => {
+    if (openingFinished && !isFlipping) {
+      safeFlipNext();
+    }
+  }, [openingFinished, isFlipping, safeFlipNext]);
 
-  const isInitialLeafing = openingStage !== 'ready';
-  const showContent = openingStage === 'ready';
+  const handlePrev = useCallback(() => {
+    if (openingFinished && !isFlipping) {
+      safeFlipPrev();
+    }
+  }, [openingFinished, isFlipping, safeFlipPrev]);
 
   return (
-    <main className="book-stage" aria-label="Magical Portfolio Book">
+    <main className="book-stage" aria-label="Magical Portfolio Grimoire">
       {/* Atmosphere Glows & Multi-tier Ground Shadows */}
       <div className="book-ambient-glow" aria-hidden="true" />
       <div className="book-ground-shadow-wide" aria-hidden="true" />
       <div className="book-ground-shadow-contact" aria-hidden="true" />
       <div className="book-lectern-rest" aria-hidden="true" />
 
-      {/* Mobile Spread Page Switcher Tab Bar */}
-      {showContent && (
-        <div className="mobile-spread-tabs" aria-label="Mobile page selector">
-          <button
-            type="button"
-            className={`mobile-tab-btn ${mobileActiveSide === 'left' ? 'active' : ''}`}
-            onClick={() => setMobileActiveSide('left')}
-          >
-            <span>Page {activeSpread.leftPageNumber}</span>
-          </button>
-          <span className="mobile-tab-divider">✦</span>
-          <button
-            type="button"
-            className={`mobile-tab-btn ${mobileActiveSide === 'right' ? 'active' : ''}`}
-            onClick={() => setMobileActiveSide('right')}
-          >
-            <span>Page {activeSpread.rightPageNumber}</span>
-          </button>
-        </div>
-      )}
-
       {/* Main Physical Book Container */}
-      <div className={`book-container ${isTurning ? 'book-is-flipping' : ''} mobile-show-${mobileActiveSide}`}>
+      <div className="book-container">
         <BookCover />
 
-        {/* Spread Leaves with 3D physical curvature */}
+        {/* Realistic Page-Flip Grimoire Spread */}
         <div className="book-page-spread">
-          {/* Stationary Left Wing:
-              - Stage 'blank1' & 'reveal': Empty blank parchment.
-              - Stage 'ready': Settled with About Me (Page 01).
-          */}
-          <div className="book-page-wing book-page-wing-left">
-            {!showContent ? (
+          <div ref={bookContainerRef} className="grimoire-page-flip-container">
+            {/* SPREAD 0: Blank Flyleaves (Page 0 & 1) */}
+            <div className="grimoire-page-sheet" data-density="soft">
               <BlankParchmentPage side="left" />
-            ) : (
-              <BookPage side="left" pageNumber={leftStationaryPage.leftPageNumber}>
-                {renderPageContent(leftStationaryPage.leftPageId)}
+            </div>
+            <div className="grimoire-page-sheet" data-density="soft">
+              <BlankParchmentPage side="right" />
+            </div>
+
+            {/* SPREAD 1: 2nd Blank Flyleaves (Page 2 & 3) */}
+            <div className="grimoire-page-sheet" data-density="soft">
+              <BlankParchmentPage side="left" />
+            </div>
+            <div className="grimoire-page-sheet" data-density="soft">
+              <BlankParchmentPage side="right" />
+            </div>
+
+            {/* SPREAD 2: Chapter 01 (Page 01 - About Me & Page 02 - Technical Skills) */}
+            <div className="grimoire-page-sheet" data-density="soft">
+              <BookPage side="left" pageNumber={1}>
+                <AboutPage />
               </BookPage>
-            )}
+            </div>
+            <div className="grimoire-page-sheet" data-density="soft">
+              <BookPage side="right" pageNumber={2}>
+                <SkillsPage />
+              </BookPage>
+            </div>
+
+            {/* SPREAD 3: Chapter 02 (Page 03 - Projects & Page 04 - Experience) */}
+            <div className="grimoire-page-sheet" data-density="soft">
+              <BookPage side="left" pageNumber={3}>
+                <ProjectsPage />
+              </BookPage>
+            </div>
+            <div className="grimoire-page-sheet" data-density="soft">
+              <BookPage side="right" pageNumber={4}>
+                <ExperiencePage />
+              </BookPage>
+            </div>
+
+            {/* SPREAD 4: Chapter 03 (Page 05 - Achievements & Page 06 - Open Source) */}
+            <div className="grimoire-page-sheet" data-density="soft">
+              <BookPage side="left" pageNumber={5}>
+                <AchievementsPage />
+              </BookPage>
+            </div>
+            <div className="grimoire-page-sheet" data-density="soft">
+              <BookPage side="right" pageNumber={6}>
+                <OpenSourcePage />
+              </BookPage>
+            </div>
+
+            {/* SPREAD 5: Chapter 04 (Page 07 - Resume & Page 08 - Contact) */}
+            <div className="grimoire-page-sheet" data-density="soft">
+              <BookPage side="left" pageNumber={7}>
+                <ResumePage />
+              </BookPage>
+            </div>
+            <div className="grimoire-page-sheet" data-density="soft">
+              <BookPage side="right" pageNumber={8}>
+                <ContactPage />
+              </BookPage>
+            </div>
           </div>
 
-          {/* Deep Center Gutter, Physical Spine Fold & Stitching */}
+          {/* Deep Center Gutter Spine Structure */}
           <div className="book-center-spine" aria-hidden="true">
             <div className="spine-crease-shadow" />
             <div className="spine-highlight-ridge" />
@@ -159,140 +303,6 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
             <div className="spine-stitch stitch-3" />
             <div className="spine-stitch stitch-4" />
           </div>
-
-          {/* Stationary Right Wing:
-              - Stage 'blank1': Empty blank parchment!
-              - Stage 'reveal': Technical Skills (Page 02), naturally unveiled when 2nd leaf lifts off!
-              - Stage 'ready': Technical Skills (Page 02) or current page.
-          */}
-          <div className="book-page-wing book-page-wing-right">
-            {openingStage === 'blank1' ? (
-              <BlankParchmentPage side="right" />
-            ) : (
-              <BookPage side="right" pageNumber={rightStationaryPage.rightPageNumber}>
-                {renderPageContent(rightStationaryPage.rightPageId)}
-              </BookPage>
-            )}
-          </div>
-
-          {/* Initial Opening: Exactly 2 Physical Leaf Turns */}
-          {isInitialLeafing && (
-            <>
-              {/* 1st Blank Turning Leaf (0.15s - 1.20s) */}
-              <div className="inside-blank-leaf-turner inside-blank-leaf-1" aria-hidden="true">
-                <div className="inside-blank-leaf-sheet">
-                  <div className="inside-flyleaf-face-front">
-                    <div className="parchment-noise-texture" />
-                    <div className="parchment-vignette-stain" />
-                    <div className="page-border-outer">
-                      <div className="page-border-inner">
-                        <span className="page-corner-ornament pco-tl">✤</span>
-                        <span className="page-corner-ornament pco-tr">✤</span>
-                        <span className="page-corner-ornament pco-bl">✤</span>
-                        <span className="page-corner-ornament pco-br">✤</span>
-                      </div>
-                    </div>
-                    <div className="leaf-curl-highlight" />
-                    <div className="leaf-edge-thickness" />
-                  </div>
-                  <div className="inside-flyleaf-face-back">
-                    <div className="parchment-noise-texture" />
-                    <div className="parchment-vignette-stain" />
-                    <div className="page-border-outer">
-                      <div className="page-border-inner">
-                        <span className="page-corner-ornament pco-tl">✤</span>
-                        <span className="page-corner-ornament pco-tr">✤</span>
-                        <span className="page-corner-ornament pco-bl">✤</span>
-                        <span className="page-corner-ornament pco-br">✤</span>
-                      </div>
-                    </div>
-                    <div className="leaf-curl-shadow-back" />
-                    <div className="leaf-edge-thickness" />
-                  </div>
-                </div>
-                <div className="inside-leaf-cast-shadow inside-shadow-leaf-1" />
-              </div>
-
-              {/* 2nd Turning Leaf: Physically turns from right to left (1.15s - 2.30s).
-                  Front is blank parchment uncovering Technical Skills on the right.
-                  Back is About Me swinging over and settling on the left!
-              */}
-              <div className="inside-blank-leaf-turner inside-reveal-leaf" aria-hidden="true">
-                <div className="inside-blank-leaf-sheet">
-                  {/* Front Face: Blank parchment lifting off the right */}
-                  <div className="inside-flyleaf-face-front">
-                    <div className="parchment-noise-texture" />
-                    <div className="parchment-vignette-stain" />
-                    <div className="page-border-outer">
-                      <div className="page-border-inner">
-                        <span className="page-corner-ornament pco-tl">✤</span>
-                        <span className="page-corner-ornament pco-tr">✤</span>
-                        <span className="page-corner-ornament pco-bl">✤</span>
-                        <span className="page-corner-ornament pco-br">✤</span>
-                      </div>
-                    </div>
-                    <div className="leaf-curl-highlight" />
-                    <div className="leaf-edge-thickness" />
-                  </div>
-
-                  {/* Back Face: About Me (Page 01) physically swinging over and casually settling on the left */}
-                  <div className="leaf-face leaf-face-back">
-                    <BookPage side="left" pageNumber={1}>
-                      <AboutPage />
-                    </BookPage>
-                    <div className="leaf-curl-shadow-back" />
-                    <div className="leaf-edge-thickness" />
-                  </div>
-                </div>
-                <div className="inside-leaf-cast-shadow inside-shadow-reveal" />
-              </div>
-            </>
-          )}
-
-          {/* Regular Dual-Faced 3D Physical Turning Page Leaf (Next / Prev) */}
-          {!isInitialLeafing && isTurning && turnDirection === 'next' && (
-            <div className="turning-page-leaf-container leaf-turn-next" aria-hidden="true">
-              <div className="turning-leaf-sheet">
-                <div className="leaf-face leaf-face-front">
-                  <BookPage side="right" pageNumber={activeSpread.rightPageNumber}>
-                    {renderPageContent(activeSpread.rightPageId)}
-                  </BookPage>
-                  <div className="leaf-curl-highlight" />
-                  <div className="leaf-edge-thickness" />
-                </div>
-                <div className="leaf-face leaf-face-back">
-                  <BookPage side="left" pageNumber={destSpread.leftPageNumber}>
-                    {renderPageContent(destSpread.leftPageId)}
-                  </BookPage>
-                  <div className="leaf-curl-shadow-back" />
-                  <div className="leaf-edge-thickness" />
-                </div>
-              </div>
-              <div className="turning-leaf-cast-shadow shadow-turn-next" />
-            </div>
-          )}
-
-          {!isInitialLeafing && isTurning && turnDirection === 'prev' && (
-            <div className="turning-page-leaf-container leaf-turn-prev" aria-hidden="true">
-              <div className="turning-leaf-sheet">
-                <div className="leaf-face leaf-face-front">
-                  <BookPage side="right" pageNumber={destSpread.rightPageNumber}>
-                    {renderPageContent(destSpread.rightPageId)}
-                  </BookPage>
-                  <div className="leaf-curl-highlight" />
-                  <div className="leaf-edge-thickness" />
-                </div>
-                <div className="leaf-face leaf-face-back">
-                  <BookPage side="left" pageNumber={activeSpread.leftPageNumber}>
-                    {renderPageContent(activeSpread.leftPageId)}
-                  </BookPage>
-                  <div className="leaf-curl-shadow-back" />
-                  <div className="leaf-edge-thickness" />
-                </div>
-              </div>
-              <div className="turning-leaf-cast-shadow shadow-turn-prev" />
-            </div>
-          )}
         </div>
       </div>
 
@@ -308,14 +318,14 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
         </div>
       </div>
 
-      {/* Bottom Right Controls */}
-      {showContent && (
+      {/* Bottom Right Page Turn Controls */}
+      {openingFinished && (
         <PageTurnControls
           currentSpread={currentSpread}
           totalSpreads={spreads.length}
-          isTurning={isTurning || isInitialLeafing}
-          onNext={onNextSpread}
-          onPrev={onPrevSpread}
+          isTurning={isFlipping}
+          onNext={handleNext}
+          onPrev={handlePrev}
         />
       )}
     </main>
