@@ -17,6 +17,7 @@ import { CodingStatsPage } from '../../pages/CodingStatsPage';
 import { ResumePage } from '../../pages/ResumePage';
 import { ContactPage } from '../../pages/ContactPage';
 import { EpiloguePage } from '../../pages/EpiloguePage';
+import { ExperienceProjection } from '../Experience/ExperienceProjection';
 import { spreads } from '../../data/navigation';
 import './book.css';
 
@@ -36,6 +37,7 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
   const [isBookReady, setIsBookReady] = useState(false);
   const [isFlipping, setIsFlipping] = useState(false);
   const [openingFinished, setOpeningFinished] = useState(!isInitialOpening);
+  const [isProjectionOpen, setIsProjectionOpen] = useState(false);
 
   // Safe wrapper methods for page-flip operations
   const safeFlipNext = useCallback(() => {
@@ -220,151 +222,159 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
   }, [openingFinished, isFlipping, safeFlipPrev]);
 
   return (
-    <main className="book-stage" aria-label="Interactive Developer Portfolio Book">
-      {/* Atmosphere Glows & Multi-tier Ground Shadows */}
-      <div className="book-ambient-glow" aria-hidden="true" />
-      <div className="book-ground-shadow-wide" aria-hidden="true" />
-      <div className="book-ground-shadow-contact" aria-hidden="true" />
-      <div className="book-lectern-rest" aria-hidden="true" />
+    <>
+      <main className={`book-stage ${isProjectionOpen ? 'sleeping-book-stage' : ''}`} aria-label="Interactive Developer Portfolio Book">
+        {/* Atmosphere Glows & Multi-tier Ground Shadows */}
+        <div className="book-ambient-glow" aria-hidden="true" />
+        <div className="book-ground-shadow-wide" aria-hidden="true" />
+        <div className="book-ground-shadow-contact" aria-hidden="true" />
+        <div className="book-lectern-rest" aria-hidden="true" />
 
-      {/* Main Physical Book Container */}
-      <div className="book-container">
-        <BookCover />
+        {/* Main Physical Book Container (Transitions to sleeping flat book on table) */}
+        <div className={`book-container ${isProjectionOpen ? 'book-sleeping-flat' : ''}`}>
+          <BookCover />
 
-        {/* Realistic Page-Flip Grimoire Spread */}
-        <div className="book-page-spread">
-          <div ref={bookContainerRef} className="grimoire-page-flip-container">
-            {/* SPREAD 0: Blank Flyleaves (Page 0 & 1) */}
-            <div className="grimoire-page-sheet" data-density="soft">
-              <BlankParchmentPage side="left" />
-            </div>
-            <div className="grimoire-page-sheet" data-density="soft">
-              <BlankParchmentPage side="right" />
+          {/* Realistic Page-Flip Grimoire Spread */}
+          <div className="book-page-spread">
+            <div ref={bookContainerRef} className="grimoire-page-flip-container">
+              {/* SPREAD 0: Blank Flyleaves (Page 0 & 1) */}
+              <div className="grimoire-page-sheet" data-density="soft">
+                <BlankParchmentPage side="left" />
+              </div>
+              <div className="grimoire-page-sheet" data-density="soft">
+                <BlankParchmentPage side="right" />
+              </div>
+
+              {/* SPREAD 1: 2nd Blank Flyleaves (Page 2 & 3) */}
+              <div className="grimoire-page-sheet" data-density="soft">
+                <BlankParchmentPage side="left" />
+              </div>
+              <div className="grimoire-page-sheet" data-density="soft">
+                <BlankParchmentPage side="right" />
+              </div>
+
+              {/* SPREAD 2: Home (p.01) & About Me (p.02) */}
+              <div className="grimoire-page-sheet" data-density="soft">
+                <BookPage side="left" pageNumber={1}>
+                  <HomePage />
+                </BookPage>
+              </div>
+              <div className="grimoire-page-sheet" data-density="soft">
+                <BookPage side="right" pageNumber={2}>
+                  <AboutPage />
+                </BookPage>
+              </div>
+
+              {/* SPREAD 3: Education (p.03) & Skills (p.04) */}
+              <div className="grimoire-page-sheet" data-density="soft">
+                <BookPage side="left" pageNumber={3}>
+                  <EducationPage />
+                </BookPage>
+              </div>
+              <div className="grimoire-page-sheet" data-density="soft">
+                <BookPage side="right" pageNumber={4}>
+                  <SkillsPage />
+                </BookPage>
+              </div>
+
+              {/* SPREAD 4: Experience (p.05) & Projects (p.06) */}
+              <div className="grimoire-page-sheet" data-density="soft">
+                <BookPage side="left" pageNumber={5}>
+                  <ExperiencePage onOpenDetailed={() => setIsProjectionOpen(true)} />
+                </BookPage>
+              </div>
+              <div className="grimoire-page-sheet" data-density="soft">
+                <BookPage side="right" pageNumber={6}>
+                  <ProjectsPage />
+                </BookPage>
+              </div>
+
+              {/* SPREAD 5: Achievements (p.07) & Open Source (p.08) */}
+              <div className="grimoire-page-sheet" data-density="soft">
+                <BookPage side="left" pageNumber={7}>
+                  <AchievementsPage />
+                </BookPage>
+              </div>
+              <div className="grimoire-page-sheet" data-density="soft">
+                <BookPage side="right" pageNumber={8}>
+                  <OpenSourcePage />
+                </BookPage>
+              </div>
+
+              {/* SPREAD 6: Problem Solving (p.09) & Research & Conference Submissions (p.10) */}
+              <div className="grimoire-page-sheet" data-density="soft">
+                <BookPage side="left" pageNumber={9}>
+                  <ProblemSolvingPage />
+                </BookPage>
+              </div>
+              <div className="grimoire-page-sheet" data-density="soft">
+                <BookPage side="right" pageNumber={10}>
+                  <ResearchPage />
+                </BookPage>
+              </div>
+
+              {/* SPREAD 7: GitHub / Coding Stats (p.11) & Resume Download (p.12) */}
+              <div className="grimoire-page-sheet" data-density="soft">
+                <BookPage side="left" pageNumber={11}>
+                  <CodingStatsPage />
+                </BookPage>
+              </div>
+              <div className="grimoire-page-sheet" data-density="soft">
+                <BookPage side="right" pageNumber={12}>
+                  <ResumePage />
+                </BookPage>
+              </div>
+
+              {/* SPREAD 8: Contact (p.13) & Epilogue (p.14) */}
+              <div className="grimoire-page-sheet" data-density="soft">
+                <BookPage side="left" pageNumber={13}>
+                  <ContactPage />
+                </BookPage>
+              </div>
+              <div className="grimoire-page-sheet" data-density="soft">
+                <BookPage side="right" pageNumber={14}>
+                  <EpiloguePage />
+                </BookPage>
+              </div>
             </div>
 
-            {/* SPREAD 1: 2nd Blank Flyleaves (Page 2 & 3) */}
-            <div className="grimoire-page-sheet" data-density="soft">
-              <BlankParchmentPage side="left" />
+            {/* Realistic Book Gutter & Center Fold Crease */}
+            <div className="book-center-spine" aria-hidden="true">
+              <div className="spine-crease-shadow" />
+              <div className="spine-crease-line" />
             </div>
-            <div className="grimoire-page-sheet" data-density="soft">
-              <BlankParchmentPage side="right" />
-            </div>
-
-            {/* SPREAD 2: Home (p.01) & About Me (p.02) */}
-            <div className="grimoire-page-sheet" data-density="soft">
-              <BookPage side="left" pageNumber={1}>
-                <HomePage />
-              </BookPage>
-            </div>
-            <div className="grimoire-page-sheet" data-density="soft">
-              <BookPage side="right" pageNumber={2}>
-                <AboutPage />
-              </BookPage>
-            </div>
-
-            {/* SPREAD 3: Education (p.03) & Skills (p.04) */}
-            <div className="grimoire-page-sheet" data-density="soft">
-              <BookPage side="left" pageNumber={3}>
-                <EducationPage />
-              </BookPage>
-            </div>
-            <div className="grimoire-page-sheet" data-density="soft">
-              <BookPage side="right" pageNumber={4}>
-                <SkillsPage />
-              </BookPage>
-            </div>
-
-            {/* SPREAD 4: Experience (p.05) & Projects (p.06) */}
-            <div className="grimoire-page-sheet" data-density="soft">
-              <BookPage side="left" pageNumber={5}>
-                <ExperiencePage />
-              </BookPage>
-            </div>
-            <div className="grimoire-page-sheet" data-density="soft">
-              <BookPage side="right" pageNumber={6}>
-                <ProjectsPage />
-              </BookPage>
-            </div>
-
-            {/* SPREAD 5: Achievements (p.07) & Open Source (p.08) */}
-            <div className="grimoire-page-sheet" data-density="soft">
-              <BookPage side="left" pageNumber={7}>
-                <AchievementsPage />
-              </BookPage>
-            </div>
-            <div className="grimoire-page-sheet" data-density="soft">
-              <BookPage side="right" pageNumber={8}>
-                <OpenSourcePage />
-              </BookPage>
-            </div>
-
-            {/* SPREAD 6: Problem Solving (p.09) & Research & Conference Submissions (p.10) */}
-            <div className="grimoire-page-sheet" data-density="soft">
-              <BookPage side="left" pageNumber={9}>
-                <ProblemSolvingPage />
-              </BookPage>
-            </div>
-            <div className="grimoire-page-sheet" data-density="soft">
-              <BookPage side="right" pageNumber={10}>
-                <ResearchPage />
-              </BookPage>
-            </div>
-
-            {/* SPREAD 7: GitHub / Coding Stats (p.11) & Resume Download (p.12) */}
-            <div className="grimoire-page-sheet" data-density="soft">
-              <BookPage side="left" pageNumber={11}>
-                <CodingStatsPage />
-              </BookPage>
-            </div>
-            <div className="grimoire-page-sheet" data-density="soft">
-              <BookPage side="right" pageNumber={12}>
-                <ResumePage />
-              </BookPage>
-            </div>
-
-            {/* SPREAD 8: Contact (p.13) & Epilogue (p.14) */}
-            <div className="grimoire-page-sheet" data-density="soft">
-              <BookPage side="left" pageNumber={13}>
-                <ContactPage />
-              </BookPage>
-            </div>
-            <div className="grimoire-page-sheet" data-density="soft">
-              <BookPage side="right" pageNumber={14}>
-                <EpiloguePage />
-              </BookPage>
-            </div>
-          </div>
-
-          {/* Realistic Book Gutter & Center Fold Crease */}
-          <div className="book-center-spine" aria-hidden="true">
-            <div className="spine-crease-shadow" />
-            <div className="spine-crease-line" />
           </div>
         </div>
-      </div>
 
-      {/* Centered Antique Plinth Clasp with Glowing Cyan Crystal */}
-      <div className="plinth-crystal-clasp-wrapper" aria-hidden="true">
-        <div className="plinth-ornate-plate">
-          <div className="plinth-filigree-left" />
-          <div className="plinth-gem-socket">
-            <div className="plinth-gem-halo" />
-            <div className="plinth-faceted-gem" />
+        {/* Centered Antique Plinth Clasp with Glowing Cyan Crystal */}
+        <div className="plinth-crystal-clasp-wrapper" aria-hidden="true">
+          <div className="plinth-ornate-plate">
+            <div className="plinth-filigree-left" />
+            <div className="plinth-gem-socket">
+              <div className="plinth-gem-halo" />
+              <div className="plinth-faceted-gem" />
+            </div>
+            <div className="plinth-filigree-right" />
           </div>
-          <div className="plinth-filigree-right" />
         </div>
-      </div>
 
-      {/* Bottom Right Page Turn Controls */}
-      {openingFinished && (
-        <PageTurnControls
-          currentSpread={currentSpread}
-          totalSpreads={spreads.length}
-          isTurning={isFlipping}
-          onNext={handleNext}
-          onPrev={handlePrev}
-        />
-      )}
-    </main>
+        {/* Bottom Right Page Turn Controls */}
+        {openingFinished && (
+          <PageTurnControls
+            currentSpread={currentSpread}
+            totalSpreads={spreads.length}
+            isTurning={isFlipping}
+            onNext={handleNext}
+            onPrev={handlePrev}
+          />
+        )}
+      </main>
+
+      {/* 3D Sleeping Book Ethereal Projection Portal */}
+      <ExperienceProjection
+        isOpen={isProjectionOpen}
+        onClose={() => setIsProjectionOpen(false)}
+      />
+    </>
   );
 };
