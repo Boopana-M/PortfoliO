@@ -1,6 +1,4 @@
 import React from 'react';
-import { FileText, Mail } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from '../components/common/BrandIcons';
 import { portfolio } from '../data/portfolio';
 
 export const HomePage: React.FC = () => {
@@ -36,52 +34,8 @@ export const HomePage: React.FC = () => {
             “{person.tagline}”
           </p>
         </div>
-
-        {/* Quick Links */}
-        <div className="home-quick-links-row" role="navigation" aria-label="Quick profile links">
-          <a
-            href={person.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="home-quick-link-btn"
-            title="GitHub Profile"
-          >
-            <GithubIcon size={14} />
-            <span>GitHub</span>
-          </a>
-
-          <a
-            href={person.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="home-quick-link-btn"
-            title="LinkedIn Profile"
-          >
-            <LinkedinIcon size={14} />
-            <span>LinkedIn</span>
-          </a>
-
-          <a
-            href={portfolio.resume.downloadUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="home-quick-link-btn"
-            title="Download Resume"
-          >
-            <FileText size={14} />
-            <span>Resume</span>
-          </a>
-
-          <a
-            href={`mailto:${person.email}`}
-            className="home-quick-link-btn"
-            title="Send Email"
-          >
-            <Mail size={14} />
-            <span>Email</span>
-          </a>
-        </div>
       </div>
     </div>
   );
 };
+
