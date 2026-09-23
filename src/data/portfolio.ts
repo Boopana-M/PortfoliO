@@ -249,31 +249,6 @@ export const portfolio: PortfolioData = {
       },
       {
         id: "exp-2",
-        role: "Open Source Contributor",
-        organization: "Learning Unlimited",
-        organizationType: "Educational Open Source Initiative",
-        period: "March 2026",
-        location: "Remote / GitHub",
-        type: "Open Source",
-        summary: "Delivered 4 merged pull requests to the ESP-Website repository, contributing bug fixes, UI enhancements, and responsive refactors.",
-        description: [
-          "Contributed 4 merged pull requests to the ESP-Website repository, delivering bug fixes and feature enhancements reviewed and accepted by project maintainers."
-        ],
-        detailedHighlights: [
-          "Identified and diagnosed rendering discrepancies across mobile viewports, implementing responsive styling fixes that improved UX.",
-          "Contributed 4 merged pull requests to the ESP-Website repository, collaborating directly with maintainers through rigorous code review and CI verification.",
-          "Streamlined component re-renders in key interactive modules, boosting client-side performance.",
-          "Documented setup instructions and PR templates to facilitate future community onboarding."
-        ],
-        achievements: [
-          "4/4 submitted Pull Requests reviewed, approved, and merged by core maintainers",
-          "Enhanced responsive UI compatibility across modern mobile and tablet viewports",
-          "Adhered to strict open-source CI/CD testing standards and linting workflows"
-        ],
-        skills: ["Git", "GitHub", "React", "TypeScript", "Code Review", "Bug Fixes"]
-      },
-      {
-        id: "exp-3",
         role: "MERN Full Stack Intern",
         organization: "RAMPeX Technologies",
         organizationType: "Enterprise Software Consultancy",
