@@ -73,11 +73,11 @@
 
 .landing-front-cover-mount {
   position: absolute;
-  top: 49.8%;
-  left: 49.15%;
+  top: 49.6%;
+  left: 49.3%;
   transform: translate(-50%, -50%);
-  width: 22.4%;
-  height: 88.5%;
+  width: 21%;
+  height: 83%;
   container-type: size;
   pointer-events: none;
   z-index: 4;
@@ -97,37 +97,32 @@
   justify-content: flex-start;
 }
 
-/* Seamless Leather Texture Backdrop that masks blurry raster pixels underneath */
+/* Subtle ambient aura over the clean book leather */
 .front-cover-leather-mask {
   position: absolute;
-  top: 9%;
-  bottom: 14%;
-  left: 5%;
-  right: 5%;
-  border-radius: 8px;
-  background: radial-gradient(
-    ellipse at 50% 48%,
-    rgba(12, 16, 25, 0.94) 0%,
-    rgba(10, 14, 22, 0.91) 48%,
-    rgba(8, 12, 19, 0.65) 75%,
-    transparent 100%
-  );
+  inset: 0;
   pointer-events: none;
   z-index: 1;
+  background: radial-gradient(
+    ellipse at 50% 45%,
+    rgba(14, 18, 28, 0.15) 0%,
+    rgba(10, 14, 22, 0.05) 60%,
+    transparent 100%
+  );
 }
 
 /* Ultra-HD Vector Crest */
 .front-cover-crest-wrapper {
   position: relative;
   z-index: 2;
-  width: 33cqi;
+  width: 32cqi;
   aspect-ratio: 1 / 1;
-  margin-top: 10.5cqh;
-  margin-bottom: 3.2cqh;
+  margin-top: 8.5cqh;
+  margin-bottom: 2.2cqh;
   display: flex;
   align-items: center;
   justify-content: center;
-  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.8));
+  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.85));
   transition: transform 0.4s ease, filter 0.4s ease;
 }
 
