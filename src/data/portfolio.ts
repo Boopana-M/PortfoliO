@@ -45,13 +45,36 @@ export interface AchievementItem {
   proofUrl?: string;
 }
 
-export interface OpenSourceItem {
-  org: string;
+export interface OpenSourceOrg {
+  id: string;
+  name: string;
   repo: string;
+  url: string;
+  prsMade: number;
+  prsMerged?: number;
   role: string;
-  stats: string;
+  highlights: string;
+}
+
+export interface OpenSourcePR {
+  id: string;
+  prNumber: string;
+  title: string;
+  tags: string[];
   description: string;
-  link: string;
+  keyContributions: string[];
+  url: string;
+}
+
+export interface OpenSourceData {
+  chapterNumber: string;
+  title: string;
+  totalMerged: number;
+  totalSubmitted: number;
+  headline: string;
+  overview: string;
+  organizations: OpenSourceOrg[];
+  mergedPRs: OpenSourcePR[];
 }
 
 export interface ProblemSolvingItem {
@@ -107,11 +130,7 @@ export interface PortfolioData {
     title: string;
     items: AchievementItem[];
   };
-  openSource: {
-    chapterNumber: string;
-    title: string;
-    item: OpenSourceItem;
-  };
+  openSource: OpenSourceData;
   problemSolving: {
     chapterNumber: string;
     title: string;
@@ -418,14 +437,117 @@ export const portfolio: PortfolioData = {
   openSource: {
     chapterNumber: "08",
     title: "Open Source",
-    item: {
-      org: "Learning Unlimited",
-      repo: "ESP-Website",
-      role: "Open Source Contributor",
-      stats: "4 Merged PRs · 2026",
-      description: "Contributed 4 pull requests merged into the ESP-Website repository, delivering bug fixes and feature enhancements reviewed and accepted by project maintainers.",
-      link: "https://github.com/Boopana-M"
-    }
+    totalMerged: 6,
+    totalSubmitted: 11,
+    headline: "6 Merged Pull Requests · 11 Total PRs Submitted",
+    overview: "Contributed to production codebases across frontend UI redesign, backend Django architecture, database cache invalidation, admin security, and automated Selenium testing infrastructure.",
+    organizations: [
+      {
+        id: "org-1",
+        name: "Learning Unlimited",
+        repo: "ESP-Website",
+        url: "https://github.com/learning-unlimited/ESP-Website",
+        prsMade: 9,
+        prsMerged: 6,
+        role: "Open Source Contributor · 2026",
+        highlights: "Frontend, Backend, Django, Caching, Automated Testing, Scheduling Diagnostics"
+      },
+      {
+        id: "org-2",
+        name: "Debugra",
+        repo: "Debugra",
+        url: "https://github.com/vijaypatil477/Debugra",
+        prsMade: 2,
+        role: "Open Source Contributor · 2026",
+        highlights: "Code Execution Diagnostics, Dark-Mode Architecture, Full-Stack Enhancements"
+      }
+    ],
+    mergedPRs: [
+      {
+        id: "pr-5073",
+        prNumber: "PR #5073",
+        title: "Scheduling Dependency Loop Diagnostics",
+        tags: ["Scheduling Diagnostics", "Backend", "Testing", "Python"],
+        description: "Implemented a new scheduling diagnostic to identify moderator movement dependency chains across consecutive scheduling blocks. The implementation constructs a dependency graph from moderator transitions and performs branch-aware traversal to detect circular dependencies, including cases where a moderator can have multiple possible replacements. Added severity classification and diagnostic output containing the current block, next block, moderator, dependency chain, dependency count, severity, and loop status. Also added automated coverage for simple loops, non-loop dependency chains, branching dependencies, and longer dependency chains/loops.",
+        keyContributions: [
+          "Dependency graph construction from moderator transitions",
+          "Branch-aware traversal to detect complex circular dependencies",
+          "Multi-level severity classification and diagnostic logging",
+          "Comprehensive automated test coverage for loop and non-loop scenarios"
+        ],
+        url: "https://github.com/learning-unlimited/ESP-Website/pull/5073"
+      },
+      {
+        id: "pr-5034",
+        prNumber: "PR #5034",
+        title: "Teacher Registration Landing Page Redesign",
+        tags: ["Frontend", "UI/UX", "Django Templates", "CSS"],
+        description: "Redesigned the teacher registration landing page to improve its component layout, sizing, and visual hierarchy while preserving the existing teacher-registration workflow and behavior. Updated the main page structure and introduced dedicated styling for the redesigned interface while keeping existing module rendering, registration logic, and progress/completion behavior intact. The implementation focused specifically on the landing-page experience without altering the underlying registration flow.",
+        keyContributions: [
+          "Complete UI layout redesign with modern responsive component sizing",
+          "Enhanced visual hierarchy for teacher onboarding modules",
+          "Django template restructuring with dedicated CSS stylesheets",
+          "Strict preservation of existing backend registration workflows"
+        ],
+        url: "https://github.com/learning-unlimited/ESP-Website/pull/5034"
+      },
+      {
+        id: "pr-4650",
+        prNumber: "PR #4650",
+        title: "Refactored Hardcoded Lunch Logic",
+        tags: ["Backend", "Refactoring", "Maintainability", "Django Models"],
+        description: "Refactored hardcoded 'Lunch' string comparisons throughout the application by centralizing the logic in a reusable ClassCategories.is_lunch model property. The new property provides case-insensitive and None-safe Lunch category detection, replacing fragile string-based checks across multiple modules. This keeps the existing behavior unchanged while making the codebase easier to maintain and reducing duplicated business logic.",
+        keyContributions: [
+          "Extracted reusable ClassCategories.is_lunch model property",
+          "Eliminated fragile hardcoded string comparisons across modules",
+          "Engineered case-insensitive and None-safe category detection",
+          "Streamlined codebase maintainability and DRY compliance"
+        ],
+        url: "https://github.com/learning-unlimited/ESP-Website/pull/4650"
+      },
+      {
+        id: "pr-4517",
+        prNumber: "PR #4517",
+        title: "Database Cache Invalidation",
+        tags: ["Backend", "Django", "Caching", "Signals"],
+        description: "Implemented cache invalidation for DBListCount values to prevent stale user-count data when ESPUser records change. Added Django post_save and post_delete signals to the ESPUser model so that relevant DBListCount: cache keys are cleared whenever users are created, updated, or deleted. This keeps cached counts synchronized with the underlying database and improves data consistency.",
+        keyContributions: [
+          "Implemented Django post_save and post_delete signal handlers",
+          "Automated DBListCount cache key invalidation on ESPUser mutations",
+          "Guaranteed real-time database cache consistency for active users",
+          "Mitigated stale count queries across institutional dashboards"
+        ],
+        url: "https://github.com/learning-unlimited/ESP-Website/pull/4517"
+      },
+      {
+        id: "pr-4389",
+        prNumber: "PR #4389",
+        title: "Django Admin Field Protection",
+        tags: ["Backend", "Django Admin", "Data Integrity", "Security"],
+        description: "Improved Django Admin safety by making critical fields read-only when editing existing objects while still allowing those fields to be configured during object creation. The change protects fields that are used programmatically for routing, lookups, relationships, template resolution, and other application logic. The implementation uses Django's get_readonly_fields() mechanism and covers multiple models including ProgramModule, ProgramModuleObj, Program, RegistrationType, ClassSubject, ClassSection, ClassCategories, NavBarCategory, RecordType, EventType, and QuestionType.",
+        keyContributions: [
+          "Integrated get_readonly_fields() across 11+ critical Django models",
+          "Protected programmatic lookup and routing fields during edits",
+          "Preserved editable field configurations during new object creation",
+          "Prevented catastrophic configuration breakages in production admin"
+        ],
+        url: "https://github.com/learning-unlimited/ESP-Website/pull/4389"
+      },
+      {
+        id: "pr-4339",
+        prNumber: "PR #4339",
+        title: "Modernized Selenium Testing",
+        tags: ["Testing", "Selenium 4", "Django", "Developer Experience"],
+        description: "Modernized the project's browser-testing infrastructure by replacing the deprecated django-selenium package with Django's built-in StaticLiveServerTestCase. Updated the project from Selenium 2.44 to a Python 3.7-compatible Selenium 4 range, replaced deprecated find_element_by_* APIs with Selenium 4's By syntax, and migrated browser execution to headless Firefox using geckodriver. Also integrated Selenium tests into standard Django test discovery and added graceful handling when Firefox is unavailable.",
+        keyContributions: [
+          "Migrated legacy test suite from Selenium 2.44 to Selenium 4",
+          "Replaced deprecated django-selenium with StaticLiveServerTestCase",
+          "Configured automated headless Firefox browser testing with geckodriver",
+          "Added graceful fallback handling and standard Django test discovery"
+        ],
+        url: "https://github.com/learning-unlimited/ESP-Website/pull/4339"
+      }
+    ]
   },
   problemSolving: {
     chapterNumber: "09",

@@ -19,6 +19,7 @@ import { ContactPage } from '../../pages/ContactPage';
 import { EpiloguePage } from '../../pages/EpiloguePage';
 import { ExperienceProjection } from '../Experience/ExperienceProjection';
 import { ProjectsProjection } from '../Projects/ProjectsProjection';
+import { OpenSourceProjection } from '../OpenSource/OpenSourceProjection';
 import { spreads } from '../../data/navigation';
 import './book.css';
 
@@ -40,15 +41,16 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
   const [openingFinished, setOpeningFinished] = useState(!isInitialOpening);
   const [isProjectionOpen, setIsProjectionOpen] = useState(false);
   const [isProjectsProjectionOpen, setIsProjectsProjectionOpen] = useState(false);
+  const [isOpenSourceProjectionOpen, setIsOpenSourceProjectionOpen] = useState(false);
   const isProjectionOpenRef = useRef(false);
   const savedSpreadRef = useRef(currentSpread);
 
   // Keep savedSpreadRef synced with currentSpread when projection is NOT open
   useEffect(() => {
-    if (!isProjectionOpen && !isProjectsProjectionOpen) {
+    if (!isProjectionOpen && !isProjectsProjectionOpen && !isOpenSourceProjectionOpen) {
       savedSpreadRef.current = currentSpread;
     }
-  }, [currentSpread, isProjectionOpen, isProjectsProjectionOpen]);
+  }, [currentSpread, isProjectionOpen, isProjectsProjectionOpen, isOpenSourceProjectionOpen]);
 
   const handleOpenExperienceProjection = useCallback(() => {
     savedSpreadRef.current = currentSpread;
@@ -62,10 +64,17 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
     setIsProjectsProjectionOpen(true);
   }, [currentSpread]);
 
+  const handleOpenOpenSourceProjection = useCallback(() => {
+    savedSpreadRef.current = currentSpread;
+    isProjectionOpenRef.current = true;
+    setIsOpenSourceProjectionOpen(true);
+  }, [currentSpread]);
+
   const handleCloseProjection = useCallback(() => {
     isProjectionOpenRef.current = false;
     setIsProjectionOpen(false);
     setIsProjectsProjectionOpen(false);
+    setIsOpenSourceProjectionOpen(false);
 
     const targetSpread = savedSpreadRef.current;
     onSpreadChange(targetSpread);
@@ -80,7 +89,7 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
     }
   }, [onSpreadChange]);
 
-  const isAnyProjectionOpen = isProjectionOpen || isProjectsProjectionOpen;
+  const isAnyProjectionOpen = isProjectionOpen || isProjectsProjectionOpen || isOpenSourceProjectionOpen;
 
   // Safe wrapper methods for page-flip operations
   const safeFlipNext = useCallback(() => {
@@ -381,7 +390,7 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
               </div>
               <div className="grimoire-page-sheet" data-density="soft">
                 <BookPage side="right" pageNumber={8}>
-                  <OpenSourcePage />
+                  <OpenSourcePage onOpenDetailed={handleOpenOpenSourceProjection} />
                 </BookPage>
               </div>
 
@@ -463,6 +472,12 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
       {/* 3D Sleeping Book Projects Projection Portal */}
       <ProjectsProjection
         isOpen={isProjectsProjectionOpen}
+        onClose={handleCloseProjection}
+      />
+
+      {/* 3D Sleeping Book Open Source Projection Portal */}
+      <OpenSourceProjection
+        isOpen={isOpenSourceProjectionOpen}
         onClose={handleCloseProjection}
       />
     </>

@@ -32,11 +32,12 @@ export const AchievementsPage: React.FC = () => {
             </div>
 
             <div className="achievement-card-details">
-              <div className="ach-title-badge-row">
-                <div className="ach-title-group">
-                  <h3 className="achievement-name">{item.title}</h3>
-                  <span className="achievement-year-badge">{item.year}</span>
-                </div>
+              <div className="ach-title-group">
+                <h3 className="achievement-name">{item.title}</h3>
+                <span className="achievement-year-badge">{item.year}</span>
+              </div>
+
+              <div className="ach-award-row">
                 <span className="achievement-award-pill">
                   <Sparkles size={10} className="award-sparkle-sigil" />
                   <span>{item.award}</span>
