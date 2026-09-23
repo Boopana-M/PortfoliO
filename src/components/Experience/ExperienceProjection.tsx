@@ -88,19 +88,18 @@ export const ExperienceProjection: React.FC<ExperienceProjectionProps> = ({
       <header className="floating-air-header">
         <div className="floating-chronicle-badge">
           <Sparkles size={14} className="badge-sparkle" />
-          <span>CHRONICLE PROJECTION — {activeIndex + 1} OF {items.length}</span>
+          <span>PROFESSIONAL EXPERIENCE — {activeIndex + 1} OF {items.length}</span>
         </div>
 
         <button 
           type="button" 
           className="floating-close-grimoire-btn"
           onClick={onClose}
-          aria-label="Return to standing grimoire"
-          title="Return to Book (Esc)"
+          aria-label="Close detailed view and return to portfolio overview"
+          title="Close Detailed View (Esc)"
         >
-          <span className="btn-rune">✦</span>
-          <span>Return to Grimoire</span>
-          <X size={16} />
+          <X size={15} />
+          <span>Close Detailed View</span>
         </button>
       </header>
 
@@ -229,9 +228,9 @@ export const ExperienceProjection: React.FC<ExperienceProjectionProps> = ({
             </div>
           )}
 
-          {/* Technologies & Spellcraft Tags */}
+          {/* Technologies & Tools Tags */}
           <div className="card-technologies-footer">
-            <h4 className="tech-label-heading">Technologies &amp; Spells Cast:</h4>
+            <h4 className="tech-label-heading">Core Technologies &amp; Tools:</h4>
             <div className="card-tech-pills-row">
               {currentItem.skills.map((skill, sIdx) => (
                 <span key={sIdx} className="card-tech-capsule">
