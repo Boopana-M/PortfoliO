@@ -1,11 +1,7 @@
 import React from 'react';
 import { Sparkles, Compass, Heart } from 'lucide-react';
-import { portfolio } from '../data/portfolio';
-import { QuillFeather } from '../components/common/QuillFeather';
 
 export const EpiloguePage: React.FC = () => {
-  const { person } = portfolio;
-
   return (
     <div className="page-content-wrapper epilogue-manuscript-page">
       <div className="page-header-number">— 14 —</div>
@@ -43,15 +39,6 @@ export const EpiloguePage: React.FC = () => {
           </p>
         </div>
 
-        {/* Signature & Date */}
-        <div className="epilogue-signature-section">
-          <QuillFeather className="antique-quill-feather" />
-          <div className="epilogue-signature-block">
-            <span className="epilogue-handwritten">{person.signature}</span>
-            <span className="epilogue-inscription-date">2026 · Software Engineer</span>
-          </div>
-        </div>
-
         <div className="epilogue-footer-note">
           <span>Engineered with dedication</span>
           <Heart size={11} className="epilogue-heart-icon" />
@@ -61,3 +48,4 @@ export const EpiloguePage: React.FC = () => {
     </div>
   );
 };
+

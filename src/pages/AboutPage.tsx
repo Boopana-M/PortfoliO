@@ -1,9 +1,8 @@
 import React from 'react';
 import { portfolio } from '../data/portfolio';
-import { QuillFeather } from '../components/common/QuillFeather';
 
 export const AboutPage: React.FC = () => {
-  const { about, person } = portfolio;
+  const { about } = portfolio;
 
   return (
     <div className="page-content-wrapper about-manuscript-page">
@@ -17,12 +16,8 @@ export const AboutPage: React.FC = () => {
             {paragraph}
           </p>
         ))}
-
-        <div className="about-quill-signature-box">
-          <QuillFeather className="antique-quill-feather" />
-          <div className="handwritten-signature-ink">{person.signature}</div>
-        </div>
       </div>
     </div>
   );
 };
+
