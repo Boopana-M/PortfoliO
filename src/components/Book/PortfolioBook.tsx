@@ -33,29 +33,35 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
   isInitialOpening = true,
 }) => {
   const [mobileActiveSide, setMobileActiveSide] = useState<'left' | 'right'>('left');
-  const [isLeafingInitial, setIsLeafingInitial] = useState<boolean>(isInitialOpening);
-  const [contentRevealed, setContentRevealed] = useState<boolean>(!isInitialOpening);
+  const [openingStage, setOpeningStage] = useState<'blank1' | 'reveal' | 'ready'>(
+    isInitialOpening ? 'blank1' : 'ready'
+  );
 
   useEffect(() => {
     if (!isInitialOpening) {
-      setIsLeafingInitial(false);
-      setContentRevealed(true);
+      setOpeningStage('ready');
       return;
     }
 
-    setIsLeafingInitial(true);
-    setContentRevealed(false);
+    // Exact 2-Page Leafing Sequence:
+    // 0.00s - 1.15s: Turn 1 -> Left & Right wings are empty blank parchment. 1st blank leaf turns.
+    // 1.15s - 2.30s: Turn 2 -> 2nd leaf turns. Front is blank, uncovering Technical Skills on the right. Back has About Me swinging over to the left!
+    // 2.30s+: Ready -> About Me settled on left, Technical Skills on right. Book fully open!
 
-    // Initial sequence in Inside UI:
-    // 0.15s - 1.25s: 1st Blank Leaf turns (0 -> -180deg)
-    // 1.20s - 2.30s: 2nd Blank Leaf turns (0 -> -180deg)
-    // 2.35s: Blank leaves finish turning. Reveal About Me & Technical Skills!
-    const revealTimer = setTimeout(() => {
-      setContentRevealed(true);
-      setIsLeafingInitial(false);
-    }, 2350);
+    setOpeningStage('blank1');
 
-    return () => clearTimeout(revealTimer);
+    const timerReveal = setTimeout(() => {
+      setOpeningStage('reveal');
+    }, 1150);
+
+    const timerReady = setTimeout(() => {
+      setOpeningStage('ready');
+    }, 2300);
+
+    return () => {
+      clearTimeout(timerReveal);
+      clearTimeout(timerReady);
+    };
   }, [isInitialOpening]);
 
   useEffect(() => {
@@ -88,9 +94,12 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
     }
   };
 
-  // Determine what each stationary wing displays during animation vs resting
+  // Stationary wings during normal page turning
   const leftStationaryPage = isTurning && turnDirection === 'prev' ? destSpread : activeSpread;
   const rightStationaryPage = isTurning && turnDirection === 'next' ? destSpread : activeSpread;
+
+  const isInitialLeafing = openingStage !== 'ready';
+  const showContent = openingStage === 'ready';
 
   return (
     <main className="book-stage" aria-label="Magical Portfolio Book">
@@ -101,7 +110,7 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
       <div className="book-lectern-rest" aria-hidden="true" />
 
       {/* Mobile Spread Page Switcher Tab Bar */}
-      {contentRevealed && (
+      {showContent && (
         <div className="mobile-spread-tabs" aria-label="Mobile page selector">
           <button
             type="button"
@@ -127,16 +136,17 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
 
         {/* Spread Leaves with 3D physical curvature */}
         <div className="book-page-spread">
-          {/* Stationary Left Wing */}
+          {/* Stationary Left Wing:
+              - Stage 'blank1' & 'reveal': Empty blank parchment.
+              - Stage 'ready': Settled with About Me (Page 01).
+          */}
           <div className="book-page-wing book-page-wing-left">
-            {!contentRevealed ? (
+            {!showContent ? (
               <BlankParchmentPage side="left" />
             ) : (
-              <div className={isInitialOpening && currentSpread === 0 ? 'manuscript-ink-reveal' : ''}>
-                <BookPage side="left" pageNumber={leftStationaryPage.leftPageNumber}>
-                  {renderPageContent(leftStationaryPage.leftPageId)}
-                </BookPage>
-              </div>
+              <BookPage side="left" pageNumber={leftStationaryPage.leftPageNumber}>
+                {renderPageContent(leftStationaryPage.leftPageId)}
+              </BookPage>
             )}
           </div>
 
@@ -150,23 +160,25 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
             <div className="spine-stitch stitch-4" />
           </div>
 
-          {/* Stationary Right Wing */}
+          {/* Stationary Right Wing:
+              - Stage 'blank1': Empty blank parchment!
+              - Stage 'reveal': Technical Skills (Page 02), naturally unveiled when 2nd leaf lifts off!
+              - Stage 'ready': Technical Skills (Page 02) or current page.
+          */}
           <div className="book-page-wing book-page-wing-right">
-            {!contentRevealed ? (
+            {openingStage === 'blank1' ? (
               <BlankParchmentPage side="right" />
             ) : (
-              <div className={isInitialOpening && currentSpread === 0 ? 'manuscript-ink-reveal' : ''}>
-                <BookPage side="right" pageNumber={rightStationaryPage.rightPageNumber}>
-                  {renderPageContent(rightStationaryPage.rightPageId)}
-                </BookPage>
-              </div>
+              <BookPage side="right" pageNumber={rightStationaryPage.rightPageNumber}>
+                {renderPageContent(rightStationaryPage.rightPageId)}
+              </BookPage>
             )}
           </div>
 
-          {/* Initial Opening: 2 Blank Physical Turning Pages */}
-          {isLeafingInitial && (
+          {/* Initial Opening: Exactly 2 Physical Leaf Turns */}
+          {isInitialLeafing && (
             <>
-              {/* 1st Blank Turning Leaf (0.15s - 1.25s) */}
+              {/* 1st Blank Turning Leaf (0.15s - 1.20s) */}
               <div className="inside-blank-leaf-turner inside-blank-leaf-1" aria-hidden="true">
                 <div className="inside-blank-leaf-sheet">
                   <div className="inside-flyleaf-face-front">
@@ -201,9 +213,13 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
                 <div className="inside-leaf-cast-shadow inside-shadow-leaf-1" />
               </div>
 
-              {/* 2nd Blank Turning Leaf (1.20s - 2.30s) */}
-              <div className="inside-blank-leaf-turner inside-blank-leaf-2" aria-hidden="true">
+              {/* 2nd Turning Leaf: Physically turns from right to left (1.15s - 2.30s).
+                  Front is blank parchment uncovering Technical Skills on the right.
+                  Back is About Me swinging over and settling on the left!
+              */}
+              <div className="inside-blank-leaf-turner inside-reveal-leaf" aria-hidden="true">
                 <div className="inside-blank-leaf-sheet">
+                  {/* Front Face: Blank parchment lifting off the right */}
                   <div className="inside-flyleaf-face-front">
                     <div className="parchment-noise-texture" />
                     <div className="parchment-vignette-stain" />
@@ -218,28 +234,23 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
                     <div className="leaf-curl-highlight" />
                     <div className="leaf-edge-thickness" />
                   </div>
-                  <div className="inside-flyleaf-face-back">
-                    <div className="parchment-noise-texture" />
-                    <div className="parchment-vignette-stain" />
-                    <div className="page-border-outer">
-                      <div className="page-border-inner">
-                        <span className="page-corner-ornament pco-tl">✤</span>
-                        <span className="page-corner-ornament pco-tr">✤</span>
-                        <span className="page-corner-ornament pco-bl">✤</span>
-                        <span className="page-corner-ornament pco-br">✤</span>
-                      </div>
-                    </div>
+
+                  {/* Back Face: About Me (Page 01) physically swinging over and casually settling on the left */}
+                  <div className="leaf-face leaf-face-back">
+                    <BookPage side="left" pageNumber={1}>
+                      <AboutPage />
+                    </BookPage>
                     <div className="leaf-curl-shadow-back" />
                     <div className="leaf-edge-thickness" />
                   </div>
                 </div>
-                <div className="inside-leaf-cast-shadow inside-shadow-leaf-2" />
+                <div className="inside-leaf-cast-shadow inside-shadow-reveal" />
               </div>
             </>
           )}
 
           {/* Regular Dual-Faced 3D Physical Turning Page Leaf (Next / Prev) */}
-          {!isLeafingInitial && isTurning && turnDirection === 'next' && (
+          {!isInitialLeafing && isTurning && turnDirection === 'next' && (
             <div className="turning-page-leaf-container leaf-turn-next" aria-hidden="true">
               <div className="turning-leaf-sheet">
                 <div className="leaf-face leaf-face-front">
@@ -261,7 +272,7 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
             </div>
           )}
 
-          {!isLeafingInitial && isTurning && turnDirection === 'prev' && (
+          {!isInitialLeafing && isTurning && turnDirection === 'prev' && (
             <div className="turning-page-leaf-container leaf-turn-prev" aria-hidden="true">
               <div className="turning-leaf-sheet">
                 <div className="leaf-face leaf-face-front">
@@ -298,11 +309,11 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
       </div>
 
       {/* Bottom Right Controls */}
-      {contentRevealed && (
+      {showContent && (
         <PageTurnControls
           currentSpread={currentSpread}
           totalSpreads={spreads.length}
-          isTurning={isTurning || isLeafingInitial}
+          isTurning={isTurning || isInitialLeafing}
           onNext={onNextSpread}
           onPrev={onPrevSpread}
         />
