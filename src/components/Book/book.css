@@ -2632,81 +2632,122 @@
 .achievements-cards-container {
   display: flex;
   flex-direction: column;
-  gap: clamp(7px, 1.2vh, 12px);
-  margin-top: 4px;
+  gap: clamp(4px, 0.8vh, 6px);
+  margin-top: 2px;
 }
 
 .achievement-manuscript-card {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
-  background: rgba(185, 154, 88, 0.1);
-  border: 1px solid rgba(185, 154, 88, 0.35);
+  gap: 8px;
+  background: rgba(185, 154, 88, 0.08);
+  border: 1px solid rgba(185, 154, 88, 0.28);
   border-radius: 4px;
-  padding: clamp(7px, 1.1vh, 10px);
+  padding: clamp(4px, 0.75vh, 6px) clamp(6px, 1vw, 9px);
+  transition: all 0.25s ease;
+}
+
+.achievement-manuscript-card:hover {
+  background: rgba(185, 154, 88, 0.13);
+  border-color: rgba(185, 154, 88, 0.45);
 }
 
 .achievement-card-icon {
-  color: var(--gold-dark);
-  padding: 6px;
-  background: rgba(185, 154, 88, 0.2);
-  border-radius: 4px;
+  color: #7d5e33;
+  padding: 4px;
+  background: rgba(185, 154, 88, 0.16);
+  border: 1px solid rgba(185, 154, 88, 0.35);
+  border-radius: 3px;
   flex-shrink: 0;
+  margin-top: 1px;
 }
 
 .achievement-card-details {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
+  min-width: 0;
 }
 
-.ach-title-year-row {
+.ach-title-badge-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 6px;
+  flex-wrap: wrap;
+}
+
+.ach-title-group {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  min-width: 0;
 }
 
 .achievement-name {
   font-family: var(--font-title, 'Cinzel', serif);
-  font-size: clamp(0.78rem, 1.25vh, 0.88rem);
+  font-size: clamp(0.72rem, 1.15vh, 0.82rem);
   font-weight: 700;
   color: #24160a;
   margin: 0;
+  line-height: 1.15;
 }
 
 .achievement-year-badge {
   font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
   font-style: italic;
-  font-size: 0.74rem;
-  color: #694e2b;
+  font-size: 0.68rem;
+  color: #705532;
+  flex-shrink: 0;
+}
+
+.achievement-award-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.54rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 1.5px 5px;
+  border-radius: 2px;
+  background: radial-gradient(circle at 35% 35%, #fff5d8 0%, #dfb764 60%, #9e7529 100%);
+  border: 1px solid #ffe18b;
+  color: #1e1205;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+  flex-shrink: 0;
+}
+
+.award-sparkle-sigil {
+  color: #6e4c16;
 }
 
 .achievement-desc-text {
   font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
-  font-size: clamp(0.76rem, 1.2vh, 0.84rem);
-  line-height: 1.35;
-  color: #332212;
+  font-size: clamp(0.68rem, 1.05vh, 0.74rem);
+  line-height: 1.25;
+  color: #382514;
   margin: 0;
 }
 
 .ach-proof-row {
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
 .achievement-proof-btn {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 2px 7px;
+  gap: 3px;
+  padding: 1.5px 6px;
   background: linear-gradient(180deg, #2c1a0e 0%, #170d06 100%);
   border: 1px solid rgba(185, 154, 88, 0.45);
-  border-radius: 3px;
+  border-radius: 2px;
   color: #eeddb8;
   font-family: var(--font-title, 'Cinzel', serif);
-  font-size: 0.65rem;
-  letter-spacing: 0.06em;
+  font-size: 0.58rem;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   text-decoration: none;
   transition: all 0.2s ease;

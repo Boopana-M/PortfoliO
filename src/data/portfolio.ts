@@ -38,7 +38,7 @@ export interface EducationItem {
 export interface AchievementItem {
   id: string;
   title: string;
-  subtitle?: string;
+  award: string;
   year: string;
   description: string;
   proofUrl?: string;
@@ -378,23 +378,34 @@ export const portfolio: PortfolioData = {
     items: [
       {
         id: "ach-1",
-        title: "Google Big Code Challenge 2026",
-        year: "2026",
-        description: "Shortlisted for Round 2 among 1,500+ national participants in algorithmic problem-solving.",
+        title: "CodeLee Programming Competition",
+        award: "3× Consecutive Winner",
+        year: "2023 - 2025",
+        description: "Won the CodeLee Programming Competition for 3 consecutive years during college, demonstrating consistent competitive programming and problem-solving performance.",
         proofUrl: "https://github.com/Boopana-M"
       },
       {
         id: "ach-2",
-        title: "CodeLee Programming Competition 2025",
-        year: "2025",
-        description: "Winner & 2nd Runner-Up across 2 consecutive editions, placing in the top 3 among 500+ participants.",
+        title: "Odoo Hackathon 2026",
+        award: "Finalist",
+        year: "2026",
+        description: "Selected as a finalist for the Odoo Hackathon 2026 and advanced to the final round with the project PeoplePay360.",
         proofUrl: "https://github.com/Boopana-M"
       },
       {
         id: "ach-3",
+        title: "Google Big Code Challenge 2026",
+        award: "Round 2 Shortlisted",
+        year: "2026",
+        description: "Shortlisted for Round 2 of the Google Big Code Challenge 2026 among 1,500+ national participants in algorithmic problem-solving.",
+        proofUrl: "https://github.com/Boopana-M"
+      },
+      {
+        id: "ach-4",
         title: "Createathon Web Design Competition 2024",
+        award: "Winner",
         year: "2024",
-        description: "Winner of a time-constrained web design competition.",
+        description: "Won the Createathon Web Design Competition by building and presenting a web product in a time-constrained competition environment.",
         proofUrl: "https://github.com/Boopana-M"
       }
     ]
