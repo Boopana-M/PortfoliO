@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
+import { FrontCoverTypography } from './FrontCoverTypography';
 import './landing.css';
 
 interface LandingScreenProps {
@@ -7,6 +8,8 @@ interface LandingScreenProps {
 }
 
 export const LandingScreen: React.FC<LandingScreenProps> = ({ onOpen }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
@@ -19,15 +22,23 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({ onOpen }) => {
       className="landing-screen-container"
       aria-label="Boopana M Developer Portfolio Hero"
     >
-      {/* 1. Full Screen Backdrop Scene */}
+      {/* 1. Full Screen Backdrop Scene with Pixel-Perfect Coordinate Mapping */}
       <div className="landing-scene-stage">
         <div className="landing-cinematic-backdrop" aria-hidden="true">
-          <img
-            src="/closed-book-cover.png"
-            alt="Boopana M — Developer Portfolio Background"
-            className="landing-scene-image"
-            loading="eager"
-          />
+          <div className="landing-image-coordinate-layer">
+            <img
+              src="/closed-book-cover.png"
+              alt="Boopana M — Developer Portfolio Background"
+              className="landing-scene-image"
+              loading="eager"
+            />
+
+            {/* Ultra-HD Vector & High-DPI Typography Layer over the book face */}
+            <div className="landing-front-cover-mount">
+              <FrontCoverTypography isHovered={isHovered} />
+            </div>
+          </div>
+
           <div className="landing-candle-aura" />
           <div className="landing-arcane-aura" />
         </div>
@@ -39,6 +50,10 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({ onOpen }) => {
           tabIndex={0}
           onClick={onOpen}
           onKeyDown={handleKeyDown}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          onFocus={() => setIsHovered(true)}
+          onBlur={() => setIsHovered(false)}
           aria-label="Click to open Boopana M's Portfolio"
         />
 
@@ -48,6 +63,8 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({ onOpen }) => {
             type="button"
             className="landing-open-btn"
             onClick={onOpen}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
             aria-label="Open Developer Portfolio"
           >
             <span className="landing-btn-gem" aria-hidden="true" />
@@ -65,3 +82,4 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({ onOpen }) => {
     </section>
   );
 };
+

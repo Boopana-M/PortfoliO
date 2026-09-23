@@ -47,6 +47,17 @@
   pointer-events: none;
 }
 
+/* Coordinate mapping layer ensuring 1:1 image alignment across all aspect ratios */
+.landing-image-coordinate-layer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: max(100vw, calc(100vh * (1024 / 405)));
+  height: max(100vh, calc(100vw * (405 / 1024)));
+  pointer-events: none;
+}
+
 .landing-scene-image {
   width: 100%;
   height: 100%;
@@ -55,6 +66,201 @@
   pointer-events: none;
   filter: contrast(1.05) brightness(0.98);
 }
+
+/* ===================================================
+   Ultra-HD Vector Crest & Crisp Gold Typography Mount
+   =================================================== */
+
+.landing-front-cover-mount {
+  position: absolute;
+  top: 49.8%;
+  left: 49.15%;
+  transform: translate(-50%, -50%);
+  width: 22.4%;
+  height: 88.5%;
+  container-type: size;
+  pointer-events: none;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.front-cover-hd-overlay {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Seamless Leather Texture Backdrop that masks blurry raster pixels underneath */
+.front-cover-leather-mask {
+  position: absolute;
+  top: 9%;
+  bottom: 14%;
+  left: 5%;
+  right: 5%;
+  border-radius: 8px;
+  background: radial-gradient(
+    ellipse at 50% 48%,
+    rgba(12, 16, 25, 0.94) 0%,
+    rgba(10, 14, 22, 0.91) 48%,
+    rgba(8, 12, 19, 0.65) 75%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Ultra-HD Vector Crest */
+.front-cover-crest-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 33cqi;
+  aspect-ratio: 1 / 1;
+  margin-top: 10.5cqh;
+  margin-bottom: 3.2cqh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.8));
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.front-cover-crest-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Crisp 3D Gold Embossed Title: BOOPANA M */
+.front-cover-title-text {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 1.6cqh 0;
+  padding: 0;
+  font-family: var(--font-title, 'Cinzel', Georgia, serif);
+  font-size: 8.9cqi;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-indent: 0.22em;
+  text-align: center;
+  background: linear-gradient(
+    180deg,
+    #fffdf2 0%,
+    #f8e4a9 22%,
+    #d8bb6e 45%,
+    #b99547 70%,
+    #6f4f1b 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: 
+    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.95))
+    drop-shadow(0 0 10px rgba(229, 203, 135, 0.35));
+  position: relative;
+  white-space: nowrap;
+  user-select: none;
+  transition: filter 0.4s ease;
+}
+
+/* Subtitle Row: SOFTWARE ENGINEER */
+.front-cover-subtitle-row {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 1.2cqh 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.front-cover-role-text {
+  font-family: var(--font-title, 'Cinzel', Georgia, serif);
+  font-size: 4.4cqi;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-indent: 0.28em;
+  text-align: center;
+  color: #eed593;
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.95),
+    0 0 8px rgba(212, 181, 104, 0.3);
+  white-space: nowrap;
+  user-select: none;
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+/* Antique Vector Divider */
+.front-cover-ornament-divider {
+  position: relative;
+  z-index: 2;
+  width: 62cqi;
+  height: 3.2cqh;
+  margin-bottom: 2.2cqh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.9;
+}
+
+.front-cover-divider-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.9));
+}
+
+/* Manuscript Tagline */
+.front-cover-tagline-text {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  padding: 0 6cqi;
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-style: italic;
+  font-size: 4.9cqi;
+  line-height: 1.35;
+  text-align: center;
+  color: #dfc488;
+  text-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.95),
+    0 0 12px rgba(229, 203, 135, 0.3);
+  user-select: none;
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+/* Interactive Hover States */
+.front-cover-hd-overlay.is-hovered .front-cover-crest-wrapper {
+  transform: scale(1.03);
+  filter: 
+    drop-shadow(0 8px 22px rgba(0, 0, 0, 0.9))
+    drop-shadow(0 0 14px rgba(110, 208, 224, 0.45));
+}
+
+.front-cover-hd-overlay.is-hovered .front-cover-title-text {
+  filter: 
+    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.95))
+    drop-shadow(0 0 16px rgba(229, 203, 135, 0.6))
+    drop-shadow(0 0 24px rgba(110, 208, 224, 0.4));
+}
+
+.front-cover-hd-overlay.is-hovered .front-cover-role-text {
+  color: #fff2cb;
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.95),
+    0 0 12px rgba(229, 203, 135, 0.6);
+}
+
+.front-cover-hd-overlay.is-hovered .front-cover-tagline-text {
+  color: #faebd0;
+  text-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.95),
+    0 0 16px rgba(229, 203, 135, 0.55);
+}
+
 
 /* Candlelight Warm Aura */
 .landing-candle-aura {
