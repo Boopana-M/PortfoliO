@@ -131,3 +131,179 @@
   }
 }
 
+/* =========================================
+   Mystical All-Black Screen with Magic Visuals
+   ========================================= */
+
+.magic-transition-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 250;
+  background-color: #030202;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: all;
+  overflow: hidden;
+  transition: opacity 0.45s ease-out;
+}
+
+.magic-transition-screen.magic-phase-enter {
+  opacity: 1;
+}
+
+.magic-transition-screen.magic-phase-pulse {
+  opacity: 1;
+}
+
+.magic-transition-screen.magic-phase-exit {
+  opacity: 0;
+}
+
+/* Radiant Expanding Shockwave Auras */
+.magic-shockwave-aura {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.shockwave-1 {
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(77, 191, 232, 0.35) 0%, rgba(110, 208, 224, 0.1) 50%, transparent 70%);
+  filter: blur(20px);
+  animation: shockwaveExpand 1.4s ease-out infinite;
+}
+
+.shockwave-2 {
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(229, 203, 135, 0.25) 0%, rgba(185, 154, 88, 0.08) 50%, transparent 70%);
+  filter: blur(30px);
+  animation: shockwaveExpand 1.4s ease-out 0.3s infinite;
+}
+
+.shockwave-3 {
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(77, 191, 232, 0.2) 0%, transparent 70%);
+  filter: blur(45px);
+  animation: shockwaveExpand 1.4s ease-out 0.6s infinite;
+}
+
+@keyframes shockwaveExpand {
+  0% { transform: translate(-50%, -50%) scale(0.6); opacity: 0.9; }
+  100% { transform: translate(-50%, -50%) scale(1.6); opacity: 0; }
+}
+
+/* Central Rotating Arcane Runic Seal */
+.magic-sigil-center {
+  position: relative;
+  width: min(320px, 75vw);
+  height: min(320px, 75vw);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 16px rgba(77, 191, 232, 0.9)) drop-shadow(0 0 35px rgba(229, 203, 135, 0.6));
+  animation: sigilScalePulse 1.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.magic-sigil-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.sigil-spin-slow {
+  transform-origin: 150px 150px;
+  animation: ring-spin 25s linear infinite;
+}
+
+.sigil-spin-reverse {
+  transform-origin: 150px 150px;
+  animation: ring-spin-reverse 20s linear infinite;
+}
+
+.magic-sigil-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 0%, #7ee7ff 50%, #1c9cb8 100%);
+  box-shadow: 0 0 25px #7ee7ff, 0 0 50px #1c9cb8;
+  animation: corePulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes sigilScalePulse {
+  0% { transform: scale(0.4) rotate(-30deg); opacity: 0; }
+  35% { transform: scale(1.08) rotate(10deg); opacity: 1; }
+  70% { transform: scale(0.98) rotate(-5deg); opacity: 1; }
+  100% { transform: scale(1.15) rotate(15deg); opacity: 1; }
+}
+
+@keyframes corePulse {
+  0% { transform: translate(-50%, -50%) scale(0.85); box-shadow: 0 0 15px #7ee7ff; }
+  100% { transform: translate(-50%, -50%) scale(1.25); box-shadow: 0 0 35px #7ee7ff, 0 0 60px #1c9cb8; }
+}
+
+/* Floating Glyphs */
+.magic-glyphs-cluster {
+  position: absolute;
+  width: min(380px, 85vw);
+  height: min(380px, 85vw);
+  pointer-events: none;
+}
+
+.magic-glyph {
+  position: absolute;
+  color: #ffd88a;
+  font-size: 1.1rem;
+  text-shadow: 0 0 10px rgba(255, 216, 138, 0.9);
+  animation: glyphFloat 1.2s ease-in-out infinite alternate;
+}
+
+.glyph-top { top: 0; left: 50%; transform: translateX(-50%); }
+.glyph-right { top: 50%; right: 0; transform: translateY(-50%); }
+.glyph-bottom { bottom: 0; left: 50%; transform: translateX(-50%); }
+.glyph-left { top: 50%; left: 0; transform: translateY(-50%); }
+
+@keyframes glyphFloat {
+  0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
+  100% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+}
+
+/* Spell Whisper text */
+.magic-whisper-text {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: clamp(0.78rem, 1.4vw, 0.96rem);
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  color: #f7e8c6;
+  text-shadow: 0 0 15px rgba(229, 203, 135, 0.7), 0 0 30px rgba(77, 191, 232, 0.5);
+  animation: whisperFadeIn 0.8s ease-out forwards;
+}
+
+.whisper-rune {
+  color: #7ee7ff;
+  font-size: 0.85rem;
+  text-shadow: 0 0 8px rgba(126, 231, 255, 0.9);
+}
+
+@keyframes whisperFadeIn {
+  0% { opacity: 0; transform: translateY(10px); letter-spacing: 0.2em; }
+  100% { opacity: 1; transform: translateY(0); letter-spacing: 0.35em; }
+}
+
+

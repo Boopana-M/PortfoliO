@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BookCover } from './BookCover';
-import { BookPage } from './BookPage';
+import { BookPage, BlankParchmentPage } from './BookPage';
 import { PageTurnControls } from './PageTurnControls';
 import { AboutPage } from '../../pages/AboutPage';
 import { SkillsPage } from '../../pages/SkillsPage';
@@ -20,6 +20,7 @@ interface PortfolioBookProps {
   turnDirection: 'next' | 'prev' | null;
   onNextSpread: () => void;
   onPrevSpread: () => void;
+  isInitialOpening?: boolean;
 }
 
 export const PortfolioBook: React.FC<PortfolioBookProps> = ({
@@ -29,10 +30,35 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
   turnDirection,
   onNextSpread,
   onPrevSpread,
+  isInitialOpening = true,
 }) => {
-  const [mobileActiveSide, setMobileActiveSide] = React.useState<'left' | 'right'>('left');
+  const [mobileActiveSide, setMobileActiveSide] = useState<'left' | 'right'>('left');
+  const [isLeafingInitial, setIsLeafingInitial] = useState<boolean>(isInitialOpening);
+  const [contentRevealed, setContentRevealed] = useState<boolean>(!isInitialOpening);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    if (!isInitialOpening) {
+      setIsLeafingInitial(false);
+      setContentRevealed(true);
+      return;
+    }
+
+    setIsLeafingInitial(true);
+    setContentRevealed(false);
+
+    // Initial sequence in Inside UI:
+    // 0.15s - 1.25s: 1st Blank Leaf turns (0 -> -180deg)
+    // 1.20s - 2.30s: 2nd Blank Leaf turns (0 -> -180deg)
+    // 2.35s: Blank leaves finish turning. Reveal About Me & Technical Skills!
+    const revealTimer = setTimeout(() => {
+      setContentRevealed(true);
+      setIsLeafingInitial(false);
+    }, 2350);
+
+    return () => clearTimeout(revealTimer);
+  }, [isInitialOpening]);
+
+  useEffect(() => {
     setMobileActiveSide('left');
   }, [currentSpread]);
 
@@ -75,23 +101,25 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
       <div className="book-lectern-rest" aria-hidden="true" />
 
       {/* Mobile Spread Page Switcher Tab Bar */}
-      <div className="mobile-spread-tabs" aria-label="Mobile page selector">
-        <button
-          type="button"
-          className={`mobile-tab-btn ${mobileActiveSide === 'left' ? 'active' : ''}`}
-          onClick={() => setMobileActiveSide('left')}
-        >
-          <span>Page {activeSpread.leftPageNumber}</span>
-        </button>
-        <span className="mobile-tab-divider">✦</span>
-        <button
-          type="button"
-          className={`mobile-tab-btn ${mobileActiveSide === 'right' ? 'active' : ''}`}
-          onClick={() => setMobileActiveSide('right')}
-        >
-          <span>Page {activeSpread.rightPageNumber}</span>
-        </button>
-      </div>
+      {contentRevealed && (
+        <div className="mobile-spread-tabs" aria-label="Mobile page selector">
+          <button
+            type="button"
+            className={`mobile-tab-btn ${mobileActiveSide === 'left' ? 'active' : ''}`}
+            onClick={() => setMobileActiveSide('left')}
+          >
+            <span>Page {activeSpread.leftPageNumber}</span>
+          </button>
+          <span className="mobile-tab-divider">✦</span>
+          <button
+            type="button"
+            className={`mobile-tab-btn ${mobileActiveSide === 'right' ? 'active' : ''}`}
+            onClick={() => setMobileActiveSide('right')}
+          >
+            <span>Page {activeSpread.rightPageNumber}</span>
+          </button>
+        </div>
+      )}
 
       {/* Main Physical Book Container */}
       <div className={`book-container ${isTurning ? 'book-is-flipping' : ''} mobile-show-${mobileActiveSide}`}>
@@ -101,9 +129,15 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
         <div className="book-page-spread">
           {/* Stationary Left Wing */}
           <div className="book-page-wing book-page-wing-left">
-            <BookPage side="left" pageNumber={leftStationaryPage.leftPageNumber}>
-              {renderPageContent(leftStationaryPage.leftPageId)}
-            </BookPage>
+            {!contentRevealed ? (
+              <BlankParchmentPage side="left" />
+            ) : (
+              <div className={isInitialOpening && currentSpread === 0 ? 'manuscript-ink-reveal' : ''}>
+                <BookPage side="left" pageNumber={leftStationaryPage.leftPageNumber}>
+                  {renderPageContent(leftStationaryPage.leftPageId)}
+                </BookPage>
+              </div>
+            )}
           </div>
 
           {/* Deep Center Gutter, Physical Spine Fold & Stitching */}
@@ -118,16 +152,96 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
 
           {/* Stationary Right Wing */}
           <div className="book-page-wing book-page-wing-right">
-            <BookPage side="right" pageNumber={rightStationaryPage.rightPageNumber}>
-              {renderPageContent(rightStationaryPage.rightPageId)}
-            </BookPage>
+            {!contentRevealed ? (
+              <BlankParchmentPage side="right" />
+            ) : (
+              <div className={isInitialOpening && currentSpread === 0 ? 'manuscript-ink-reveal' : ''}>
+                <BookPage side="right" pageNumber={rightStationaryPage.rightPageNumber}>
+                  {renderPageContent(rightStationaryPage.rightPageId)}
+                </BookPage>
+              </div>
+            )}
           </div>
 
-          {/* REAL DUAL-FACED 3D PHYSICAL TURNING PAGE LEAF */}
-          {isTurning && turnDirection === 'next' && (
+          {/* Initial Opening: 2 Blank Physical Turning Pages */}
+          {isLeafingInitial && (
+            <>
+              {/* 1st Blank Turning Leaf (0.15s - 1.25s) */}
+              <div className="inside-blank-leaf-turner inside-blank-leaf-1" aria-hidden="true">
+                <div className="inside-blank-leaf-sheet">
+                  <div className="inside-flyleaf-face-front">
+                    <div className="parchment-noise-texture" />
+                    <div className="parchment-vignette-stain" />
+                    <div className="page-border-outer">
+                      <div className="page-border-inner">
+                        <span className="page-corner-ornament pco-tl">✤</span>
+                        <span className="page-corner-ornament pco-tr">✤</span>
+                        <span className="page-corner-ornament pco-bl">✤</span>
+                        <span className="page-corner-ornament pco-br">✤</span>
+                      </div>
+                    </div>
+                    <div className="leaf-curl-highlight" />
+                    <div className="leaf-edge-thickness" />
+                  </div>
+                  <div className="inside-flyleaf-face-back">
+                    <div className="parchment-noise-texture" />
+                    <div className="parchment-vignette-stain" />
+                    <div className="page-border-outer">
+                      <div className="page-border-inner">
+                        <span className="page-corner-ornament pco-tl">✤</span>
+                        <span className="page-corner-ornament pco-tr">✤</span>
+                        <span className="page-corner-ornament pco-bl">✤</span>
+                        <span className="page-corner-ornament pco-br">✤</span>
+                      </div>
+                    </div>
+                    <div className="leaf-curl-shadow-back" />
+                    <div className="leaf-edge-thickness" />
+                  </div>
+                </div>
+                <div className="inside-leaf-cast-shadow inside-shadow-leaf-1" />
+              </div>
+
+              {/* 2nd Blank Turning Leaf (1.20s - 2.30s) */}
+              <div className="inside-blank-leaf-turner inside-blank-leaf-2" aria-hidden="true">
+                <div className="inside-blank-leaf-sheet">
+                  <div className="inside-flyleaf-face-front">
+                    <div className="parchment-noise-texture" />
+                    <div className="parchment-vignette-stain" />
+                    <div className="page-border-outer">
+                      <div className="page-border-inner">
+                        <span className="page-corner-ornament pco-tl">✤</span>
+                        <span className="page-corner-ornament pco-tr">✤</span>
+                        <span className="page-corner-ornament pco-bl">✤</span>
+                        <span className="page-corner-ornament pco-br">✤</span>
+                      </div>
+                    </div>
+                    <div className="leaf-curl-highlight" />
+                    <div className="leaf-edge-thickness" />
+                  </div>
+                  <div className="inside-flyleaf-face-back">
+                    <div className="parchment-noise-texture" />
+                    <div className="parchment-vignette-stain" />
+                    <div className="page-border-outer">
+                      <div className="page-border-inner">
+                        <span className="page-corner-ornament pco-tl">✤</span>
+                        <span className="page-corner-ornament pco-tr">✤</span>
+                        <span className="page-corner-ornament pco-bl">✤</span>
+                        <span className="page-corner-ornament pco-br">✤</span>
+                      </div>
+                    </div>
+                    <div className="leaf-curl-shadow-back" />
+                    <div className="leaf-edge-thickness" />
+                  </div>
+                </div>
+                <div className="inside-leaf-cast-shadow inside-shadow-leaf-2" />
+              </div>
+            </>
+          )}
+
+          {/* Regular Dual-Faced 3D Physical Turning Page Leaf (Next / Prev) */}
+          {!isLeafingInitial && isTurning && turnDirection === 'next' && (
             <div className="turning-page-leaf-container leaf-turn-next" aria-hidden="true">
               <div className="turning-leaf-sheet">
-                {/* Front Face: Outgoing Right Page (e.g. Skills) rotating 0deg to -90deg */}
                 <div className="leaf-face leaf-face-front">
                   <BookPage side="right" pageNumber={activeSpread.rightPageNumber}>
                     {renderPageContent(activeSpread.rightPageId)}
@@ -135,8 +249,6 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
                   <div className="leaf-curl-highlight" />
                   <div className="leaf-edge-thickness" />
                 </div>
-
-                {/* Back Face: Incoming Left Page (e.g. Projects) rotating -90deg to -180deg */}
                 <div className="leaf-face leaf-face-back">
                   <BookPage side="left" pageNumber={destSpread.leftPageNumber}>
                     {renderPageContent(destSpread.leftPageId)}
@@ -149,10 +261,9 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
             </div>
           )}
 
-          {isTurning && turnDirection === 'prev' && (
+          {!isLeafingInitial && isTurning && turnDirection === 'prev' && (
             <div className="turning-page-leaf-container leaf-turn-prev" aria-hidden="true">
               <div className="turning-leaf-sheet">
-                {/* Front Face: Incoming Right Page (e.g. Skills) descending onto right */}
                 <div className="leaf-face leaf-face-front">
                   <BookPage side="right" pageNumber={destSpread.rightPageNumber}>
                     {renderPageContent(destSpread.rightPageId)}
@@ -160,8 +271,6 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
                   <div className="leaf-curl-highlight" />
                   <div className="leaf-edge-thickness" />
                 </div>
-
-                {/* Back Face: Outgoing Left Page (e.g. Projects) lifting off left */}
                 <div className="leaf-face leaf-face-back">
                   <BookPage side="left" pageNumber={activeSpread.leftPageNumber}>
                     {renderPageContent(activeSpread.leftPageId)}
@@ -189,13 +298,15 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
       </div>
 
       {/* Bottom Right Controls */}
-      <PageTurnControls
-        currentSpread={currentSpread}
-        totalSpreads={spreads.length}
-        isTurning={isTurning}
-        onNext={onNextSpread}
-        onPrev={onPrevSpread}
-      />
+      {contentRevealed && (
+        <PageTurnControls
+          currentSpread={currentSpread}
+          totalSpreads={spreads.length}
+          isTurning={isTurning || isLeafingInitial}
+          onNext={onNextSpread}
+          onPrev={onPrevSpread}
+        />
+      )}
     </main>
   );
 };
