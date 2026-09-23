@@ -7,7 +7,6 @@ export const AchievementsPage: React.FC = () => {
 
   return (
     <div className="page-content-wrapper achievements-manuscript-page">
-      <div className="page-header-number">— {achievements.chapterNumber} —</div>
       <h2 className="page-title">{achievements.title}</h2>
       <div className="page-subtitle-hint">Honors &amp; Proof of Excellence</div>
       <div className="manuscript-divider">✦ ✤ ✦</div>

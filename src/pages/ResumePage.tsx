@@ -7,7 +7,6 @@ export const ResumePage: React.FC = () => {
 
   return (
     <div className="page-content-wrapper resume-manuscript-page">
-      <div className="page-header-number">— {resume.chapterNumber} —</div>
       <h2 className="page-title">{resume.title}</h2>
       <div className="manuscript-divider">✦ ✤ ✦</div>
 

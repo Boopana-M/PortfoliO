@@ -7,7 +7,6 @@ export const ResearchPage: React.FC = () => {
 
   return (
     <div className="page-content-wrapper research-manuscript-page">
-      <div className="page-header-number">— {research.chapterNumber} —</div>
       <h2 className="page-title">{research.title}</h2>
       <div className="manuscript-divider">✦ ✤ ✦</div>
 

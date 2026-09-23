@@ -8,7 +8,6 @@ export const OpenSourcePage: React.FC = () => {
 
   return (
     <div className="page-content-wrapper opensource-manuscript-page">
-      <div className="page-header-number">— {openSource.chapterNumber} —</div>
       <h2 className="page-title">{openSource.title}</h2>
       <div className="manuscript-divider">✦ ✤ ✦</div>
 

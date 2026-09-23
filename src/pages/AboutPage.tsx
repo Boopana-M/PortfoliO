@@ -6,7 +6,6 @@ export const AboutPage: React.FC = () => {
 
   return (
     <div className="page-content-wrapper about-manuscript-page">
-      <div className="page-header-number">— {about.chapterNumber} —</div>
       <h2 className="page-title">{about.title}</h2>
       <div className="manuscript-divider">✦ ✤ ✦</div>
 

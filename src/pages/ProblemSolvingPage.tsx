@@ -20,7 +20,6 @@ export const ProblemSolvingPage: React.FC = () => {
 
   return (
     <div className="page-content-wrapper problemsolving-manuscript-page">
-      <div className="page-header-number">— {problemSolving.chapterNumber} —</div>
       <h2 className="page-title">{problemSolving.title}</h2>
       <div className="page-subtitle-hint">Algorithmic Mastery &amp; Competitive Platforms</div>
       <div className="manuscript-divider">✦ ✤ ✦</div>

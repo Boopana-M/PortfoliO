@@ -8,7 +8,6 @@ export const CodingStatsPage: React.FC = () => {
 
   return (
     <div className="page-content-wrapper codingstats-manuscript-page">
-      <div className="page-header-number">— {codingStats.chapterNumber} —</div>
       <h2 className="page-title">{codingStats.title}</h2>
       <div className="page-subtitle-hint">Live GitHub Activity &amp; Problem Solving Overview</div>
       <div className="manuscript-divider">✦ ✤ ✦</div>

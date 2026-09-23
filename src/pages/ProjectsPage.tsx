@@ -8,7 +8,6 @@ export const ProjectsPage: React.FC = () => {
 
   return (
     <div className="page-content-wrapper projects-manuscript-page">
-      <div className="page-header-number">— {projects.chapterNumber} —</div>
       <h2 className="page-title">{projects.title}</h2>
       <div className="page-subtitle-hint">Individual &amp; Team Creations</div>
       <div className="manuscript-divider">✦ ✤ ✦</div>

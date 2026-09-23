@@ -7,7 +7,6 @@ export const ExperiencePage: React.FC = () => {
 
   return (
     <div className="page-content-wrapper experience-manuscript-page">
-      <div className="page-header-number">— {experience.chapterNumber} —</div>
       <h2 className="page-title">{experience.title}</h2>
       <div className="manuscript-divider">✦ ✤ ✦</div>
 

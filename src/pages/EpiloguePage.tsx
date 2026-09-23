@@ -4,7 +4,6 @@ import { Sparkles, Compass, Heart } from 'lucide-react';
 export const EpiloguePage: React.FC = () => {
   return (
     <div className="page-content-wrapper epilogue-manuscript-page">
-      <div className="page-header-number">— 14 —</div>
       <h2 className="page-title">Epilogue</h2>
       <div className="page-subtitle-hint">Closing Inscription &amp; Colophon</div>
       <div className="manuscript-divider">✦ ✤ ✦</div>

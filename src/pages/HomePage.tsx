@@ -6,7 +6,6 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className="page-content-wrapper home-manuscript-page">
-      <div className="page-header-number">— 01 —</div>
       <h2 className="page-title">Welcome</h2>
       <div className="manuscript-divider">✦ ✤ ✦</div>
 
