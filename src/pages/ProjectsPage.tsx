@@ -52,7 +52,10 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onOpenDetailed }) =>
         <button 
           type="button" 
           className="exp-view-detailed-btn"
-          onClick={onOpenDetailed}
+          onClick={(e) => {
+            e.stopPropagation();
+            onOpenDetailed?.();
+          }}
           aria-label="View projects showcase in detail"
         >
           <Sparkles size={14} className="btn-sparkle-sigil" />

@@ -155,7 +155,7 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
         clickEventForward: true,
         useMouseEvents: true,
         showPageCorners: true,
-        disableFlipByClick: false,
+        disableFlipByClick: true, // Prevents body/button clicks from causing accidental flips while preserving corner page flips
       });
 
       const pageElements = container.querySelectorAll<HTMLElement>('.grimoire-page-sheet');
@@ -257,6 +257,41 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
       // ignore
     }
   }, [currentSpread, openingFinished, safeFlipTo]);
+
+  // Isolate all buttons, links, and interactive elements from PageFlip drag/flip gestures
+  useEffect(() => {
+    const container = bookContainerRef.current;
+    if (!container) return;
+
+    const attachShieldToButtons = () => {
+      const interactives = container.querySelectorAll<HTMLElement>(
+        'button, a, [role="button"], input, select, textarea, .exp-view-detailed-btn, .achievement-proof-btn, .grimoire-resume-download-btn, .contact-primary-email-btn, .contact-social-pill, .os-contributions-btn'
+      );
+      interactives.forEach((el) => {
+        if ((el as any)._hasFlipShield) return;
+        (el as any)._hasFlipShield = true;
+
+        const stop = (e: Event) => {
+          e.stopPropagation();
+        };
+
+        ['pointerdown', 'mousedown', 'mouseup', 'touchstart', 'touchend'].forEach((evt) => {
+          el.addEventListener(evt, stop, false);
+        });
+      });
+    };
+
+    attachShieldToButtons();
+
+    const observer = new MutationObserver(() => {
+      attachShieldToButtons();
+    });
+    observer.observe(container, { childList: true, subtree: true });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [isBookReady]);
 
   const handleNext = useCallback(() => {
     if (openingFinished && !isFlipping) {

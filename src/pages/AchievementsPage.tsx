@@ -1,9 +1,23 @@
 import React from 'react';
-import { Trophy, ExternalLink, Award, Sparkles } from 'lucide-react';
+import { Trophy, Sparkles, Code, Zap, Palette } from 'lucide-react';
 import { portfolio } from '../data/portfolio';
 
 export const AchievementsPage: React.FC = () => {
   const { achievements } = portfolio;
+
+  const renderAchievementIcon = (iconName?: string) => {
+    switch (iconName) {
+      case 'Code':
+        return <Code size={15} />;
+      case 'Zap':
+        return <Zap size={15} />;
+      case 'Palette':
+        return <Palette size={15} />;
+      case 'Trophy':
+      default:
+        return <Trophy size={15} />;
+    }
+  };
 
   return (
     <div className="page-content-wrapper achievements-manuscript-page">
@@ -14,7 +28,7 @@ export const AchievementsPage: React.FC = () => {
         {achievements.items.map((item) => (
           <article key={item.id} className="achievement-manuscript-card">
             <div className="achievement-card-icon" aria-hidden="true">
-              <Trophy size={15} />
+              {renderAchievementIcon(item.iconName)}
             </div>
 
             <div className="achievement-card-details">
@@ -30,22 +44,6 @@ export const AchievementsPage: React.FC = () => {
               </div>
 
               <p className="achievement-desc-text">{item.description}</p>
-
-              {item.proofUrl && (
-                <div className="ach-proof-row">
-                  <a
-                    href={item.proofUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="achievement-proof-btn"
-                    aria-label={`View Certificate & Proof for ${item.title}`}
-                  >
-                    <Award size={11} />
-                    <span>View Proof</span>
-                    <ExternalLink size={10} />
-                  </a>
-                </div>
-              )}
             </div>
           </article>
         ))}

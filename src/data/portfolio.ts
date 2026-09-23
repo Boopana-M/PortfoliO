@@ -41,6 +41,7 @@ export interface AchievementItem {
   award: string;
   year: string;
   description: string;
+  iconName?: string;
   proofUrl?: string;
 }
 
@@ -378,10 +379,11 @@ export const portfolio: PortfolioData = {
     items: [
       {
         id: "ach-1",
-        title: "CodeLee Programming Competition",
-        award: "3× Consecutive Winner",
-        year: "2023 - 2025",
-        description: "Won the CodeLee Programming Competition for 3 consecutive years during college, demonstrating consistent competitive programming and problem-solving performance.",
+        title: "Google Big Code Challenge 2026",
+        award: "Shortlisted for Round 2",
+        year: "2026",
+        description: "Shortlisted for Round 2 of the Google Big Code Challenge 2026 among 1,500+ national participants in algorithmic problem-solving.",
+        iconName: "Code",
         proofUrl: "https://github.com/Boopana-M"
       },
       {
@@ -389,15 +391,17 @@ export const portfolio: PortfolioData = {
         title: "Odoo Hackathon 2026",
         award: "Finalist",
         year: "2026",
-        description: "Selected as a finalist for the Odoo Hackathon 2026 and advanced to the final round with the project PeoplePay360.",
+        description: "Selected as a finalist for the Odoo Hackathon 2026 and advanced to the final round.",
+        iconName: "Zap",
         proofUrl: "https://github.com/Boopana-M"
       },
       {
         id: "ach-3",
-        title: "Google Big Code Challenge 2026",
-        award: "Round 2 Shortlisted",
-        year: "2026",
-        description: "Shortlisted for Round 2 of the Google Big Code Challenge 2026 among 1,500+ national participants in algorithmic problem-solving.",
+        title: "CodeLee Programming Competition",
+        award: "3× Consecutive Winner",
+        year: "2023 - 2025",
+        description: "Won the CodeLee Programming Competition for 3 consecutive years during college, demonstrating consistent competitive programming and problem-solving performance.",
+        iconName: "Trophy",
         proofUrl: "https://github.com/Boopana-M"
       },
       {
@@ -406,6 +410,7 @@ export const portfolio: PortfolioData = {
         award: "Winner",
         year: "2024",
         description: "Won the Createathon Web Design Competition by building and presenting a web product in a time-constrained competition environment.",
+        iconName: "Palette",
         proofUrl: "https://github.com/Boopana-M"
       }
     ]
