@@ -808,8 +808,29 @@
 }
 
 /* ==========================================================================
-   Sleeping Book 3D Transform Class on Grimoire
+   Sleeping Book 3D Transform & Pointer-Lock on Grimoire
    ========================================================================== */
+.book-stage.sleeping-book-stage {
+  pointer-events: none !important;
+}
+
+.book-stage.sleeping-book-stage .book-container,
+.book-stage.sleeping-book-stage .grimoire-page-flip-container,
+.book-stage.sleeping-book-stage .stf__wrapper,
+.book-stage.sleeping-book-stage .stf__parent,
+.book-stage.sleeping-book-stage .page-turn-controls {
+  pointer-events: none !important;
+  user-select: none !important;
+}
+
+.book-container.book-sleeping-flat {
+  transform: translateY(160px) rotateX(55deg) scale(0.85) !important;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  filter: brightness(0.65) contrast(1.1);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.95);
+  pointer-events: none !important;
+}
+
 .grimoire-viewport.sleeping-book-mode .grimoire-book-3d-stage {
   transform: translateY(180px) rotateX(60deg) scale(0.86) !important;
   transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) !important;

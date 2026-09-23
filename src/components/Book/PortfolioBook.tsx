@@ -40,11 +40,51 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
   const [openingFinished, setOpeningFinished] = useState(!isInitialOpening);
   const [isProjectionOpen, setIsProjectionOpen] = useState(false);
   const [isProjectsProjectionOpen, setIsProjectsProjectionOpen] = useState(false);
+  const isProjectionOpenRef = useRef(false);
+  const savedSpreadRef = useRef(currentSpread);
+
+  // Keep savedSpreadRef synced with currentSpread when projection is NOT open
+  useEffect(() => {
+    if (!isProjectionOpen && !isProjectsProjectionOpen) {
+      savedSpreadRef.current = currentSpread;
+    }
+  }, [currentSpread, isProjectionOpen, isProjectsProjectionOpen]);
+
+  const handleOpenExperienceProjection = useCallback(() => {
+    savedSpreadRef.current = currentSpread;
+    isProjectionOpenRef.current = true;
+    setIsProjectionOpen(true);
+  }, [currentSpread]);
+
+  const handleOpenProjectsProjection = useCallback(() => {
+    savedSpreadRef.current = currentSpread;
+    isProjectionOpenRef.current = true;
+    setIsProjectsProjectionOpen(true);
+  }, [currentSpread]);
+
+  const handleCloseProjection = useCallback(() => {
+    isProjectionOpenRef.current = false;
+    setIsProjectionOpen(false);
+    setIsProjectsProjectionOpen(false);
+
+    const targetSpread = savedSpreadRef.current;
+    onSpreadChange(targetSpread);
+
+    if (pageFlipRef.current) {
+      try {
+        const targetBookPage = 4 + targetSpread * 2;
+        pageFlipRef.current.turnToPage(targetBookPage);
+      } catch (e) {
+        console.warn('PageFlip restore error:', e);
+      }
+    }
+  }, [onSpreadChange]);
 
   const isAnyProjectionOpen = isProjectionOpen || isProjectsProjectionOpen;
 
   // Safe wrapper methods for page-flip operations
   const safeFlipNext = useCallback(() => {
+    if (isProjectionOpenRef.current) return;
     try {
       if (pageFlipRef.current) {
         pageFlipRef.current.flipNext('bottom');
@@ -55,6 +95,7 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
   }, []);
 
   const safeFlipPrev = useCallback(() => {
+    if (isProjectionOpenRef.current) return;
     try {
       if (pageFlipRef.current) {
         pageFlipRef.current.flipPrev('bottom');
@@ -65,6 +106,7 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
   }, []);
 
   const safeFlipTo = useCallback((targetPage: number) => {
+    if (isProjectionOpenRef.current) return;
     try {
       if (pageFlipRef.current) {
         pageFlipRef.current.flip(targetPage, 'bottom');
@@ -128,6 +170,9 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
       });
 
       pageFlip.on('flip', (e) => {
+        // Prevent background flip events from altering spread when detailed projection is open
+        if (isProjectionOpenRef.current) return;
+
         const pageIndex = typeof e.data === 'number' ? e.data : parseInt(String(e.data), 10);
         if (pageIndex >= 4) {
           const spreadIdx = Math.min(spreads.length - 1, Math.max(0, Math.floor((pageIndex - 4) / 2)));
@@ -284,12 +329,12 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
               {/* SPREAD 4: Experience (p.05) & Projects (p.06) */}
               <div className="grimoire-page-sheet" data-density="soft">
                 <BookPage side="left" pageNumber={5}>
-                  <ExperiencePage onOpenDetailed={() => setIsProjectionOpen(true)} />
+                  <ExperiencePage onOpenDetailed={handleOpenExperienceProjection} />
                 </BookPage>
               </div>
               <div className="grimoire-page-sheet" data-density="soft">
                 <BookPage side="right" pageNumber={6}>
-                  <ProjectsPage onOpenDetailed={() => setIsProjectsProjectionOpen(true)} />
+                  <ProjectsPage onOpenDetailed={handleOpenProjectsProjection} />
                 </BookPage>
               </div>
 
@@ -377,13 +422,13 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
       {/* 3D Sleeping Book Experience Projection Portal */}
       <ExperienceProjection
         isOpen={isProjectionOpen}
-        onClose={() => setIsProjectionOpen(false)}
+        onClose={handleCloseProjection}
       />
 
       {/* 3D Sleeping Book Projects Projection Portal */}
       <ProjectsProjection
         isOpen={isProjectsProjectionOpen}
-        onClose={() => setIsProjectsProjectionOpen(false)}
+        onClose={handleCloseProjection}
       />
     </>
   );
