@@ -335,14 +335,10 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
             </div>
           </div>
 
-          {/* Deep Center Gutter Spine Structure */}
+          {/* Realistic Book Gutter & Center Fold Crease */}
           <div className="book-center-spine" aria-hidden="true">
             <div className="spine-crease-shadow" />
-            <div className="spine-highlight-ridge" />
-            <div className="spine-stitch stitch-1" />
-            <div className="spine-stitch stitch-2" />
-            <div className="spine-stitch stitch-3" />
-            <div className="spine-stitch stitch-4" />
+            <div className="spine-crease-line" />
           </div>
         </div>
       </div>
