@@ -79,7 +79,7 @@ export const SideNavigation: React.FC<SideNavigationProps> = ({
         type="button"
         className="mobile-chapter-trigger-btn"
         onClick={() => setIsMobileMenuOpen(true)}
-        aria-label="Open Chapter Index"
+        aria-label="Open Directory Menu"
       >
         <BookOpen size={17} className="mobile-btn-icon" />
         <span className="mobile-btn-text">Index</span>
@@ -96,19 +96,19 @@ export const SideNavigation: React.FC<SideNavigationProps> = ({
             className="mobile-chapter-drawer"
             onClick={(e) => e.stopPropagation()}
             role="dialog"
-            aria-label="Chapters Directory"
+            aria-label="Portfolio Directory"
           >
             <div className="mobile-drawer-header">
               <div className="mobile-drawer-title">
                 <span className="mobile-drawer-rune">✦</span>
-                <span>Grimoire Chapters</span>
+                <span>Portfolio Directory</span>
                 <span className="mobile-drawer-rune">✦</span>
               </div>
               <button
                 type="button"
                 className="mobile-drawer-close"
                 onClick={() => setIsMobileMenuOpen(false)}
-                aria-label="Close chapter menu"
+                aria-label="Close menu"
               >
                 <X size={18} />
               </button>
@@ -136,10 +136,10 @@ export const SideNavigation: React.FC<SideNavigationProps> = ({
         </div>
       )}
 
-      {/* Desktop Vertical Antique Navigation Sidebar */}
+      {/* Desktop Vertical Navigation Sidebar */}
       <nav 
         className="side-navigation"
-        aria-label="Grimoire Table of Contents"
+        aria-label="Portfolio Table of Contents"
       >
         {/* Personal Crest Seal Header */}
         <div className="side-nav-header">
@@ -188,7 +188,7 @@ export const SideNavigation: React.FC<SideNavigationProps> = ({
                     {item.pageNumber < 10 ? `0${item.pageNumber}` : item.pageNumber}
                   </span>
 
-                  {/* Active Golden Glow Underlay */}
+                  {/* Active Highlight Underlay */}
                   {isActive && <div className="bookmark-active-aurora" aria-hidden="true" />}
                 </button>
               </li>
@@ -196,14 +196,14 @@ export const SideNavigation: React.FC<SideNavigationProps> = ({
           })}
         </ul>
 
-        {/* Close Grimoire Cover Button */}
+        {/* Close Cover Button */}
         {onCloseBook && (
           <div className="side-nav-footer">
             <button
               type="button"
               className="close-grimoire-btn"
               onClick={onCloseBook}
-              aria-label="Close Grimoire Cover"
+              aria-label="Close Portfolio"
             >
               <span className="close-btn-sigil">❖</span>
               <span className="close-btn-text">Close Book</span>

@@ -17,14 +17,14 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({ onOpen }) => {
   return (
     <section
       className="landing-screen-container"
-      aria-label="Boopana M Grimoire Portfolio Hero"
+      aria-label="Boopana M Developer Portfolio Hero"
     >
       {/* 1. Full Screen Backdrop Scene */}
       <div className="landing-scene-stage">
         <div className="landing-cinematic-backdrop" aria-hidden="true">
           <img
             src="/closed-book-cover.png"
-            alt="Boopana M — Antique Grimoire Portfolio Background"
+            alt="Boopana M — Developer Portfolio Background"
             className="landing-scene-image"
             loading="eager"
           />
@@ -32,14 +32,14 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({ onOpen }) => {
           <div className="landing-arcane-aura" />
         </div>
 
-        {/* 2. Interactive Hotspot centered over the Grimoire */}
+        {/* 2. Interactive Hotspot centered over the Book */}
         <div
           className="landing-book-interactive-hotspot"
           role="button"
           tabIndex={0}
           onClick={onOpen}
           onKeyDown={handleKeyDown}
-          aria-label="Click to open Boopana M's Portfolio Grimoire"
+          aria-label="Click to open Boopana M's Portfolio"
         />
 
         {/* 3. Responsive "OPEN PORTFOLIO" CTA Controls */}
@@ -48,7 +48,7 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({ onOpen }) => {
             type="button"
             className="landing-open-btn"
             onClick={onOpen}
-            aria-label="Open Portfolio Grimoire"
+            aria-label="Open Developer Portfolio"
           >
             <span className="landing-btn-gem" aria-hidden="true" />
             <span>OPEN PORTFOLIO</span>
@@ -57,7 +57,7 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({ onOpen }) => {
 
           <p className="landing-cta-hint" aria-hidden="true">
             <Sparkles size={13} />
-            Click grimoire or press Enter to open
+            Click book or press Enter to open
             <Sparkles size={13} />
           </p>
         </div>

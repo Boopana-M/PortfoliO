@@ -220,7 +220,7 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
   }, [openingFinished, isFlipping, safeFlipPrev]);
 
   return (
-    <main className="book-stage" aria-label="Magical Portfolio Grimoire">
+    <main className="book-stage" aria-label="Interactive Developer Portfolio Book">
       {/* Atmosphere Glows & Multi-tier Ground Shadows */}
       <div className="book-ambient-glow" aria-hidden="true" />
       <div className="book-ground-shadow-wide" aria-hidden="true" />
