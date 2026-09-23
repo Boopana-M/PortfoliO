@@ -13,70 +13,69 @@ export const App: React.FC = () => {
   const [isBookOpen, setIsBookOpen] = useState<boolean>(false);
   const [isOpening, setIsOpening] = useState<boolean>(false);
   const [currentSpread, setCurrentSpread] = useState<number>(0);
+  const [targetSpread, setTargetSpread] = useState<number>(0);
   const [isTurning, setIsTurning] = useState<boolean>(false);
   const [turnDirection, setTurnDirection] = useState<'next' | 'prev' | null>(null);
 
   const handleOpenBook = useCallback(() => {
     if (isOpening || isBookOpen) return;
     setIsOpening(true);
-
-    // Coordinate realistic 3D book-opening transition
-    setTimeout(() => {
-      setIsBookOpen(true);
-      setIsOpening(false);
-    }, 1150);
   }, [isOpening, isBookOpen]);
+
+  const handleOpenComplete = useCallback(() => {
+    setIsBookOpen(true);
+    setIsOpening(false);
+    setCurrentSpread(0);
+    setTargetSpread(0);
+  }, []);
 
   const handleCloseBook = useCallback(() => {
     setIsBookOpen(false);
     setIsOpening(false);
     setCurrentSpread(0);
+    setTargetSpread(0);
   }, []);
 
   const handleNextSpread = useCallback(() => {
     if (isTurning || currentSpread >= spreads.length - 1) return;
+    const nextIndex = currentSpread + 1;
+    setTargetSpread(nextIndex);
     setTurnDirection('next');
     setIsTurning(true);
 
     setTimeout(() => {
-      setCurrentSpread((prev) => prev + 1);
-    }, 600);
-
-    setTimeout(() => {
+      setCurrentSpread(nextIndex);
       setIsTurning(false);
       setTurnDirection(null);
-    }, 1250);
+    }, 1350);
   }, [isTurning, currentSpread]);
 
   const handlePrevSpread = useCallback(() => {
     if (isTurning || currentSpread <= 0) return;
+    const prevIndex = currentSpread - 1;
+    setTargetSpread(prevIndex);
     setTurnDirection('prev');
     setIsTurning(true);
 
     setTimeout(() => {
-      setCurrentSpread((prev) => prev - 1);
-    }, 600);
-
-    setTimeout(() => {
+      setCurrentSpread(prevIndex);
       setIsTurning(false);
       setTurnDirection(null);
-    }, 1250);
+    }, 1350);
   }, [isTurning, currentSpread]);
 
   const handleSelectSpread = useCallback((spreadIndex: number) => {
     if (isTurning || spreadIndex === currentSpread) return;
     const direction = spreadIndex > currentSpread ? 'next' : 'prev';
+    setTargetSpread(spreadIndex);
     setTurnDirection(direction);
     setIsTurning(true);
 
     setTimeout(() => {
       setCurrentSpread(spreadIndex);
-    }, 600);
-
-    setTimeout(() => {
       setIsTurning(false);
       setTurnDirection(null);
-    }, 1250);
+    }, 1350);
   }, [isTurning, currentSpread]);
 
   // Keyboard navigation
@@ -116,6 +115,7 @@ export const App: React.FC = () => {
         <LandingScreen
           isOpening={isOpening}
           onOpen={handleOpenBook}
+          onOpenComplete={handleOpenComplete}
         />
       )}
 
@@ -130,6 +130,7 @@ export const App: React.FC = () => {
 
           <PortfolioBook
             currentSpread={currentSpread}
+            targetSpread={targetSpread}
             isTurning={isTurning}
             turnDirection={turnDirection}
             onNextSpread={handleNextSpread}

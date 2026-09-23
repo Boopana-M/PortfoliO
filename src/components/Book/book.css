@@ -688,6 +688,11 @@
     inset 0 0 45px rgba(150, 110, 50, 0.22);
 }
 
+.parchment-page-blank {
+  user-select: none;
+  pointer-events: none;
+}
+
 /* Dynamic Paper Curvature Lighting Overlay */
 .page-curvature-overlay {
   position: absolute;
@@ -1369,7 +1374,7 @@
 
 
 /* -----------------------------------------
-   9. Realistic 3D Physical Turning Page Leaf (Phase 4)
+   9. Realistic 3D Physical Turning Page Leaf (Dual-Faced Real Portfolio Content)
    ----------------------------------------- */
 .turning-page-leaf-container {
   position: absolute;
@@ -1377,29 +1382,30 @@
   bottom: 0;
   width: 50%;
   height: 100%;
-  z-index: 35;
-  perspective: 2000px;
+  z-index: 40;
+  perspective: 2600px;
+  transform-style: preserve-3d;
   pointer-events: none;
 }
 
 .leaf-turn-next {
   left: 50%;
   transform-origin: left center;
-  animation: leaf-turn-forward 1.25s cubic-bezier(0.35, 0.0, 0.15, 1) forwards;
+  animation: leaf-turn-forward 1.35s cubic-bezier(0.35, 0.0, 0.2, 1) forwards;
 }
 
 .leaf-turn-prev {
   left: 0;
   transform-origin: right center;
-  animation: leaf-turn-backward 1.25s cubic-bezier(0.35, 0.0, 0.15, 1) forwards;
+  animation: leaf-turn-backward 1.35s cubic-bezier(0.35, 0.0, 0.2, 1) forwards;
 }
 
 .turning-leaf-sheet {
-  position: relative;
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 0.2s;
 }
 
 .leaf-face {
@@ -1409,116 +1415,148 @@
   -webkit-backface-visibility: hidden;
   box-sizing: border-box;
   overflow: hidden;
+  border-radius: 4px;
 }
 
 .leaf-face-front {
-  background: radial-gradient(ellipse at 30% 50%, #faf0d8 0%, #ead7b0 60%, #ceb07f 90%, #a68755 100%);
+  transform: rotateY(0deg);
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   box-shadow: 
-    inset 0 0 45px rgba(140, 100, 45, 0.35),
+    inset -4px 0 16px rgba(0, 0, 0, 0.35),
     -12px 0 35px rgba(0, 0, 0, 0.6);
 }
 
 .leaf-face-back {
-  background: radial-gradient(ellipse at 70% 50%, #faf0d8 0%, #ead7b0 60%, #ceb07f 90%, #a68755 100%);
+  transform: rotateY(180deg);
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
-  transform: rotateY(180deg);
   box-shadow: 
-    inset 0 0 45px rgba(140, 100, 45, 0.35),
+    inset 4px 0 16px rgba(0, 0, 0, 0.35),
     12px 0 35px rgba(0, 0, 0, 0.6);
 }
 
-.leaf-edge-border {
+/* 3D Paper Thickness & Edge Bevel */
+.leaf-edge-thickness {
   position: absolute;
-  inset: 12px;
-  border: 1px solid rgba(135, 105, 65, 0.4);
+  top: 0;
+  bottom: 0;
+  right: -2px;
+  width: 3px;
+  background: linear-gradient(180deg, #c4aa7b 0%, #eedeb8 50%, #9a7f53 100%);
+  border-right: 1px solid #6b4c24;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.6);
   pointer-events: none;
-}
-
-.leaf-castle-artwork {
-  position: absolute;
-  bottom: 24px;
-  left: 20px;
-  width: 130px;
-  height: 160px;
-  pointer-events: none;
-  z-index: 5;
-}
-
-.turning-leaf-castle {
-  width: 100%;
-  height: 100%;
+  z-index: 10;
 }
 
 .leaf-curl-highlight {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.35) 45%, rgba(0, 0, 0, 0.35) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 248, 225, 0.4) 45%,
+    rgba(255, 255, 255, 0) 80%,
+    rgba(0, 0, 0, 0.25) 100%
+  );
   pointer-events: none;
+  z-index: 8;
 }
 
 .leaf-curl-shadow-back {
   position: absolute;
   inset: 0;
-  background: linear-gradient(-90deg, transparent 0%, rgba(255, 255, 255, 0.35) 45%, rgba(0, 0, 0, 0.35) 100%);
+  background: linear-gradient(
+    -90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 248, 225, 0.35) 45%,
+    rgba(255, 255, 255, 0) 80%,
+    rgba(0, 0, 0, 0.35) 100%
+  );
   pointer-events: none;
+  z-index: 8;
 }
 
 .turning-leaf-cast-shadow {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: -100%;
   width: 100%;
-  background: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.55) 100%);
-  opacity: 0;
   pointer-events: none;
-  animation: cast-shadow-sweep 1.25s cubic-bezier(0.35, 0.0, 0.15, 1) forwards;
+  z-index: 32;
 }
 
+.shadow-turn-next {
+  left: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.2) 60%, transparent 100%);
+  animation: cast-shadow-sweep-next 1.35s cubic-bezier(0.35, 0.0, 0.2, 1) forwards;
+}
+
+.shadow-turn-prev {
+  right: -100%;
+  left: auto;
+  background: linear-gradient(-90deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.2) 60%, transparent 100%);
+  animation: cast-shadow-sweep-prev 1.35s cubic-bezier(0.35, 0.0, 0.2, 1) forwards;
+}
+
+/* Forward Page Turn: Right to Left (0deg -> -180deg) */
 @keyframes leaf-turn-forward {
   0% {
-    transform: rotateY(0deg);
-    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
+    transform: rotateY(0deg) translateZ(2px);
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
   }
-  40% {
-    transform: rotateY(-80deg) skewY(-2deg) translateZ(18px);
-    filter: drop-shadow(-15px 15px 35px rgba(0, 0, 0, 0.8));
+  25% {
+    transform: rotateY(-45deg) translateZ(30px) skewY(-2.5deg);
+    filter: drop-shadow(-18px 18px 36px rgba(0, 0, 0, 0.85));
+  }
+  50% {
+    transform: rotateY(-90deg) translateZ(42px) skewY(0deg);
+    filter: drop-shadow(-24px 20px 42px rgba(0, 0, 0, 0.9));
   }
   75% {
-    transform: rotateY(-145deg) skewY(1deg) translateZ(10px);
-    filter: drop-shadow(-10px 10px 25px rgba(0, 0, 0, 0.7));
+    transform: rotateY(-135deg) translateZ(30px) skewY(2.5deg);
+    filter: drop-shadow(-12px 14px 28px rgba(0, 0, 0, 0.75));
   }
   100% {
-    transform: rotateY(-180deg) skewY(0deg) translateZ(0);
-    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
+    transform: rotateY(-180deg) translateZ(2px) skewY(0deg);
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
   }
 }
 
+/* Backward Page Turn: Left to Right (-180deg -> 0deg) */
 @keyframes leaf-turn-backward {
   0% {
-    transform: rotateY(0deg);
-    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
+    transform: rotateY(0deg) translateZ(2px);
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
   }
-  40% {
-    transform: rotateY(80deg) skewY(2deg) translateZ(18px);
-    filter: drop-shadow(15px 15px 35px rgba(0, 0, 0, 0.8));
+  25% {
+    transform: rotateY(45deg) translateZ(30px) skewY(2.5deg);
+    filter: drop-shadow(18px 18px 36px rgba(0, 0, 0, 0.85));
+  }
+  50% {
+    transform: rotateY(90deg) translateZ(42px) skewY(0deg);
+    filter: drop-shadow(24px 20px 42px rgba(0, 0, 0, 0.9));
   }
   75% {
-    transform: rotateY(145deg) skewY(-1deg) translateZ(10px);
-    filter: drop-shadow(10px 10px 25px rgba(0, 0, 0, 0.7));
+    transform: rotateY(135deg) translateZ(30px) skewY(-2.5deg);
+    filter: drop-shadow(12px 14px 28px rgba(0, 0, 0, 0.75));
   }
   100% {
-    transform: rotateY(180deg) skewY(0deg) translateZ(0);
-    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
+    transform: rotateY(180deg) translateZ(2px) skewY(0deg);
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
   }
 }
 
-@keyframes cast-shadow-sweep {
-  0% { opacity: 0; transform: scaleX(0.2); }
-  50% { opacity: 0.85; transform: scaleX(1); }
+@keyframes cast-shadow-sweep-next {
+  0% { opacity: 0; transform: scaleX(0.1); }
+  45% { opacity: 0.85; transform: scaleX(1); }
+  100% { opacity: 0; transform: scaleX(0.1); }
+}
+
+@keyframes cast-shadow-sweep-prev {
+  0% { opacity: 0; transform: scaleX(0.1); }
+  45% { opacity: 0.85; transform: scaleX(1); }
   100% { opacity: 0; transform: scaleX(0.1); }
 }
 

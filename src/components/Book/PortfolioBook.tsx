@@ -2,7 +2,6 @@ import React from 'react';
 import { BookCover } from './BookCover';
 import { BookPage } from './BookPage';
 import { PageTurnControls } from './PageTurnControls';
-import { CastleEtching } from '../common/CastleEtching';
 import { AboutPage } from '../../pages/AboutPage';
 import { SkillsPage } from '../../pages/SkillsPage';
 import { ProjectsPage } from '../../pages/ProjectsPage';
@@ -16,6 +15,7 @@ import './book.css';
 
 interface PortfolioBookProps {
   currentSpread: number;
+  targetSpread?: number;
   isTurning: boolean;
   turnDirection: 'next' | 'prev' | null;
   onNextSpread: () => void;
@@ -24,6 +24,7 @@ interface PortfolioBookProps {
 
 export const PortfolioBook: React.FC<PortfolioBookProps> = ({
   currentSpread,
+  targetSpread = currentSpread,
   isTurning,
   turnDirection,
   onNextSpread,
@@ -31,12 +32,12 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
 }) => {
   const [mobileActiveSide, setMobileActiveSide] = React.useState<'left' | 'right'>('left');
 
-  // Reset to left page on spread change
   React.useEffect(() => {
     setMobileActiveSide('left');
   }, [currentSpread]);
 
   const activeSpread = spreads[currentSpread] || spreads[0];
+  const destSpread = spreads[targetSpread] || activeSpread;
 
   const renderPageContent = (pageId: string) => {
     switch (pageId) {
@@ -61,9 +62,13 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
     }
   };
 
+  // Determine what each stationary wing displays during animation vs resting
+  const leftStationaryPage = isTurning && turnDirection === 'prev' ? destSpread : activeSpread;
+  const rightStationaryPage = isTurning && turnDirection === 'next' ? destSpread : activeSpread;
+
   return (
     <main className="book-stage" aria-label="Magical Portfolio Book">
-      {/* Atmosphere Glows & Multi-tier Realistic Ground Shadows */}
+      {/* Atmosphere Glows & Multi-tier Ground Shadows */}
       <div className="book-ambient-glow" aria-hidden="true" />
       <div className="book-ground-shadow-wide" aria-hidden="true" />
       <div className="book-ground-shadow-contact" aria-hidden="true" />
@@ -94,13 +99,14 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
 
         {/* Spread Leaves with 3D physical curvature */}
         <div className="book-page-spread">
+          {/* Stationary Left Wing */}
           <div className="book-page-wing book-page-wing-left">
-            <BookPage side="left" pageNumber={activeSpread.leftPageNumber}>
-              {renderPageContent(activeSpread.leftPageId)}
+            <BookPage side="left" pageNumber={leftStationaryPage.leftPageNumber}>
+              {renderPageContent(leftStationaryPage.leftPageId)}
             </BookPage>
           </div>
 
-          {/* Deep center gutter, physical spine fold, and binding stitches */}
+          {/* Deep Center Gutter, Physical Spine Fold & Stitching */}
           <div className="book-center-spine" aria-hidden="true">
             <div className="spine-crease-shadow" />
             <div className="spine-highlight-ridge" />
@@ -110,37 +116,61 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
             <div className="spine-stitch stitch-4" />
           </div>
 
+          {/* Stationary Right Wing */}
           <div className="book-page-wing book-page-wing-right">
-            <BookPage side="right" pageNumber={activeSpread.rightPageNumber}>
-              {renderPageContent(activeSpread.rightPageId)}
+            <BookPage side="right" pageNumber={rightStationaryPage.rightPageNumber}>
+              {renderPageContent(rightStationaryPage.rightPageId)}
             </BookPage>
           </div>
 
-          {/* Realistic 3D Physical Turning Page Leaf */}
-          {isTurning && (
-            <div
-              className={`turning-page-leaf-container leaf-turn-${turnDirection || 'next'}`}
-              aria-hidden="true"
-            >
+          {/* REAL DUAL-FACED 3D PHYSICAL TURNING PAGE LEAF */}
+          {isTurning && turnDirection === 'next' && (
+            <div className="turning-page-leaf-container leaf-turn-next" aria-hidden="true">
               <div className="turning-leaf-sheet">
-                {/* Front Face of Turning Sheet (Curled parchment with Castle Etching) */}
+                {/* Front Face: Outgoing Right Page (e.g. Skills) rotating 0deg to -90deg */}
                 <div className="leaf-face leaf-face-front">
-                  <div className="parchment-noise-texture" />
+                  <BookPage side="right" pageNumber={activeSpread.rightPageNumber}>
+                    {renderPageContent(activeSpread.rightPageId)}
+                  </BookPage>
                   <div className="leaf-curl-highlight" />
-                  <div className="leaf-castle-artwork">
-                    <CastleEtching className="turning-leaf-castle" />
-                  </div>
-                  <div className="leaf-edge-border" />
+                  <div className="leaf-edge-thickness" />
                 </div>
 
-                {/* Back Face of Turning Sheet */}
+                {/* Back Face: Incoming Left Page (e.g. Projects) rotating -90deg to -180deg */}
                 <div className="leaf-face leaf-face-back">
-                  <div className="parchment-noise-texture" />
+                  <BookPage side="left" pageNumber={destSpread.leftPageNumber}>
+                    {renderPageContent(destSpread.leftPageId)}
+                  </BookPage>
                   <div className="leaf-curl-shadow-back" />
-                  <div className="leaf-edge-border" />
+                  <div className="leaf-edge-thickness" />
                 </div>
               </div>
-              <div className="turning-leaf-cast-shadow" />
+              <div className="turning-leaf-cast-shadow shadow-turn-next" />
+            </div>
+          )}
+
+          {isTurning && turnDirection === 'prev' && (
+            <div className="turning-page-leaf-container leaf-turn-prev" aria-hidden="true">
+              <div className="turning-leaf-sheet">
+                {/* Front Face: Incoming Right Page (e.g. Skills) descending onto right */}
+                <div className="leaf-face leaf-face-front">
+                  <BookPage side="right" pageNumber={destSpread.rightPageNumber}>
+                    {renderPageContent(destSpread.rightPageId)}
+                  </BookPage>
+                  <div className="leaf-curl-highlight" />
+                  <div className="leaf-edge-thickness" />
+                </div>
+
+                {/* Back Face: Outgoing Left Page (e.g. Projects) lifting off left */}
+                <div className="leaf-face leaf-face-back">
+                  <BookPage side="left" pageNumber={activeSpread.leftPageNumber}>
+                    {renderPageContent(activeSpread.leftPageId)}
+                  </BookPage>
+                  <div className="leaf-curl-shadow-back" />
+                  <div className="leaf-edge-thickness" />
+                </div>
+              </div>
+              <div className="turning-leaf-cast-shadow shadow-turn-prev" />
             </div>
           )}
         </div>

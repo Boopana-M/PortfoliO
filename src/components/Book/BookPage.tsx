@@ -2,15 +2,16 @@ import React from 'react';
 
 interface BookPageProps {
   side: 'left' | 'right';
-  pageNumber: number;
-  children: React.ReactNode;
+  pageNumber?: number;
+  children?: React.ReactNode;
+  isBlank?: boolean;
 }
 
-export const BookPage: React.FC<BookPageProps> = ({ side, pageNumber, children }) => {
+export const BookPage: React.FC<BookPageProps> = ({ side, pageNumber, children, isBlank = false }) => {
   return (
     <article 
-      className={`parchment-page parchment-page-${side}`} 
-      aria-label={`Page ${pageNumber}`}
+      className={`parchment-page parchment-page-${side} ${isBlank ? 'parchment-page-blank' : ''}`} 
+      aria-label={pageNumber !== undefined ? `Page ${pageNumber}` : 'Blank Manuscript Page'}
     >
       {/* Dynamic Paper Lighting & Gutter Curvature Shadow */}
       <div className={`page-curvature-overlay curve-${side}`} aria-hidden="true" />
@@ -31,18 +32,27 @@ export const BookPage: React.FC<BookPageProps> = ({ side, pageNumber, children }
         </div>
       </div>
 
-      {/* Main Manuscript Content */}
-      <div className="page-content-wrapper">
-        {children}
-      </div>
+      {/* Main Manuscript Content (if not blank) */}
+      {!isBlank && children && (
+        <div className="page-content-wrapper">
+          {children}
+        </div>
+      )}
 
-      {/* Antique Footer */}
-      <footer className="page-footer" aria-hidden="true">
-        <span className="page-footer-decor">✦</span>
-        <span className="page-number-text">{pageNumber < 10 ? `0${pageNumber}` : pageNumber}</span>
-        <span className="page-footer-decor">✦</span>
-      </footer>
+      {/* Antique Footer (only when pageNumber is provided and not blank) */}
+      {!isBlank && pageNumber !== undefined && (
+        <footer className="page-footer" aria-hidden="true">
+          <span className="page-footer-decor">✦</span>
+          <span className="page-number-text">{pageNumber < 10 ? `0${pageNumber}` : pageNumber}</span>
+          <span className="page-footer-decor">✦</span>
+        </footer>
+      )}
     </article>
   );
 };
+
+export const BlankParchmentPage: React.FC<{ side: 'left' | 'right' }> = ({ side }) => (
+  <BookPage side={side} isBlank={true} />
+);
+
 
