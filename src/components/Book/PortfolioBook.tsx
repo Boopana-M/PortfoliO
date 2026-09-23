@@ -18,6 +18,7 @@ import { ResumePage } from '../../pages/ResumePage';
 import { ContactPage } from '../../pages/ContactPage';
 import { EpiloguePage } from '../../pages/EpiloguePage';
 import { ExperienceProjection } from '../Experience/ExperienceProjection';
+import { ProjectsProjection } from '../Projects/ProjectsProjection';
 import { spreads } from '../../data/navigation';
 import './book.css';
 
@@ -38,6 +39,9 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
   const [isFlipping, setIsFlipping] = useState(false);
   const [openingFinished, setOpeningFinished] = useState(!isInitialOpening);
   const [isProjectionOpen, setIsProjectionOpen] = useState(false);
+  const [isProjectsProjectionOpen, setIsProjectsProjectionOpen] = useState(false);
+
+  const isAnyProjectionOpen = isProjectionOpen || isProjectsProjectionOpen;
 
   // Safe wrapper methods for page-flip operations
   const safeFlipNext = useCallback(() => {
@@ -223,7 +227,7 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
 
   return (
     <>
-      <main className={`book-stage ${isProjectionOpen ? 'sleeping-book-stage' : ''}`} aria-label="Interactive Developer Portfolio Book">
+      <main className={`book-stage ${isAnyProjectionOpen ? 'sleeping-book-stage' : ''}`} aria-label="Interactive Developer Portfolio Book">
         {/* Atmosphere Glows & Multi-tier Ground Shadows */}
         <div className="book-ambient-glow" aria-hidden="true" />
         <div className="book-ground-shadow-wide" aria-hidden="true" />
@@ -231,7 +235,7 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
         <div className="book-lectern-rest" aria-hidden="true" />
 
         {/* Main Physical Book Container (Transitions to sleeping flat book on table) */}
-        <div className={`book-container ${isProjectionOpen ? 'book-sleeping-flat' : ''}`}>
+        <div className={`book-container ${isAnyProjectionOpen ? 'book-sleeping-flat' : ''}`}>
           <BookCover />
 
           {/* Realistic Page-Flip Grimoire Spread */}
@@ -285,7 +289,7 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
               </div>
               <div className="grimoire-page-sheet" data-density="soft">
                 <BookPage side="right" pageNumber={6}>
-                  <ProjectsPage />
+                  <ProjectsPage onOpenDetailed={() => setIsProjectsProjectionOpen(true)} />
                 </BookPage>
               </div>
 
@@ -370,10 +374,16 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
         )}
       </main>
 
-      {/* 3D Sleeping Book Ethereal Projection Portal */}
+      {/* 3D Sleeping Book Experience Projection Portal */}
       <ExperienceProjection
         isOpen={isProjectionOpen}
         onClose={() => setIsProjectionOpen(false)}
+      />
+
+      {/* 3D Sleeping Book Projects Projection Portal */}
+      <ProjectsProjection
+        isOpen={isProjectsProjectionOpen}
+        onClose={() => setIsProjectsProjectionOpen(false)}
       />
     </>
   );

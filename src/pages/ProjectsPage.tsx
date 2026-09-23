@@ -1,9 +1,13 @@
 import React from 'react';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, Compass } from 'lucide-react';
 import { GithubIcon } from '../components/common/BrandIcons';
 import { portfolio } from '../data/portfolio';
 
-export const ProjectsPage: React.FC = () => {
+interface ProjectsPageProps {
+  onOpenDetailed?: () => void;
+}
+
+export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onOpenDetailed }) => {
   const { projects } = portfolio;
 
   return (
@@ -19,7 +23,7 @@ export const ProjectsPage: React.FC = () => {
               <div className="project-title-row">
                 <h3 className="project-card-heading">{proj.title}</h3>
                 <span className={`project-category-badge badge-${proj.category}`}>
-                  {proj.category === 'individual' ? 'Solo Project' : 'Team Project'}
+                  {proj.category === 'individual' ? 'Solo' : 'Team'}
                 </span>
               </div>
               <p className="project-subtitle-text">{proj.subtitle}</p>
@@ -28,14 +32,14 @@ export const ProjectsPage: React.FC = () => {
             <p className="project-card-description">{proj.description}</p>
 
             <div className="project-tech-stack-row">
-              {proj.technologies.slice(0, 6).map((tech, tIdx) => (
+              {proj.technologies.slice(0, 5).map((tech, tIdx) => (
                 <span key={tIdx} className="project-tech-pill">
                   {tech}
                 </span>
               ))}
-              {proj.technologies.length > 6 && (
+              {proj.technologies.length > 5 && (
                 <span className="project-tech-pill tech-more">
-                  +{proj.technologies.length - 6}
+                  +{proj.technologies.length - 5}
                 </span>
               )}
             </div>
@@ -69,6 +73,20 @@ export const ProjectsPage: React.FC = () => {
             </div>
           </article>
         ))}
+      </div>
+
+      {/* View in Detail Button */}
+      <div className="experience-actions-footer">
+        <button 
+          type="button" 
+          className="exp-view-detailed-btn"
+          onClick={onOpenDetailed}
+          aria-label="View projects showcase in detail"
+        >
+          <Sparkles size={14} className="btn-sparkle-sigil" />
+          <span className="btn-text">View in Detail ✧</span>
+          <Compass size={14} className="btn-compass-sigil" />
+        </button>
       </div>
     </div>
   );
