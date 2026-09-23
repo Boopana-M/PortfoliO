@@ -565,21 +565,9 @@ export const portfolio: PortfolioData = {
   problemSolving: {
     chapterNumber: "09",
     title: "Problem Solving",
-    totalProblemsSolved: "1,700+",
-    platformsCount: 6,
+    totalProblemsSolved: "300+",
+    platformsCount: 4,
     platforms: [
-      {
-        platform: "SkillRack",
-        solved: "950+ Problems",
-        highlight: "Rank: 27544 · Bronze Medals",
-        url: "https://www.skillrack.com/faces/resume.xhtml?id=514731&key=329e80847a3718f4ef0d691b045f463f6ab123c0"
-      },
-      {
-        platform: "LeetCode",
-        solved: "450+ Problems",
-        highlight: "DSA & Problem Solving",
-        url: "https://leetcode.com/u/Boopana-M/"
-      },
       {
         platform: "CodeChef",
         solved: "170+ Problems",
