@@ -1,6 +1,5 @@
 import React from 'react';
-import { Sparkles, Compass } from 'lucide-react';
-import { GithubIcon } from '../components/common/BrandIcons';
+import { Folder, Sparkles, Compass } from 'lucide-react';
 import { portfolio } from '../data/portfolio';
 
 interface ProjectsPageProps {
@@ -13,62 +12,35 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onOpenDetailed }) =>
   return (
     <div className="page-content-wrapper projects-manuscript-page">
       <h2 className="page-title">{projects.title}</h2>
-      <div className="page-subtitle-hint">Individual &amp; Team Creations</div>
       <div className="manuscript-divider">✦ ✤ ✦</div>
 
-      <div className="projects-grid-manuscript">
+      <div className="projects-compact-list">
         {projects.items.map((proj) => (
-          <article key={proj.id} className="project-manuscript-card">
-            <div className="project-card-top">
-              <div className="project-title-row">
-                <h3 className="project-card-heading">{proj.title}</h3>
-                <span className={`project-category-badge badge-${proj.category}`}>
-                  {proj.category === 'individual' ? 'Solo' : 'Team'}
-                </span>
+          <article key={proj.id} className="project-manuscript-card project-minimal-card">
+            <div className="proj-card-header">
+              <div className="proj-title-group">
+                <h3 className="proj-card-heading">
+                  <Folder size={12} className="proj-folder-icon" />
+                  <span>{proj.title}</span>
+                </h3>
+                <span className="proj-subtitle-text">{proj.subtitle}</span>
               </div>
-              <p className="project-subtitle-text">{proj.subtitle}</p>
+
+              <span className={`project-category-badge badge-${proj.category}`}>
+                {proj.category === 'individual' ? 'Solo' : 'Team'}
+              </span>
             </div>
 
-            <p className="project-card-description">{proj.description}</p>
-
-            <div className="project-tech-stack-row">
-              {proj.technologies.slice(0, 5).map((tech, tIdx) => (
+            <div className="proj-tech-stack-row">
+              {proj.technologies.slice(0, 3).map((tech, tIdx) => (
                 <span key={tIdx} className="project-tech-pill">
                   {tech}
                 </span>
               ))}
-              {proj.technologies.length > 5 && (
+              {proj.technologies.length > 3 && (
                 <span className="project-tech-pill tech-more">
-                  +{proj.technologies.length - 5}
+                  +{proj.technologies.length - 3}
                 </span>
-              )}
-            </div>
-
-            <div className="project-actions-row">
-              {proj.live && (
-                <a
-                  href={proj.live}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="project-action-btn btn-demo"
-                  aria-label={`View Live Demo of ${proj.title}`}
-                >
-                  <Sparkles size={13} />
-                  <span>Demo</span>
-                </a>
-              )}
-
-              {proj.github && (
-                <a
-                  href={proj.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="project-action-btn btn-github"
-                  aria-label={`View GitHub repository of ${proj.title}`}
-                >
-                  <GithubIcon size={13} />
-                  <span>GitHub</span>
-                </a>
               )}
             </div>
           </article>
