@@ -2063,6 +2063,1277 @@
   }
 }
 
+/* =========================================
+   6. Structured Grimoire Page Styles
+   ========================================= */
+
+/* Common Subtitle Hint */
+.page-subtitle-hint {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: clamp(0.7rem, 1.2vh, 0.82rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9c7b4f;
+  text-align: center;
+  margin-top: -2px;
+}
+
+/* -----------------------------------------
+   PAGE 01: Home & Portrait
+   ----------------------------------------- */
+.home-profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(6px, 1.2vh, 12px);
+  width: 100%;
+  margin-top: clamp(2px, 0.5vh, 6px);
+}
+
+.home-portrait-wrapper {
+  position: relative;
+  width: clamp(86px, 13vh, 120px);
+  height: clamp(100px, 15vh, 140px);
+  border-radius: 50% / 46%;
+  padding: 3px;
+  background: radial-gradient(circle at 30% 30%, #e5cb87 0%, #b99a58 60%, #4a3418 100%);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.8),
+    0 0 16px rgba(185, 154, 88, 0.3),
+    inset 0 2px 4px rgba(255, 240, 190, 0.5);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.portrait-gilded-ring {
+  position: absolute;
+  inset: 2px;
+  border-radius: 50% / 46%;
+  border: 1.5px dashed rgba(255, 235, 175, 0.8);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.home-portrait-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 50% / 46%;
+  filter: contrast(1.04) brightness(0.98) sepia(0.08);
+  display: block;
+}
+
+.portrait-inner-sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: 50% / 46%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.home-identity-block {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.home-author-name {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: clamp(1.05rem, 2.2vh, 1.35rem);
+  font-weight: 700;
+  color: #2b1c0e;
+  letter-spacing: 0.08em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.home-author-role {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: clamp(0.6rem, 1.1vh, 0.72rem);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #7a5e38;
+  margin: 0;
+  text-transform: uppercase;
+  max-width: 320px;
+}
+
+.home-tagline-cartouche {
+  background: rgba(185, 154, 88, 0.12);
+  border: 1px solid rgba(185, 154, 88, 0.35);
+  border-radius: 4px;
+  padding: clamp(5px, 0.9vh, 9px) clamp(10px, 1.2vw, 16px);
+  text-align: center;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
+  max-width: 360px;
+}
+
+.home-tagline-text {
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-size: clamp(0.82rem, 1.4vh, 0.95rem);
+  font-style: italic;
+  color: #3d2c19;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.home-quick-links-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.home-quick-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  background: linear-gradient(180deg, #332214 0%, #1c1108 100%);
+  border: 1px solid rgba(185, 154, 88, 0.45);
+  border-radius: 3px;
+  color: #ebd7b0;
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: clamp(0.62rem, 1.05vh, 0.72rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease;
+}
+
+.home-quick-link-btn:hover {
+  color: #ffffff;
+  border-color: var(--gold-bright);
+  background: #442e1b;
+  transform: translateY(-1px);
+}
+
+/* -----------------------------------------
+   PAGE 02: About Me
+   ----------------------------------------- */
+.about-manuscript-body {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 1.2vh, 12px);
+  margin-top: 4px;
+}
+
+.about-scan-paragraph {
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-size: clamp(0.86rem, 1.45vh, 0.98rem);
+  line-height: 1.48;
+  color: #2e2012;
+  margin: 0;
+  text-align: justify;
+}
+
+/* -----------------------------------------
+   PAGE 03: Education
+   ----------------------------------------- */
+.education-content-box {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1.4vh, 14px);
+  margin-top: 4px;
+}
+
+.education-card-manuscript {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(185, 154, 88, 0.1);
+  border: 1px solid rgba(185, 154, 88, 0.35);
+  border-radius: 5px;
+  padding: clamp(8px, 1.2vh, 12px);
+}
+
+.edu-icon-badge {
+  color: #7d5e33;
+  padding: 6px;
+  background: rgba(185, 154, 88, 0.2);
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.edu-details-block {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.edu-degree-title {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: clamp(0.85rem, 1.45vh, 0.98rem);
+  font-weight: 700;
+  color: #2b1c0e;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.edu-period-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-size: 0.82rem;
+  font-style: italic;
+  color: #694e2b;
+}
+
+.edu-cgpa-cartouche {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(90deg, rgba(60, 42, 22, 0.85) 0%, rgba(35, 23, 12, 0.8) 100%);
+  border: 1px solid rgba(212, 181, 104, 0.6);
+  border-radius: 4px;
+  padding: 7px 14px;
+  color: #f7ebd4;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.cgpa-ribbon-icon {
+  color: var(--gold-bright);
+}
+
+.cgpa-data-box {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.cgpa-label {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #c9ab73;
+}
+
+.cgpa-score {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(229, 203, 135, 0.6);
+}
+
+.edu-coursework-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.coursework-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #694e2b;
+}
+
+.coursework-title-text {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.coursework-tags-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.coursework-tag-capsule {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  background: rgba(130, 95, 45, 0.08);
+  border: 1px solid rgba(130, 95, 45, 0.25);
+  border-radius: 3px;
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-size: clamp(0.76rem, 1.25vh, 0.85rem);
+  color: #332212;
+}
+
+.coursework-bullet {
+  font-size: 0.55rem;
+  color: #8c6835;
+}
+
+/* -----------------------------------------
+   PAGE 04: Skills
+   ----------------------------------------- */
+.skills-categories-container {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(5px, 0.9vh, 9px);
+  margin-top: 2px;
+}
+
+.skills-category-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.skills-category-title {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: clamp(0.7rem, 1.15vh, 0.8rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #5c4222;
+  margin: 0;
+}
+
+.skill-cat-sigil {
+  font-size: 0.58rem;
+  color: #8c6835;
+}
+
+.skills-capsules-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.skill-capsule-item {
+  display: inline-block;
+  padding: 2px 7px;
+  background: rgba(60, 40, 20, 0.08);
+  border: 1px solid rgba(140, 105, 55, 0.3);
+  border-radius: 3px;
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-size: clamp(0.74rem, 1.2vh, 0.83rem);
+  font-weight: 600;
+  color: #2b1b0d;
+}
+
+/* -----------------------------------------
+   PAGE 05: Experience
+   ----------------------------------------- */
+.experience-timeline-container {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 1.1vh, 10px);
+  margin-top: 2px;
+}
+
+.experience-entry-card {
+  background: rgba(185, 154, 88, 0.08);
+  border: 1px solid rgba(185, 154, 88, 0.3);
+  border-radius: 4px;
+  padding: clamp(6px, 1vh, 9px);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.exp-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.exp-role-heading {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: clamp(0.78rem, 1.25vh, 0.88rem);
+  font-weight: 700;
+  color: #2b1c0e;
+  margin: 0;
+}
+
+.exp-briefcase-icon {
+  color: #7d5e33;
+}
+
+.exp-org-name {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: clamp(0.68rem, 1.1vh, 0.76rem);
+  font-weight: 600;
+  color: #694e2b;
+}
+
+.exp-period-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-size: 0.74rem;
+  font-style: italic;
+  color: #7d5e33;
+  flex-shrink: 0;
+}
+
+.exp-description-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.exp-desc-bullet {
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-size: clamp(0.76rem, 1.22vh, 0.84rem);
+  line-height: 1.35;
+  color: #332212;
+}
+
+.bullet-sigil {
+  font-size: 0.5rem;
+  color: #8c6835;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.exp-skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-top: 1px;
+}
+
+.exp-skill-tag {
+  font-size: 0.68rem;
+  padding: 1px 5px;
+  background: rgba(140, 105, 55, 0.12);
+  border-radius: 2px;
+  color: #4a341a;
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-weight: 600;
+}
+
+/* -----------------------------------------
+   PAGE 06: Projects
+   ----------------------------------------- */
+.projects-grid-manuscript {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(6px, 1vh, 9px);
+  margin-top: 3px;
+}
+
+.project-manuscript-card {
+  background: rgba(185, 154, 88, 0.08);
+  border: 1px solid rgba(185, 154, 88, 0.3);
+  border-radius: 4px;
+  padding: clamp(6px, 0.9vh, 8px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.project-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+}
+
+.project-card-heading {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: clamp(0.74rem, 1.2vh, 0.84rem);
+  font-weight: 700;
+  color: #24160a;
+  margin: 0;
+  line-height: 1.15;
+}
+
+.project-category-badge {
+  font-size: 0.58rem;
+  font-family: var(--font-title, 'Cinzel', serif);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 1px 4px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.badge-individual {
+  background: rgba(76, 159, 196, 0.15);
+  color: #1e5873;
+  border: 1px solid rgba(76, 159, 196, 0.35);
+}
+
+.badge-team {
+  background: rgba(185, 154, 88, 0.18);
+  color: #694e2b;
+  border: 1px solid rgba(185, 154, 88, 0.4);
+}
+
+.project-subtitle-text {
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-size: 0.72rem;
+  font-style: italic;
+  color: #705532;
+  margin: 0;
+}
+
+.project-card-description {
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-size: clamp(0.72rem, 1.15vh, 0.78rem);
+  line-height: 1.3;
+  color: #332212;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.project-tech-stack-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.project-tech-pill {
+  font-size: 0.62rem;
+  padding: 1px 4px;
+  background: rgba(100, 70, 35, 0.08);
+  border-radius: 2px;
+  color: #4a341a;
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+}
+
+.project-actions-row {
+  display: flex;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.project-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.62rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-demo {
+  background: linear-gradient(180deg, #382414 0%, #1f1207 100%);
+  border: 1px solid rgba(185, 154, 88, 0.5);
+  color: #eedeb8;
+}
+
+.btn-demo:hover {
+  color: #ffffff;
+  border-color: var(--gold-bright);
+}
+
+.btn-github {
+  background: rgba(50, 30, 15, 0.08);
+  border: 1px solid rgba(100, 70, 35, 0.3);
+  color: #3d2915;
+}
+
+.btn-github:hover {
+  background: rgba(50, 30, 15, 0.15);
+  color: #120904;
+}
+
+/* -----------------------------------------
+   PAGE 07: Achievements
+   ----------------------------------------- */
+.achievements-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(7px, 1.2vh, 12px);
+  margin-top: 4px;
+}
+
+.achievement-manuscript-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(185, 154, 88, 0.1);
+  border: 1px solid rgba(185, 154, 88, 0.35);
+  border-radius: 4px;
+  padding: clamp(7px, 1.1vh, 10px);
+}
+
+.achievement-card-icon {
+  color: var(--gold-dark);
+  padding: 6px;
+  background: rgba(185, 154, 88, 0.2);
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.achievement-card-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ach-title-year-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+}
+
+.achievement-name {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: clamp(0.78rem, 1.25vh, 0.88rem);
+  font-weight: 700;
+  color: #24160a;
+  margin: 0;
+}
+
+.achievement-year-badge {
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-style: italic;
+  font-size: 0.74rem;
+  color: #694e2b;
+}
+
+.achievement-desc-text {
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-size: clamp(0.76rem, 1.2vh, 0.84rem);
+  line-height: 1.35;
+  color: #332212;
+  margin: 0;
+}
+
+.ach-proof-row {
+  margin-top: 2px;
+}
+
+.achievement-proof-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  background: linear-gradient(180deg, #2c1a0e 0%, #170d06 100%);
+  border: 1px solid rgba(185, 154, 88, 0.45);
+  border-radius: 3px;
+  color: #eeddb8;
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.achievement-proof-btn:hover {
+  color: #ffffff;
+  border-color: var(--gold-bright);
+  transform: translateY(-1px);
+}
+
+/* -----------------------------------------
+   PAGE 08: Open Source
+   ----------------------------------------- */
+.opensource-container-box {
+  margin-top: 6px;
+}
+
+.opensource-manuscript-card {
+  background: rgba(185, 154, 88, 0.1);
+  border: 1px solid rgba(185, 154, 88, 0.35);
+  border-radius: 5px;
+  padding: clamp(10px, 1.6vh, 16px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.os-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.os-icon-seal {
+  color: #7d5e33;
+  padding: 8px;
+  background: rgba(185, 154, 88, 0.2);
+  border-radius: 50%;
+}
+
+.os-header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.os-org-label {
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-style: italic;
+  font-size: 0.8rem;
+  color: #694e2b;
+}
+
+.os-repo-title {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #24160a;
+  margin: 0;
+}
+
+.os-role-badge {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7a5e38;
+}
+
+.os-stats-ribbon {
+  display: flex;
+  gap: 12px;
+  background: rgba(60, 40, 20, 0.08);
+  border-radius: 3px;
+  padding: 6px 10px;
+}
+
+.os-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #332212;
+}
+
+.os-stat-icon {
+  color: #7d5e33;
+}
+
+.os-stat-icon-check {
+  color: #2e6930;
+}
+
+.os-description-text {
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: #2e2012;
+  margin: 0;
+}
+
+.os-action-row {
+  margin-top: 4px;
+}
+
+.os-contributions-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: linear-gradient(180deg, #332214 0%, #1c1108 100%);
+  border: 1px solid rgba(185, 154, 88, 0.5);
+  border-radius: 4px;
+  color: #f7ebd4;
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.os-contributions-btn:hover {
+  color: #ffffff;
+  border-color: var(--gold-bright);
+  transform: translateY(-1px);
+}
+
+/* -----------------------------------------
+   PAGE 09: Problem Solving
+   ----------------------------------------- */
+.problem-solving-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(6px, 1.1vh, 10px);
+  margin-top: 4px;
+}
+
+.ps-platform-card {
+  background: rgba(185, 154, 88, 0.1);
+  border: 1px solid rgba(185, 154, 88, 0.35);
+  border-radius: 4px;
+  padding: clamp(7px, 1.1vh, 10px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.ps-card-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ps-platform-icon-wrap {
+  color: #7d5e33;
+}
+
+.ps-platform-name {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #24160a;
+  margin: 0;
+}
+
+.ps-card-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.ps-metric-number {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #4a341a;
+}
+
+.ps-metric-highlight {
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-size: 0.74rem;
+  font-style: italic;
+  color: #694e2b;
+}
+
+.ps-platform-link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 8px;
+  background: linear-gradient(180deg, #2e1c0f 0%, #170d06 100%);
+  border: 1px solid rgba(185, 154, 88, 0.45);
+  border-radius: 3px;
+  color: #eeddb8;
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin-top: 2px;
+  transition: all 0.2s ease;
+}
+
+.ps-platform-link-btn:hover {
+  color: #ffffff;
+  border-color: var(--gold-bright);
+}
+
+/* -----------------------------------------
+   PAGE 10: Research
+   ----------------------------------------- */
+.research-status-container {
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+}
+
+.research-scroll-card {
+  background: rgba(185, 154, 88, 0.12);
+  border: 1px solid rgba(185, 154, 88, 0.4);
+  border-radius: 6px;
+  padding: clamp(12px, 2vh, 18px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  max-width: 360px;
+}
+
+.research-scroll-seal {
+  color: #7d5e33;
+}
+
+.research-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  background: rgba(60, 40, 20, 0.1);
+  border: 1px solid rgba(140, 105, 55, 0.35);
+  border-radius: 12px;
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #5c4222;
+}
+
+.research-statement-text {
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-size: 0.92rem;
+  font-style: italic;
+  line-height: 1.45;
+  color: #332212;
+  margin: 0;
+}
+
+.research-focus-areas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+}
+
+.research-focus-pill {
+  padding: 3px 8px;
+  background: rgba(185, 154, 88, 0.18);
+  border: 1px solid rgba(185, 154, 88, 0.4);
+  border-radius: 3px;
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  color: #4a341a;
+}
+
+/* -----------------------------------------
+   PAGE 11: Coding Stats
+   ----------------------------------------- */
+.coding-stats-container {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(7px, 1.2vh, 12px);
+  margin-top: 4px;
+}
+
+.total-solved-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(90deg, rgba(60, 42, 22, 0.9) 0%, rgba(35, 23, 12, 0.85) 100%);
+  border: 1.5px solid rgba(212, 181, 104, 0.6);
+  border-radius: 5px;
+  padding: 8px 14px;
+  color: #f7ebd4;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.solved-banner-icon {
+  color: var(--gold-bright);
+}
+
+.solved-banner-data {
+  display: flex;
+  flex-direction: column;
+}
+
+.solved-banner-number {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(229, 203, 135, 0.7);
+  line-height: 1.1;
+}
+
+.solved-banner-label {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #c9ab73;
+}
+
+.github-stats-card {
+  background: rgba(185, 154, 88, 0.1);
+  border: 1px solid rgba(185, 154, 88, 0.35);
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.github-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(185, 154, 88, 0.3);
+  padding-bottom: 5px;
+}
+
+.github-icon-gold {
+  color: #694e2b;
+}
+
+.github-handle-text {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #24160a;
+}
+
+.github-live-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-size: 0.72rem;
+  font-style: italic;
+  color: #2e6930;
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #3cb043;
+  box-shadow: 0 0 4px #3cb043;
+}
+
+.github-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.github-metric-box {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(60, 40, 20, 0.08);
+  border-radius: 3px;
+  padding: 5px 8px;
+  color: #5c4222;
+}
+
+.github-metric-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-val {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #24160a;
+}
+
+.metric-lbl {
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-size: 0.68rem;
+  color: #694e2b;
+}
+
+/* -----------------------------------------
+   PAGE 12: Resume
+   ----------------------------------------- */
+.resume-page-container {
+  margin-top: 6px;
+  display: flex;
+  justify-content: center;
+}
+
+.resume-scroll-card {
+  background: rgba(185, 154, 88, 0.12);
+  border: 1px solid rgba(185, 154, 88, 0.4);
+  border-radius: 6px;
+  padding: clamp(12px, 2.2vh, 18px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  max-width: 380px;
+}
+
+.resume-card-seal {
+  color: #7d5e33;
+}
+
+.resume-invitation-message {
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: #2e2012;
+  margin: 0;
+}
+
+.resume-highlights-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+  width: 100%;
+}
+
+.resume-highlight-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-size: 0.82rem;
+  color: #332212;
+}
+
+.grimoire-resume-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: linear-gradient(180deg, #332214 0%, #1c1108 100%);
+  border: 1.5px solid rgba(212, 181, 104, 0.6);
+  border-radius: 4px;
+  color: #f7ebd4;
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+  transition: all 0.22s ease;
+}
+
+.grimoire-resume-download-btn:hover {
+  color: #ffffff;
+  border-color: var(--gold-bright);
+  background: #442e1b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6), 0 0 12px rgba(185, 154, 88, 0.4);
+}
+
+/* -----------------------------------------
+   PAGE 13: Contact
+   ----------------------------------------- */
+.contact-manuscript-container {
+  margin-top: 4px;
+  display: flex;
+  justify-content: center;
+}
+
+.contact-missive-card {
+  background: rgba(185, 154, 88, 0.12);
+  border: 1px solid rgba(185, 154, 88, 0.4);
+  border-radius: 6px;
+  padding: clamp(10px, 1.8vh, 16px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  max-width: 380px;
+}
+
+.contact-seal-icon {
+  color: #7d5e33;
+}
+
+.contact-invite-heading {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #24160a;
+  margin: 0;
+}
+
+.contact-missive-body {
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: #2e2012;
+  margin: 0;
+}
+
+.contact-direct-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.contact-primary-email-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  background: linear-gradient(180deg, #332214 0%, #1c1108 100%);
+  border: 1.5px solid rgba(212, 181, 104, 0.6);
+  border-radius: 4px;
+  color: #f7ebd4;
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease;
+}
+
+.contact-primary-email-btn:hover {
+  color: #ffffff;
+  border-color: var(--gold-bright);
+  transform: translateY(-1px);
+}
+
+.send-arrow-sigil {
+  color: var(--gold-bright);
+}
+
+.contact-social-row {
+  display: flex;
+  gap: 8px;
+}
+
+.contact-social-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  background: rgba(60, 40, 20, 0.1);
+  border: 1px solid rgba(140, 105, 55, 0.35);
+  border-radius: 3px;
+  color: #3d2915;
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.contact-social-pill:hover {
+  background: rgba(60, 40, 20, 0.2);
+  color: #120904;
+}
+
+
 @keyframes insideCastShadowSweep1 {
   0% { opacity: 0; transform: scaleX(0.1); }
   45% { opacity: 0.8; transform: scaleX(1); }

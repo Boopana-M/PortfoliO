@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import {
+  Home,
   User,
+  GraduationCap,
   Sparkles,
-  Folder,
   Briefcase,
+  Folder,
   Trophy,
   Code,
+  Brain,
+  BookOpen,
+  BarChart2,
   FileText,
   Mail,
-  BookOpen,
   X
 } from 'lucide-react';
 import { navigationItems, spreads } from '../../data/navigation';
@@ -30,28 +34,38 @@ export const SideNavigation: React.FC<SideNavigationProps> = ({
 
   const getIcon = (iconName: string) => {
     switch (iconName) {
+      case 'Home':
+        return <Home size={15} />;
       case 'User':
-        return <User size={16} />;
+        return <User size={15} />;
+      case 'GraduationCap':
+        return <GraduationCap size={15} />;
       case 'Sparkles':
-        return <Sparkles size={16} />;
-      case 'Folder':
-        return <Folder size={16} />;
+        return <Sparkles size={15} />;
       case 'Briefcase':
-        return <Briefcase size={16} />;
+        return <Briefcase size={15} />;
+      case 'Folder':
+        return <Folder size={15} />;
       case 'Trophy':
-        return <Trophy size={16} />;
+        return <Trophy size={15} />;
       case 'Code':
-        return <Code size={16} />;
+        return <Code size={15} />;
+      case 'Brain':
+        return <Brain size={15} />;
+      case 'BookOpen':
+        return <BookOpen size={15} />;
+      case 'BarChart2':
+        return <BarChart2 size={15} />;
       case 'FileText':
-        return <FileText size={16} />;
+        return <FileText size={15} />;
       case 'Mail':
-        return <Mail size={16} />;
+        return <Mail size={15} />;
       default:
-        return <Sparkles size={16} />;
+        return <Sparkles size={15} />;
     }
   };
 
-  const activeSpread = spreads[currentSpread];
+  const activeSpread = spreads[currentSpread] || spreads[0];
 
   const handleChapterClick = (spreadIndex: number) => {
     onSelectSpread(spreadIndex);
@@ -100,21 +114,19 @@ export const SideNavigation: React.FC<SideNavigationProps> = ({
               </button>
             </div>
 
-            <ul className="mobile-chapters-list">
+            <ul className="mobile-drawer-list">
               {navigationItems.map((item) => {
-                const isActive =
-                  activeSpread &&
-                  (activeSpread.leftPageId === item.id || activeSpread.rightPageId === item.id);
-
+                const isActive = item.spreadIndex === currentSpread;
                 return (
                   <li key={item.id}>
                     <button
                       type="button"
-                      className={`mobile-chapter-btn ${isActive ? 'active' : ''}`}
+                      className={`mobile-drawer-item ${isActive ? 'active' : ''}`}
                       onClick={() => handleChapterClick(item.spreadIndex)}
                     >
-                      <span className="nav-icon">{getIcon(item.iconName)}</span>
-                      <span>{item.label}</span>
+                      <span className="nav-icon-wrapper">{getIcon(item.iconName)}</span>
+                      <span className="mobile-item-label">{item.label}</span>
+                      <span className="mobile-item-page">p.{item.pageNumber < 10 ? `0${item.pageNumber}` : item.pageNumber}</span>
                     </button>
                   </li>
                 );
@@ -124,59 +136,81 @@ export const SideNavigation: React.FC<SideNavigationProps> = ({
         </div>
       )}
 
-      {/* Desktop / Laptop Side Navigation */}
-      <aside className="side-navigation" aria-label="Book Chapters">
-        <div 
-          className="nav-header"
-          role={onCloseBook ? "button" : undefined}
-          tabIndex={onCloseBook ? 0 : undefined}
-          onClick={onCloseBook}
-          onKeyDown={(e) => {
-            if (onCloseBook && (e.key === 'Enter' || e.key === ' ')) {
-              e.preventDefault();
-              onCloseBook();
-            }
-          }}
-          title={onCloseBook ? "Close book and return to cover" : undefined}
-          style={{ cursor: onCloseBook ? 'pointer' : 'default' }}
-        >
-          <div className="nav-crest-monogram" aria-hidden="true">
-            <div className="monogram-outer-ring" />
-            <div className="monogram-inner-ring" />
-            <span className="monogram-letter">B</span>
-            <div className="monogram-accent mon-top" />
-            <div className="monogram-accent mon-bottom" />
-            <div className="monogram-accent mon-left" />
-            <div className="monogram-accent mon-right" />
+      {/* Desktop Vertical Antique Navigation Sidebar */}
+      <nav 
+        className="side-navigation"
+        aria-label="Grimoire Table of Contents"
+      >
+        {/* Personal Crest Seal Header */}
+        <div className="side-nav-header">
+          <div className="personal-seal-crest" aria-hidden="true">
+            <span className="crest-arcane-glyph">⚜</span>
           </div>
-          <h1 className="nav-author-name">{portfolio.person.name}</h1>
-          <p className="nav-author-title">{portfolio.person.title}</p>
+          <div className="developer-identity-box">
+            <h1 className="developer-name-heading">{portfolio.person.name}</h1>
+            <p className="developer-role-tag">{portfolio.person.role}</p>
+          </div>
         </div>
 
-        <ul className="nav-chapters-list">
+        {/* Ornate Divider */}
+        <div className="side-nav-divider" aria-hidden="true">
+          <div className="nav-divider-line" />
+          <span className="nav-divider-gem">✦</span>
+          <div className="nav-divider-line" />
+        </div>
+
+        {/* Chapter Bookmarks Navigation List */}
+        <ul className="side-nav-list" role="list">
           {navigationItems.map((item) => {
-            const isActive = 
-              activeSpread &&
-              (activeSpread.leftPageId === item.id || activeSpread.rightPageId === item.id);
+            const isLeftActive = activeSpread.leftPageId === item.id;
+            const isRightActive = activeSpread.rightPageId === item.id;
+            const isActive = isLeftActive || isRightActive;
 
             return (
-              <li key={item.id} className="nav-chapter-item">
+              <li key={item.id} className="side-nav-item">
                 <button
                   type="button"
-                  className={`nav-chapter-button ${isActive ? 'active' : ''}`}
+                  className={`chapter-bookmark-btn ${isActive ? 'active' : ''}`}
                   onClick={() => onSelectSpread(item.spreadIndex)}
                   aria-current={isActive ? 'page' : undefined}
                 >
-                  <span className="nav-icon">{getIcon(item.iconName)}</span>
-                  <span className="nav-label">{item.label}</span>
+                  <span className="bookmark-sigil" aria-hidden="true">
+                    {isActive ? '✦' : '✧'}
+                  </span>
+                  
+                  <span className="bookmark-icon-wrap" aria-hidden="true">
+                    {getIcon(item.iconName)}
+                  </span>
+
+                  <span className="bookmark-label-text">{item.label}</span>
+
+                  <span className="bookmark-page-number" aria-hidden="true">
+                    {item.pageNumber < 10 ? `0${item.pageNumber}` : item.pageNumber}
+                  </span>
+
+                  {/* Active Golden Glow Underlay */}
+                  {isActive && <div className="bookmark-active-aurora" aria-hidden="true" />}
                 </button>
               </li>
             );
           })}
         </ul>
-      </aside>
+
+        {/* Close Grimoire Cover Button */}
+        {onCloseBook && (
+          <div className="side-nav-footer">
+            <button
+              type="button"
+              className="close-grimoire-btn"
+              onClick={onCloseBook}
+              aria-label="Close Grimoire Cover"
+            >
+              <span className="close-btn-sigil">❖</span>
+              <span className="close-btn-text">Close Book</span>
+            </button>
+          </div>
+        )}
+      </nav>
     </>
   );
 };
-
-

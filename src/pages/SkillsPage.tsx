@@ -1,6 +1,5 @@
 import React from 'react';
 import { portfolio } from '../data/portfolio';
-import { TechIcon } from '../components/common/TechIcons';
 
 export const SkillsPage: React.FC = () => {
   const { skills } = portfolio;
@@ -11,18 +10,19 @@ export const SkillsPage: React.FC = () => {
       <h2 className="page-title">{skills.title}</h2>
       <div className="manuscript-divider">✦ ✤ ✦</div>
 
-      <div className="skills-grid-container">
-        {skills.categories.map((category, idx) => (
-          <div key={idx} className="skill-section-block">
-            <h3 className="skill-section-title">{category.title}</h3>
-            <div className="skill-icons-row">
+      <div className="skills-categories-container">
+        {skills.categories.map((category, catIdx) => (
+          <div key={catIdx} className="skills-category-group">
+            <h3 className="skills-category-title">
+              <span className="skill-cat-sigil">❖</span>
+              <span>{category.title}</span>
+            </h3>
+
+            <div className="skills-capsules-cloud">
               {category.skills.map((skill, sIdx) => (
-                <div key={sIdx} className="skill-icon-cell">
-                  <div className="skill-icon-glyph">
-                    <TechIcon name={skill} size={26} />
-                  </div>
-                  <span className="skill-icon-label">{skill}</span>
-                </div>
+                <span key={sIdx} className="skill-capsule-item">
+                  {skill}
+                </span>
               ))}
             </div>
           </div>
@@ -31,4 +31,3 @@ export const SkillsPage: React.FC = () => {
     </div>
   );
 };
-

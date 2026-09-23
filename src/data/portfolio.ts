@@ -1,12 +1,12 @@
 export interface ProjectItem {
   id: string;
   title: string;
-  category: string;
+  subtitle: string;
+  category: 'individual' | 'team';
   description: string;
   technologies: string[];
   github?: string;
   live?: string;
-  date?: string;
 }
 
 export interface ExperienceItem {
@@ -14,249 +14,387 @@ export interface ExperienceItem {
   role: string;
   organization: string;
   period: string;
+  type: string;
   description: string[];
   skills: string[];
+}
+
+export interface EducationItem {
+  degree: string;
+  institution?: string;
+  period: string;
+  cgpa: string;
+  coursework: string[];
 }
 
 export interface AchievementItem {
   id: string;
   title: string;
-  issuer: string;
+  subtitle?: string;
   year: string;
   description: string;
+  proofUrl?: string;
 }
 
 export interface OpenSourceItem {
-  id: string;
-  title: string;
+  org: string;
   repo: string;
-  stars?: number;
+  role: string;
+  stats: string;
   description: string;
   link: string;
 }
 
-export interface SkillCategory {
-  title: string;
-  skills: string[];
+export interface ProblemSolvingItem {
+  platform: string;
+  solved: string;
+  highlight: string;
+  url: string;
 }
 
 export interface PortfolioData {
   person: {
     name: string;
-    title: string;
+    role: string;
     tagline: string;
-    location: string;
-    email: string;
-    signature: string;
-  };
-  about: {
-    title: string;
-    chapterNumber: string;
-    paragraphs: string[];
-    quote: string;
-  };
-  skills: {
-    title: string;
-    chapterNumber: string;
-    categories: SkillCategory[];
-  };
-  projects: {
-    title: string;
-    chapterNumber: string;
-    items: ProjectItem[];
-  };
-  experience: {
-    title: string;
-    chapterNumber: string;
-    items: ExperienceItem[];
-  };
-  achievements: {
-    title: string;
-    chapterNumber: string;
-    items: AchievementItem[];
-  };
-  openSource: {
-    title: string;
-    chapterNumber: string;
-    items: OpenSourceItem[];
-  };
-  resume: {
-    title: string;
-    chapterNumber: string;
-    summary: string;
-    education: {
-      degree: string;
-      institution: string;
-      period: string;
-    }[];
-    downloadUrl: string;
-  };
-  contact: {
-    title: string;
-    chapterNumber: string;
-    subtitle: string;
+    photo: string;
     email: string;
     github: string;
     linkedin: string;
-    location: string;
+    resumeUrl: string;
+    signature: string;
+  };
+  home: {
+    chapterNumber: string;
+    title: string;
+  };
+  about: {
+    chapterNumber: string;
+    title: string;
+    paragraphs: string[];
+  };
+  education: {
+    chapterNumber: string;
+    title: string;
+    item: EducationItem;
+  };
+  skills: {
+    chapterNumber: string;
+    title: string;
+    categories: { title: string; skills: string[] }[];
+  };
+  experience: {
+    chapterNumber: string;
+    title: string;
+    items: ExperienceItem[];
+  };
+  projects: {
+    chapterNumber: string;
+    title: string;
+    items: ProjectItem[];
+  };
+  achievements: {
+    chapterNumber: string;
+    title: string;
+    items: AchievementItem[];
+  };
+  openSource: {
+    chapterNumber: string;
+    title: string;
+    item: OpenSourceItem;
+  };
+  problemSolving: {
+    chapterNumber: string;
+    title: string;
+    platforms: ProblemSolvingItem[];
+  };
+  research: {
+    chapterNumber: string;
+    title: string;
+    status: string;
+    statement: string;
+  };
+  codingStats: {
+    chapterNumber: string;
+    title: string;
+    githubUsername: string;
+    totalProblemsSolved: string;
+    platformsCount: number;
+  };
+  resume: {
+    chapterNumber: string;
+    title: string;
+    message: string;
+    fileName: string;
+    downloadUrl: string;
+  };
+  contact: {
+    chapterNumber: string;
+    title: string;
+    invitation: string;
+    message: string;
+    email: string;
+    github: string;
+    linkedin: string;
   };
 }
 
 export const portfolio: PortfolioData = {
   person: {
     name: "Boopana M",
-    title: "SOFTWARE ENGINEER",
-    tagline: "Building scalable web solutions and high-performance digital experiences",
-    location: "Global / Remote",
-    email: "boopana@example.com",
+    role: "Software Engineer | Full Stack Developer | AI Enthusiast",
+    tagline: "Building intelligent systems, solving problems, and turning ideas into impactful products.",
+    photo: "/boopana-photo.png",
+    email: "boopana608@gmail.com",
+    github: "https://github.com/Boopana-M",
+    linkedin: "https://linkedin.com/in/boopana-m",
+    resumeUrl: "#",
     signature: "Boopana M."
   },
-  about: {
-    title: "About Me",
+  home: {
     chapterNumber: "01",
-    paragraphs: [
-      "Hi! I'm Boopana, a passionate Software Engineer who specializes in building scalable web applications and high-performance user interfaces.",
-      "I focus on writing clean, maintainable code and solving complex real-world problems with robust engineering principles.",
-      "Driven by curiosity and continuous learning, I am eager to contribute to forward-thinking engineering teams."
-    ],
-    quote: "“Software engineering is the discipline of creating reliable, elegant, and impactful systems that stand the test of time.”"
+    title: "Home"
   },
-  skills: {
-    title: "Technical Skills",
+  about: {
     chapterNumber: "02",
-    categories: [
-      {
-        title: "Programming Languages",
-        skills: ["JavaScript", "Python", "Java", "C++"]
-      },
-      {
-        title: "Full-Stack Development",
-        skills: ["React", "Node.js", "Express", "MongoDB"]
-      },
-      {
-        title: "Tools & DevOps",
-        skills: ["Git", "GitHub", "VS Code", "Docker"]
-      },
-      {
-        title: "Core Competencies",
-        skills: ["DSA", "Problem Solving", "System Design", "OOPs"]
-      }
+    title: "About Me",
+    paragraphs: [
+      "I'm Boopana, a Computer and Communication Engineering student passionate about software engineering, AI, and problem solving.",
+      "I enjoy building full-stack applications, exploring Agentic AI and RAG systems, and solving algorithmic problems.",
+      "My experience spans web development, AI-powered applications, open-source contribution, and competitive programming.",
+      "I'm currently focused on growing as a software engineer and building products that combine strong engineering with practical impact."
     ]
   },
-  projects: {
-    title: "Featured Projects",
+  education: {
     chapterNumber: "03",
-    items: [
+    title: "Education",
+    item: {
+      degree: "B.E. Computer and Communication Engineering",
+      period: "2024 – 2028",
+      cgpa: "8.51 / 10.0",
+      coursework: [
+        "Data Structures & Algorithms",
+        "Object-Oriented Programming",
+        "Database Management Systems",
+        "Computer Networks",
+        "Operating Systems",
+        "System Design"
+      ]
+    }
+  },
+  skills: {
+    chapterNumber: "04",
+    title: "Skills",
+    categories: [
       {
-        id: "debugra",
-        title: "Debugra Codebase Portal",
-        category: "Full Stack / AI Platform",
-        description: "An advanced collaborative code execution and AI-assisted debugging platform supporting multi-language runtime sandboxes.",
-        technologies: ["React", "Express", "Wandbox API", "Firebase", "Groq AI"],
-        github: "https://github.com",
-        live: "https://example.com"
+        title: "Languages",
+        skills: ["C", "C++", "Java", "Python"]
       },
       {
-        id: "chronicle",
-        title: "Interactive 3D Graphics Engine",
-        category: "Graphics & UI Library",
-        description: "High-performance shader-driven micro-interaction framework with realistic physical transformations and rendering optimizations.",
-        technologies: ["TypeScript", "WebGL", "CSS 3D", "Canvas API"],
-        github: "https://github.com",
-        live: "https://example.com"
+        title: "Web Development",
+        skills: ["React.js", "Spring Boot", "Node.js", "Express.js", "HTML", "CSS", "REST APIs", "JWT", "Responsive Design"]
+      },
+      {
+        title: "AI / ML",
+        skills: ["NLP", "LLMs", "RAG", "Agentic AI", "MCP Servers"]
+      },
+      {
+        title: "Databases",
+        skills: ["MySQL", "MongoDB", "PostgreSQL"]
+      },
+      {
+        title: "Core CS",
+        skills: ["DSA", "OOP", "DBMS", "Computer Networks", "Operating Systems", "System Design"]
+      },
+      {
+        title: "Tools & Platforms",
+        skills: ["Git", "GitHub", "VS Code", "Postman", "Figma", "Jupyter Notebook", "Firebase", "Back4App"]
       }
     ]
   },
   experience: {
+    chapterNumber: "05",
     title: "Experience",
-    chapterNumber: "04",
     items: [
       {
         id: "exp-1",
-        role: "Software Engineering Intern",
-        organization: "Tech Solutions Inc.",
-        period: "2024 — Present",
+        role: "Agentic AI Intern",
+        organization: "AlgoTutor",
+        period: "June 2026",
+        type: "Internship",
         description: [
-          "Engineered high-throughput REST APIs and microservice endpoints.",
-          "Implemented state-of-the-art interactive frontends with silky 60fps animations."
+          "Engineered Agentic AI and RAG pipelines for knowledge retrieval and question answering using LangChain, FAISS, ChromaDB, Ollama, OpenAI, and embedding models.",
+          "Implemented MCP-based tool integrations, prompt engineering, LoRA/PEFT concepts, and multi-agent workflows connecting LLMs with external services."
         ],
-        skills: ["React", "TypeScript", "Node.js", "PostgreSQL"]
+        skills: ["LangChain", "RAG", "ChromaDB", "MCP", "Ollama"]
       },
       {
         id: "exp-2",
         role: "Open Source Contributor",
-        organization: "Global Open Source Programs",
-        period: "2023 — 2024",
+        organization: "Learning Unlimited",
+        period: "March 2026",
+        type: "Open Source",
         description: [
-          "Contributed performance optimizations and bug fixes to core developer tooling.",
-          "Collaborated with global engineering communities through code reviews and documentation."
+          "Contributed 4 merged pull requests to the ESP-Website repository, delivering bug fixes and feature enhancements reviewed and accepted by project maintainers."
         ],
-        skills: ["Git", "CI/CD", "JavaScript", "Docker"]
+        skills: ["Git", "GitHub", "React", "Bug Fixes"]
+      },
+      {
+        id: "exp-3",
+        role: "MERN Full Stack Intern",
+        organization: "RAMPeX Technologies",
+        period: "December 2025",
+        type: "Internship",
+        description: [
+          "Developed 3 full-stack applications using React, Node.js, Express, and MongoDB with REST APIs, JWT authentication, and state management.",
+          "Designed reusable CRUD API architecture for MongoDB to improve maintainability across application modules."
+        ],
+        skills: ["React", "Node.js", "Express", "MongoDB", "JWT"]
+      }
+    ]
+  },
+  projects: {
+    chapterNumber: "06",
+    title: "Projects",
+    items: [
+      {
+        id: "proj-1",
+        title: "ISL Avatar",
+        subtitle: "Real-Time Sign Language Translator — Ongoing",
+        category: "individual",
+        description: "A Chrome extension that translates spoken YouTube content into Indian Sign Language using NLP gloss generation, MediaPipe pose extraction, and 3-tier fallback.",
+        technologies: ["Python", "FastAPI", "Ollama", "MediaPipe", "Three.js/VRM", "JavaScript", "Manifest V3", "NLTK", "SQLite"],
+        github: "https://github.com/Boopana-M",
+        live: "https://github.com/Boopana-M"
+      },
+      {
+        id: "proj-2",
+        title: "Guardian Paws",
+        subtitle: "Women’s Safety Platform",
+        category: "team",
+        description: "Safety platform featuring real-time GPS tracking, automated safety check-ins, fail-safe emergency alerts with Twilio SMS, Firebase Realtime Database & Google Maps.",
+        technologies: ["Flutter", "React", "TypeScript", "Back4App", "Firebase", "Twilio", "Google Maps API"],
+        github: "https://github.com/Boopana-M",
+        live: "https://github.com/Boopana-M"
+      },
+      {
+        id: "proj-3",
+        title: "College Library Book Recommender Agent",
+        subtitle: "AI-Powered Search & Recommendation",
+        category: "individual",
+        description: "Hybrid AI recommendation system combining semantic vector search and keyword matching to produce personalized Top-5 book recommendations with explainable results.",
+        technologies: ["Python", "SentenceTransformers", "Scikit-Learn", "Groq API", "Llama 3.3 70B", "TF-IDF", "Pandas", "NumPy"],
+        github: "https://github.com/Boopana-M",
+        live: "https://github.com/Boopana-M"
+      },
+      {
+        id: "proj-4",
+        title: "Faculty OS",
+        subtitle: "Multi-Agent Workflow Platform",
+        category: "team",
+        description: "Multi-agent system with 10 collaborative agents automating faculty workflows from daily lecture tasks through institutional reporting with LangGraph.",
+        technologies: ["TypeScript", "Tailwind CSS", "FastAPI", "PostgreSQL", "LangGraph", "Claude API", "ChromaDB"],
+        github: "https://github.com/Boopana-M",
+        live: "https://github.com/Boopana-M"
       }
     ]
   },
   achievements: {
-    title: "Honors & Achievements",
-    chapterNumber: "05",
+    chapterNumber: "07",
+    title: "Achievements",
     items: [
       {
         id: "ach-1",
-        title: "National Hackathon Winner",
-        issuer: "National Tech Conclave",
-        year: "2025",
-        description: "Secured 1st place among 300+ teams for architecting an intelligent distributed crisis-response management platform."
+        title: "Google Big Code Challenge 2026",
+        year: "2026",
+        description: "Shortlisted for Round 2 among 1,500+ national participants in algorithmic problem-solving.",
+        proofUrl: "https://github.com/Boopana-M"
       },
       {
         id: "ach-2",
-        title: "GSSoC Top Contributor",
-        issuer: "GirlScript Summer of Code",
+        title: "CodeLee Programming Competition 2025",
+        year: "2025",
+        description: "Winner & 2nd Runner-Up across 2 consecutive editions, placing in the top 3 among 500+ participants.",
+        proofUrl: "https://github.com/Boopana-M"
+      },
+      {
+        id: "ach-3",
+        title: "Createathon Web Design Competition 2024",
         year: "2024",
-        description: "Recognized as a top-tier contributor for high-impact code submissions and active open-source peer reviews."
+        description: "Winner of a time-constrained web design competition.",
+        proofUrl: "https://github.com/Boopana-M"
       }
     ]
   },
   openSource: {
-    title: "Open Source Contributions",
-    chapterNumber: "06",
-    items: [
+    chapterNumber: "08",
+    title: "Open Source",
+    item: {
+      org: "Learning Unlimited",
+      repo: "ESP-Website",
+      role: "Open Source Contributor",
+      stats: "4 Merged PRs · 2026",
+      description: "Contributed 4 pull requests merged into the ESP-Website repository, delivering bug fixes and feature enhancements reviewed and accepted by project maintainers.",
+      link: "https://github.com/Boopana-M"
+    }
+  },
+  problemSolving: {
+    chapterNumber: "09",
+    title: "Problem Solving",
+    platforms: [
       {
-        id: "os-1",
-        title: "page-flip-engine",
-        repo: "Boopana-M/page-flip-engine",
-        stars: 142,
-        description: "Lightweight CSS 3D realistic page-turn animation engine with dual-face illumination.",
-        link: "https://github.com"
+        platform: "SkillRack",
+        solved: "950+ Problems",
+        highlight: "Rank: 27544 · Bronze Medals",
+        url: "https://www.skillrack.com/"
       },
       {
-        id: "os-2",
-        title: "react-parchment-ui",
-        repo: "Boopana-M/react-parchment-ui",
-        stars: 98,
-        description: "Custom UI component library with bespoke textures and accessibility-focused interactions.",
-        link: "https://github.com"
+        platform: "LeetCode",
+        solved: "440+ Problems",
+        highlight: "Max Rating: 1580",
+        url: "https://leetcode.com/"
+      },
+      {
+        platform: "CodeChef",
+        solved: "170+ Problems",
+        highlight: "Competitive Problem Solving",
+        url: "https://www.codechef.com/"
+      },
+      {
+        platform: "Coding Ninjas",
+        solved: "65+ Problems",
+        highlight: "Data Structures & Algorithms",
+        url: "https://www.naukri.com/code360"
       }
     ]
   },
+  research: {
+    chapterNumber: "10",
+    title: "Research & Conference Submissions",
+    status: "Exploring Opportunities",
+    statement: "Currently exploring research opportunities in AI, Agentic Systems, and intelligent applications."
+  },
+  codingStats: {
+    chapterNumber: "11",
+    title: "GitHub / Coding Stats",
+    githubUsername: "Boopana-M",
+    totalProblemsSolved: "1,625+",
+    platformsCount: 4
+  },
   resume: {
-    title: "Resume & Education",
-    chapterNumber: "07",
-    summary: "Dedicated software engineer with strong technical foundations in full-stack web development, data structures, algorithms, and system design.",
-    education: [
-      {
-        degree: "Bachelor of Technology in Computer Science",
-        institution: "Premier Institute of Technology",
-        period: "2022 — 2026"
-      }
-    ],
-    downloadUrl: "#"
+    chapterNumber: "12",
+    title: "Resume",
+    message: "Want the complete picture? Download my resume to explore my experience, projects, skills, and achievements.",
+    fileName: "Boopana_M_Resume.pdf",
+    downloadUrl: "/Boopana_M_Resume.pdf"
   },
   contact: {
-    title: "Get In Touch",
-    chapterNumber: "08",
-    subtitle: "I am actively looking for software engineering opportunities. Let's connect!",
-    email: "boopana@example.com",
+    chapterNumber: "13",
+    title: "Contact",
+    invitation: "Let's build something together.",
+    message: "I'm always open to interesting projects, software engineering opportunities, collaborations, and conversations around technology.",
+    email: "boopana608@gmail.com",
     github: "https://github.com/Boopana-M",
-    linkedin: "https://linkedin.com",
-    location: "Global / Remote"
+    linkedin: "https://linkedin.com/in/boopana-m"
   }
 };

@@ -3,14 +3,20 @@ import { PageFlip } from 'page-flip';
 import { BookCover } from './BookCover';
 import { BookPage, BlankParchmentPage } from './BookPage';
 import { PageTurnControls } from './PageTurnControls';
+import { HomePage } from '../../pages/HomePage';
 import { AboutPage } from '../../pages/AboutPage';
+import { EducationPage } from '../../pages/EducationPage';
 import { SkillsPage } from '../../pages/SkillsPage';
-import { ProjectsPage } from '../../pages/ProjectsPage';
 import { ExperiencePage } from '../../pages/ExperiencePage';
+import { ProjectsPage } from '../../pages/ProjectsPage';
 import { AchievementsPage } from '../../pages/AchievementsPage';
 import { OpenSourcePage } from '../../pages/OpenSourcePage';
+import { ProblemSolvingPage } from '../../pages/ProblemSolvingPage';
+import { ResearchPage } from '../../pages/ResearchPage';
+import { CodingStatsPage } from '../../pages/CodingStatsPage';
 import { ResumePage } from '../../pages/ResumePage';
 import { ContactPage } from '../../pages/ContactPage';
+import { EpiloguePage } from '../../pages/EpiloguePage';
 import { spreads } from '../../data/navigation';
 import './book.css';
 
@@ -68,7 +74,6 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
 
     let isMounted = true;
 
-    // Small timeout to guarantee DOM geometry is fully computed
     const initTimer = setTimeout(() => {
       if (!isMounted || !bookContainerRef.current) return;
 
@@ -169,7 +174,7 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
       safeFlipNext();
     }, 500);
 
-    // Turn 2: 2nd blank leaf peels from bottom corner, revealing About Me & Skills!
+    // Turn 2: 2nd blank leaf peels from bottom corner, revealing Home (p.01) & About Me (p.02)!
     const timer2 = setTimeout(() => {
       safeFlipNext();
     }, 1900);
@@ -245,51 +250,87 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
               <BlankParchmentPage side="right" />
             </div>
 
-            {/* SPREAD 2: Chapter 01 (Page 01 - About Me & Page 02 - Technical Skills) */}
+            {/* SPREAD 2: Home (p.01) & About Me (p.02) */}
             <div className="grimoire-page-sheet" data-density="soft">
               <BookPage side="left" pageNumber={1}>
-                <AboutPage />
+                <HomePage />
               </BookPage>
             </div>
             <div className="grimoire-page-sheet" data-density="soft">
               <BookPage side="right" pageNumber={2}>
-                <SkillsPage />
+                <AboutPage />
               </BookPage>
             </div>
 
-            {/* SPREAD 3: Chapter 02 (Page 03 - Projects & Page 04 - Experience) */}
+            {/* SPREAD 3: Education (p.03) & Skills (p.04) */}
             <div className="grimoire-page-sheet" data-density="soft">
               <BookPage side="left" pageNumber={3}>
-                <ProjectsPage />
+                <EducationPage />
               </BookPage>
             </div>
             <div className="grimoire-page-sheet" data-density="soft">
               <BookPage side="right" pageNumber={4}>
-                <ExperiencePage />
+                <SkillsPage />
               </BookPage>
             </div>
 
-            {/* SPREAD 4: Chapter 03 (Page 05 - Achievements & Page 06 - Open Source) */}
+            {/* SPREAD 4: Experience (p.05) & Projects (p.06) */}
             <div className="grimoire-page-sheet" data-density="soft">
               <BookPage side="left" pageNumber={5}>
-                <AchievementsPage />
+                <ExperiencePage />
               </BookPage>
             </div>
             <div className="grimoire-page-sheet" data-density="soft">
               <BookPage side="right" pageNumber={6}>
-                <OpenSourcePage />
+                <ProjectsPage />
               </BookPage>
             </div>
 
-            {/* SPREAD 5: Chapter 04 (Page 07 - Resume & Page 08 - Contact) */}
+            {/* SPREAD 5: Achievements (p.07) & Open Source (p.08) */}
             <div className="grimoire-page-sheet" data-density="soft">
               <BookPage side="left" pageNumber={7}>
-                <ResumePage />
+                <AchievementsPage />
               </BookPage>
             </div>
             <div className="grimoire-page-sheet" data-density="soft">
               <BookPage side="right" pageNumber={8}>
+                <OpenSourcePage />
+              </BookPage>
+            </div>
+
+            {/* SPREAD 6: Problem Solving (p.09) & Research & Conference Submissions (p.10) */}
+            <div className="grimoire-page-sheet" data-density="soft">
+              <BookPage side="left" pageNumber={9}>
+                <ProblemSolvingPage />
+              </BookPage>
+            </div>
+            <div className="grimoire-page-sheet" data-density="soft">
+              <BookPage side="right" pageNumber={10}>
+                <ResearchPage />
+              </BookPage>
+            </div>
+
+            {/* SPREAD 7: GitHub / Coding Stats (p.11) & Resume Download (p.12) */}
+            <div className="grimoire-page-sheet" data-density="soft">
+              <BookPage side="left" pageNumber={11}>
+                <CodingStatsPage />
+              </BookPage>
+            </div>
+            <div className="grimoire-page-sheet" data-density="soft">
+              <BookPage side="right" pageNumber={12}>
+                <ResumePage />
+              </BookPage>
+            </div>
+
+            {/* SPREAD 8: Contact (p.13) & Epilogue (p.14) */}
+            <div className="grimoire-page-sheet" data-density="soft">
+              <BookPage side="left" pageNumber={13}>
                 <ContactPage />
+              </BookPage>
+            </div>
+            <div className="grimoire-page-sheet" data-density="soft">
+              <BookPage side="right" pageNumber={14}>
+                <EpiloguePage />
               </BookPage>
             </div>
           </div>

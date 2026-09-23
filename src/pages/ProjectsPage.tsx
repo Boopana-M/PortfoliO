@@ -1,64 +1,76 @@
 import React from 'react';
-import { ExternalLink, Code2 } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
+import { GithubIcon } from '../components/common/BrandIcons';
 import { portfolio } from '../data/portfolio';
 
 export const ProjectsPage: React.FC = () => {
   const { projects } = portfolio;
 
   return (
-    <div className="page-content-wrapper">
+    <div className="page-content-wrapper projects-manuscript-page">
       <div className="page-header-number">— {projects.chapterNumber} —</div>
       <h2 className="page-title">{projects.title}</h2>
+      <div className="page-subtitle-hint">Individual &amp; Team Creations</div>
       <div className="manuscript-divider">✦ ✤ ✦</div>
 
-      <div className="manuscript-items-list">
-        {projects.items.map((project) => (
-          <div key={project.id} className="manuscript-card">
-            <div className="card-header">
-              <h3 className="card-title">{project.title}</h3>
-              <span className="card-category">{project.category}</span>
-            </div>
-            <p className="card-description">{project.description}</p>
-            <div className="card-footer-row">
-              <div className="card-tags">
-                {project.technologies.map((tech, i) => (
-                  <span key={i} className="mini-tag">{tech}</span>
-                ))}
+      <div className="projects-grid-manuscript">
+        {projects.items.map((proj) => (
+          <article key={proj.id} className="project-manuscript-card">
+            <div className="project-card-top">
+              <div className="project-title-row">
+                <h3 className="project-card-heading">{proj.title}</h3>
+                <span className={`project-category-badge badge-${proj.category}`}>
+                  {proj.category === 'individual' ? 'Solo Project' : 'Team Project'}
+                </span>
               </div>
-              <div className="card-links">
-                {project.github && (
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="card-action-link"
-                    title="View Source Code"
-                    aria-label={`View ${project.title} source code`}
-                  >
-                    <Code2 size={13} />
-                    <span>Source</span>
-                  </a>
-                )}
-                {project.live && (
-                  <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="card-action-link"
-                    title="Launch Live Demo"
-                    aria-label={`Launch ${project.title} live demo`}
-                  >
-                    <ExternalLink size={13} />
-                    <span>Demo</span>
-                  </a>
-                )}
-              </div>
+              <p className="project-subtitle-text">{proj.subtitle}</p>
             </div>
-          </div>
+
+            <p className="project-card-description">{proj.description}</p>
+
+            <div className="project-tech-stack-row">
+              {proj.technologies.slice(0, 6).map((tech, tIdx) => (
+                <span key={tIdx} className="project-tech-pill">
+                  {tech}
+                </span>
+              ))}
+              {proj.technologies.length > 6 && (
+                <span className="project-tech-pill tech-more">
+                  +{proj.technologies.length - 6}
+                </span>
+              )}
+            </div>
+
+            <div className="project-actions-row">
+              {proj.live && (
+                <a
+                  href={proj.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-action-btn btn-demo"
+                  aria-label={`View Live Demo of ${proj.title}`}
+                >
+                  <Sparkles size={13} />
+                  <span>Demo</span>
+                </a>
+              )}
+
+              {proj.github && (
+                <a
+                  href={proj.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-action-btn btn-github"
+                  aria-label={`View GitHub repository of ${proj.title}`}
+                >
+                  <GithubIcon size={13} />
+                  <span>GitHub</span>
+                </a>
+              )}
+            </div>
+          </article>
         ))}
       </div>
     </div>
   );
 };
-
-

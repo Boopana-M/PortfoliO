@@ -11,10 +11,10 @@ export const AboutPage: React.FC = () => {
       <h2 className="page-title">{about.title}</h2>
       <div className="manuscript-divider">✦ ✤ ✦</div>
 
-      <div className="manuscript-body">
-        {about.paragraphs.map((para, index) => (
-          <p key={index} className="body-paragraph">
-            {para}
+      <div className="about-manuscript-body">
+        {about.paragraphs.map((paragraph, index) => (
+          <p key={index} className="about-scan-paragraph">
+            {paragraph}
           </p>
         ))}
 
@@ -26,4 +26,3 @@ export const AboutPage: React.FC = () => {
     </div>
   );
 };
-
