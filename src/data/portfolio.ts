@@ -134,6 +134,8 @@ export interface PortfolioData {
   problemSolving: {
     chapterNumber: string;
     title: string;
+    totalProblemsSolved: string;
+    platformsCount: number;
     platforms: ProblemSolvingItem[];
   };
   research: {
@@ -552,30 +554,44 @@ export const portfolio: PortfolioData = {
   problemSolving: {
     chapterNumber: "09",
     title: "Problem Solving",
+    totalProblemsSolved: "1,700+",
+    platformsCount: 6,
     platforms: [
       {
         platform: "SkillRack",
         solved: "950+ Problems",
         highlight: "Rank: 27544 · Bronze Medals",
-        url: "https://www.skillrack.com/"
+        url: "https://www.skillrack.com/faces/resume.xhtml?id=514731&key=329e80847a3718f4ef0d691b045f463f6ab123c0"
       },
       {
         platform: "LeetCode",
-        solved: "440+ Problems",
-        highlight: "Max Rating: 1580",
-        url: "https://leetcode.com/"
+        solved: "450+ Problems",
+        highlight: "DSA & Problem Solving",
+        url: "https://leetcode.com/u/Boopana-M/"
       },
       {
         platform: "CodeChef",
         solved: "170+ Problems",
-        highlight: "Competitive Problem Solving",
-        url: "https://www.codechef.com/"
+        highlight: "Competitive Programming",
+        url: "https://www.codechef.com/users/boopana"
       },
       {
         platform: "Coding Ninjas",
         solved: "65+ Problems",
         highlight: "Data Structures & Algorithms",
-        url: "https://www.naukri.com/code360"
+        url: "https://www.naukri.com/code360/profile/Boopana"
+      },
+      {
+        platform: "GeeksforGeeks",
+        solved: "42 Problems",
+        highlight: "Practice & Core CS",
+        url: "https://www.geeksforgeeks.org/profile/boopanaldz?tab=activity"
+      },
+      {
+        platform: "Codeforces",
+        solved: "22 Problems",
+        highlight: "Competitive Contests",
+        url: "https://codeforces.com/profile/boopana.m2024cce"
       }
     ]
   },
@@ -589,8 +605,8 @@ export const portfolio: PortfolioData = {
     chapterNumber: "11",
     title: "GitHub / Coding Stats",
     githubUsername: "Boopana-M",
-    totalProblemsSolved: "1,625+",
-    platformsCount: 4
+    totalProblemsSolved: "1,700+",
+    platformsCount: 6
   },
   resume: {
     chapterNumber: "12",

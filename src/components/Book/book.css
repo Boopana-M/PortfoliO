@@ -2881,83 +2881,153 @@
 /* -----------------------------------------
    PAGE 09: Problem Solving
    ----------------------------------------- */
+.problemsolving-manuscript-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.ps-global-stats-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, rgba(185, 154, 88, 0.18) 0%, rgba(120, 90, 50, 0.08) 100%);
+  border: 1px solid rgba(185, 154, 88, 0.45);
+  border-radius: 6px;
+  padding: 0.35rem 0.75rem;
+  margin-bottom: 0.55rem;
+  box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.4), 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.ps-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.ps-sparkle-icon {
+  color: var(--gold-dark);
+}
+
+.ps-total-number {
+  font-family: var(--font-title);
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #24160d;
+  letter-spacing: 0.04em;
+}
+
+.ps-banner-subtext {
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  font-style: italic;
+  color: #6d5435;
+}
+
 .problem-solving-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: clamp(6px, 1.1vh, 10px);
-  margin-top: 4px;
+  gap: clamp(5px, 0.85vh, 8px);
+  margin-top: 2px;
 }
 
 .ps-platform-card {
-  background: rgba(185, 154, 88, 0.1);
-  border: 1px solid rgba(185, 154, 88, 0.35);
-  border-radius: 4px;
-  padding: clamp(7px, 1.1vh, 10px);
+  background: rgba(120, 90, 50, 0.06);
+  border: 1px solid rgba(120, 90, 50, 0.28);
+  border-radius: 5px;
+  padding: clamp(5px, 0.8vh, 8px) clamp(7px, 1vw, 10px);
   display: flex;
   flex-direction: column;
+  gap: 3px;
+  transition: all 0.2s ease;
+}
+
+.ps-platform-card:hover {
+  background: rgba(185, 154, 88, 0.14);
+  border-color: rgba(185, 154, 88, 0.6);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+.ps-card-top-row {
+  display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 4px;
 }
 
-.ps-card-header {
+.ps-platform-brand {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
 }
 
 .ps-platform-icon-wrap {
-  color: #7d5e33;
+  color: var(--gold-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .ps-platform-name {
   font-family: var(--font-title, 'Cinzel', serif);
-  font-size: 0.84rem;
+  font-size: 0.8rem;
   font-weight: 700;
   color: #24160a;
   margin: 0;
 }
 
+.ps-platform-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-family: var(--font-title);
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #4a321d;
+  background: rgba(185, 154, 88, 0.18);
+  border: 1px solid rgba(185, 154, 88, 0.45);
+  border-radius: 10px;
+  padding: 1px 6px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.ps-platform-nav-link:hover {
+  background: rgba(185, 154, 88, 0.35);
+  color: #1c1006;
+  border-color: var(--gold-dark);
+  text-decoration: none;
+  transform: scale(1.04);
+}
+
 .ps-card-metric {
   display: flex;
-  flex-direction: column;
-  gap: 1px;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px;
+  margin-top: 1px;
 }
 
 .ps-metric-number {
   font-family: var(--font-title, 'Cinzel', serif);
-  font-size: 0.95rem;
+  font-size: 0.86rem;
   font-weight: 700;
   color: #4a341a;
+  white-space: nowrap;
 }
 
 .ps-metric-highlight {
   font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   font-style: italic;
   color: #694e2b;
-}
-
-.ps-platform-link-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 3px 8px;
-  background: linear-gradient(180deg, #2e1c0f 0%, #170d06 100%);
-  border: 1px solid rgba(185, 154, 88, 0.45);
-  border-radius: 3px;
-  color: #eeddb8;
-  font-family: var(--font-title, 'Cinzel', serif);
-  font-size: 0.66rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  text-decoration: none;
-  margin-top: 2px;
-  transition: all 0.2s ease;
-}
-
-.ps-platform-link-btn:hover {
-  color: #ffffff;
-  border-color: var(--gold-bright);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
 }
 
 /* -----------------------------------------

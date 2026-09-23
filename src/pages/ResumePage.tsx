@@ -27,7 +27,7 @@ export const ResumePage: React.FC = () => {
             </span>
             <span className="resume-highlight-item">
               <CheckCircle size={13} />
-              <span>1,625+ Problems Solved</span>
+              <span>{portfolio.problemSolving.totalProblemsSolved} Problems Solved</span>
             </span>
             <span className="resume-highlight-item">
               <CheckCircle size={13} />
