@@ -2885,6 +2885,9 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: 6px;
 }
 
 .ps-global-stats-banner {
@@ -2894,40 +2897,50 @@
   background: linear-gradient(135deg, rgba(185, 154, 88, 0.18) 0%, rgba(120, 90, 50, 0.08) 100%);
   border: 1px solid rgba(185, 154, 88, 0.45);
   border-radius: 6px;
-  padding: 0.35rem 0.75rem;
-  margin-bottom: 0.55rem;
+  padding: 0.35rem 0.65rem;
+  margin-bottom: 0.5rem;
   box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.4), 0 2px 6px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .ps-banner-left {
   display: flex;
   align-items: center;
   gap: 0.45rem;
+  min-width: 0;
 }
 
 .ps-sparkle-icon {
   color: var(--gold-dark);
+  flex-shrink: 0;
 }
 
 .ps-total-number {
   font-family: var(--font-title);
-  font-size: 0.86rem;
+  font-size: 0.84rem;
   font-weight: 700;
   color: #24160d;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
 }
 
 .ps-banner-subtext {
   font-family: var(--font-body);
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   font-style: italic;
   color: #6d5435;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .problem-solving-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: clamp(5px, 0.85vh, 8px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(5px, 0.8vh, 7px);
+  width: 100%;
+  box-sizing: border-box;
   margin-top: 2px;
 }
 
@@ -2935,10 +2948,12 @@
   background: rgba(120, 90, 50, 0.06);
   border: 1px solid rgba(120, 90, 50, 0.28);
   border-radius: 5px;
-  padding: clamp(5px, 0.8vh, 8px) clamp(7px, 1vw, 10px);
+  padding: 5px 7px;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
+  min-width: 0;
+  box-sizing: border-box;
   transition: all 0.2s ease;
 }
 
@@ -2954,12 +2969,15 @@
   align-items: center;
   justify-content: space-between;
   gap: 4px;
+  min-width: 0;
 }
 
 .ps-platform-brand {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .ps-platform-icon-wrap {
@@ -2972,10 +2990,13 @@
 
 .ps-platform-name {
   font-family: var(--font-title, 'Cinzel', serif);
-  font-size: 0.8rem;
+  font-size: 0.74rem;
   font-weight: 700;
   color: #24160a;
   margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ps-platform-nav-link {
@@ -2983,16 +3004,17 @@
   align-items: center;
   gap: 2px;
   font-family: var(--font-title);
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   font-weight: 600;
   color: #4a321d;
   background: rgba(185, 154, 88, 0.18);
   border: 1px solid rgba(185, 154, 88, 0.45);
   border-radius: 10px;
-  padding: 1px 6px;
+  padding: 1px 5px;
   text-decoration: none;
   transition: all 0.2s ease;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .ps-platform-nav-link:hover {
@@ -3007,27 +3029,30 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 4px;
+  gap: 3px;
+  min-width: 0;
   margin-top: 1px;
 }
 
 .ps-metric-number {
   font-family: var(--font-title, 'Cinzel', serif);
-  font-size: 0.86rem;
+  font-size: 0.8rem;
   font-weight: 700;
   color: #4a341a;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .ps-metric-highlight {
   font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-style: italic;
   color: #694e2b;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 120px;
+  min-width: 0;
+  text-align: right;
 }
 
 /* -----------------------------------------
@@ -3104,127 +3129,274 @@
 .coding-stats-container {
   display: flex;
   flex-direction: column;
-  gap: clamp(7px, 1.2vh, 12px);
-  margin-top: 4px;
+  gap: clamp(6px, 1vh, 10px);
+  margin-top: 2px;
 }
 
-.total-solved-banner {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: linear-gradient(90deg, rgba(60, 42, 22, 0.9) 0%, rgba(35, 23, 12, 0.85) 100%);
-  border: 1.5px solid rgba(212, 181, 104, 0.6);
-  border-radius: 5px;
-  padding: 8px 14px;
-  color: #f7ebd4;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
-}
-
-.solved-banner-icon {
-  color: var(--gold-bright);
-}
-
-.solved-banner-data {
+/* -----------------------------------------
+   PAGE 11: GitHub & Projects
+   ----------------------------------------- */
+.codingstats-manuscript-page {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
-.solved-banner-number {
-  font-family: var(--font-title, 'Cinzel', serif);
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #ffffff;
-  text-shadow: 0 0 10px rgba(229, 203, 135, 0.7);
-  line-height: 1.1;
-}
-
-.solved-banner-label {
-  font-family: var(--font-title, 'Cinzel', serif);
-  font-size: 0.64rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #c9ab73;
-}
-
-.github-stats-card {
-  background: rgba(185, 154, 88, 0.1);
-  border: 1px solid rgba(185, 154, 88, 0.35);
-  border-radius: 5px;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.github-card-header {
+.github-profile-banner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(185, 154, 88, 0.3);
-  padding-bottom: 5px;
+  background: linear-gradient(135deg, rgba(185, 154, 88, 0.18) 0%, rgba(120, 90, 50, 0.08) 100%);
+  border: 1px solid rgba(185, 154, 88, 0.45);
+  border-radius: 6px;
+  padding: 0.35rem 0.65rem;
+  box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.4), 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.github-profile-left {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
 }
 
 .github-icon-gold {
-  color: #694e2b;
+  color: #382513;
 }
 
-.github-handle-text {
-  font-family: var(--font-title, 'Cinzel', serif);
-  font-size: 0.82rem;
+.github-handle-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-family: var(--font-title);
+  font-size: 0.85rem;
   font-weight: 700;
-  color: #24160a;
+  color: #24160d;
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  transition: all 0.2s ease;
 }
 
-.github-live-indicator {
+.github-handle-link:hover {
+  color: #8b3a00;
+  text-decoration: underline;
+}
+
+.github-ext-icon {
+  opacity: 0.6;
+}
+
+.github-live-status {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-family: var(--font-body);
   font-size: 0.72rem;
   font-style: italic;
   color: #2e6930;
 }
 
-.live-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #3cb043;
-  box-shadow: 0 0 4px #3cb043;
-}
-
-.github-metrics-grid {
+.github-core-stats-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 6px;
 }
 
-.github-metric-box {
+.github-core-stat-card {
+  background: rgba(120, 90, 50, 0.07);
+  border: 1px solid rgba(120, 90, 50, 0.28);
+  border-radius: 5px;
+  padding: 5px 8px;
   display: flex;
   align-items: center;
-  gap: 7px;
-  background: rgba(60, 40, 20, 0.08);
-  border-radius: 3px;
-  padding: 5px 8px;
-  color: #5c4222;
+  gap: 8px;
+  transition: all 0.2s ease;
 }
 
-.github-metric-info {
+.github-core-stat-card:hover {
+  background: rgba(185, 154, 88, 0.15);
+  border-color: rgba(185, 154, 88, 0.6);
+  transform: translateY(-1px);
+}
+
+.stat-card-icon-wrap {
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  background: rgba(185, 154, 88, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-dark);
+  flex-shrink: 0;
+}
+
+.stat-card-content {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
-.metric-val {
+.stat-card-number {
   font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: #24160a;
+  line-height: 1.1;
+}
+
+.stat-card-label {
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-size: 0.68rem;
+  color: #694e2b;
+  white-space: nowrap;
+}
+
+.github-section-block {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.github-section-header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-title);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #5a3e20;
+}
+
+.section-header-icon {
+  color: var(--gold-dark);
+}
+
+.github-badges-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.github-badge-card {
+  background: rgba(120, 90, 50, 0.06);
+  border: 1px solid rgba(120, 90, 50, 0.25);
+  border-radius: 4px;
+  padding: 4px 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.github-badge-card:hover {
+  background: rgba(185, 154, 88, 0.16);
+  border-color: var(--gold-dark);
+  transform: translateY(-1px);
+}
+
+.badge-card-icon {
+  color: #2e6930;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.badge-card-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.badge-name-row {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.badge-name {
+  font-family: var(--font-title);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #24160a;
+}
+
+.badge-ext-icon {
+  color: #8c6f45;
+  opacity: 0.7;
+}
+
+.badge-desc {
+  font-family: var(--font-body);
+  font-size: 0.64rem;
+  color: #694e2b;
+  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.github-orgs-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.github-org-link-card {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: rgba(120, 90, 50, 0.06);
+  border: 1px solid rgba(120, 90, 50, 0.25);
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.github-org-link-card:hover {
+  background: rgba(185, 154, 88, 0.16);
+  border-color: var(--gold-dark);
+  transform: translateY(-1px);
+}
+
+.org-card-icon {
+  color: var(--gold-dark);
+  flex-shrink: 0;
+}
+
+.org-card-info {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+.org-card-name {
+  font-family: var(--font-title);
   font-size: 0.74rem;
   font-weight: 700;
   color: #24160a;
 }
 
-.metric-lbl {
-  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+.org-card-repo {
+  font-family: var(--font-body);
   font-size: 0.68rem;
   color: #694e2b;
+  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.org-ext-icon {
+  color: #8c6f45;
+  opacity: 0.6;
+  flex-shrink: 0;
 }
 
 /* -----------------------------------------

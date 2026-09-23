@@ -148,8 +148,19 @@ export interface PortfolioData {
     chapterNumber: string;
     title: string;
     githubUsername: string;
-    totalProblemsSolved: string;
-    platformsCount: number;
+    profileUrl: string;
+    totalRepositories: number;
+    totalContributions: string;
+    achievements: {
+      name: string;
+      description: string;
+      badgeUrl?: string;
+    }[];
+    organizations: {
+      name: string;
+      repo: string;
+      url: string;
+    }[];
   };
   resume: {
     chapterNumber: string;
@@ -603,10 +614,35 @@ export const portfolio: PortfolioData = {
   },
   codingStats: {
     chapterNumber: "11",
-    title: "GitHub / Coding Stats",
+    title: "GitHub & Projects",
     githubUsername: "Boopana-M",
-    totalProblemsSolved: "1,700+",
-    platformsCount: 6
+    profileUrl: "https://github.com/Boopana-M",
+    totalRepositories: 41,
+    totalContributions: "200+",
+    achievements: [
+      {
+        name: "Pull Shark",
+        description: "Merged Pull Requests on GitHub",
+        badgeUrl: "https://github.com/Boopana-M?tab=achievements"
+      },
+      {
+        name: "Quickdraw",
+        description: "Closed issue or PR within 5 minutes",
+        badgeUrl: "https://github.com/Boopana-M?tab=achievements"
+      }
+    ],
+    organizations: [
+      {
+        name: "Learning Unlimited",
+        repo: "ESP-Website",
+        url: "https://github.com/learning-unlimited/ESP-Website"
+      },
+      {
+        name: "Debugra",
+        repo: "Debugra",
+        url: "https://github.com/vijaypatil477/Debugra"
+      }
+    ]
   },
   resume: {
     chapterNumber: "12",
