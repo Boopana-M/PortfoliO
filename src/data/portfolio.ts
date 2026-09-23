@@ -188,11 +188,11 @@ export const portfolio: PortfolioData = {
     categories: [
       {
         title: "Languages",
-        skills: ["C", "C++", "Java", "Python"]
+        skills: ["Java", "C++", "C", "Python"]
       },
       {
-        title: "Web Development",
-        skills: ["React.js", "Spring Boot", "Node.js", "Express.js", "HTML", "CSS", "REST APIs", "JWT", "Responsive Design"]
+        title: "Java Full Stack Development",
+        skills: ["Java", "Spring Boot", "Spring MVC", "REST APIs", "JPA", "Hibernate", "JDBC", "React.js", "HTML", "CSS", "JavaScript"]
       },
       {
         title: "AI / ML",
@@ -204,11 +204,11 @@ export const portfolio: PortfolioData = {
       },
       {
         title: "Core CS",
-        skills: ["DSA", "OOP", "DBMS", "Computer Networks", "Operating Systems", "System Design"]
+        skills: ["Data Structures & Algorithms", "OOP", "DBMS", "Computer Networks", "Operating Systems", "System Design"]
       },
       {
-        title: "Tools & Platforms",
-        skills: ["Git", "GitHub", "VS Code", "Postman", "Figma", "Jupyter Notebook", "Firebase", "Back4App"]
+        title: "Developer Tools",
+        skills: ["Git", "GitHub", "VS Code", "IntelliJ IDEA", "Postman", "Figma", "Jupyter Notebook"]
       }
     ]
   },
