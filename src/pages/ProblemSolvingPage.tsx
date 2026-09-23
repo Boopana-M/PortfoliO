@@ -5,6 +5,14 @@ import { portfolio } from '../data/portfolio';
 export const ProblemSolvingPage: React.FC = () => {
   const { problemSolving } = portfolio;
 
+  const handleOpenPlatform = (url: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (url) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+  };
+
   const getPlatformIcon = (platform: string) => {
     switch (platform.toLowerCase()) {
       case 'leetcode':
@@ -42,27 +50,39 @@ export const ProblemSolvingPage: React.FC = () => {
       {/* 6 Platform Cards Grid */}
       <div className="problem-solving-grid">
         {problemSolving.platforms.map((plat, idx) => (
-          <article key={idx} className="ps-platform-card">
+          <article
+            key={idx}
+            className="ps-platform-card"
+            onClick={(e) => handleOpenPlatform(plat.url, e)}
+            role="link"
+            tabIndex={0}
+            aria-label={`Open ${plat.platform} Profile`}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                e.stopPropagation();
+                window.open(plat.url, '_blank', 'noopener,noreferrer');
+              }
+            }}
+          >
             <div className="ps-card-top-row">
               <div className="ps-platform-brand">
                 <div className="ps-platform-icon-wrap">
                   {getPlatformIcon(plat.platform)}
                 </div>
-                <h3 className="ps-platform-name">{plat.platform}</h3>
+                <a
+                  href={plat.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ps-platform-name-link"
+                  onClick={(e) => handleOpenPlatform(plat.url, e)}
+                  aria-label={`Open ${plat.platform} Profile`}
+                  title={`Open ${plat.platform} Profile`}
+                >
+                  <span className="ps-platform-name">{plat.platform}</span>
+                  <ArrowUpRight size={13} className="ps-link-arrow" />
+                </a>
               </div>
-
-              <a
-                href={plat.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="ps-platform-nav-link"
-                onClick={(e) => e.stopPropagation()}
-                aria-label={`Visit ${plat.platform} Profile`}
-                title={`Visit ${plat.platform} Profile`}
-              >
-                <span>Profile</span>
-                <ArrowUpRight size={12} />
-              </a>
             </div>
 
             <div className="ps-card-metric-block">

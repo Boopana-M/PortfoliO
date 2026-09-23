@@ -274,7 +274,7 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
 
     const attachShieldToButtons = () => {
       const interactives = container.querySelectorAll<HTMLElement>(
-        'button, a, [role="button"], input, select, textarea, .exp-view-detailed-btn, .achievement-proof-btn, .grimoire-resume-download-btn, .contact-primary-email-btn, .contact-social-pill, .os-contributions-btn'
+        'button, a, [role="button"], input, select, textarea, .exp-view-detailed-btn, .achievement-proof-btn, .grimoire-resume-download-btn, .contact-primary-email-btn, .contact-social-pill, .os-contributions-btn, .ps-platform-card, .ps-platform-nav-link'
       );
       interactives.forEach((el) => {
         if ((el as any)._hasFlipShield) return;
