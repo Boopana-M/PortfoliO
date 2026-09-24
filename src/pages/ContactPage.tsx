@@ -6,6 +6,7 @@ import { portfolio } from '../data/portfolio';
 export const ContactPage: React.FC = () => {
   const { contact, resume } = portfolio;
   const resumeDriveUrl = resume.driveUrl || resume.downloadUrl || 'https://drive.google.com/drive/folders/1Q4wDEq9CTdUUuqDcsqf5AI5xxMyidS89?usp=drive_link';
+  const gmailComposeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(contact.email)}`;
 
   const handleOpenUrl = (url: string) => {
     if (url) {
@@ -14,7 +15,8 @@ export const ContactPage: React.FC = () => {
   };
 
   const handleOpenMail = (email: string) => {
-    window.location.href = `mailto:${email}`;
+    const url = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -39,11 +41,14 @@ export const ContactPage: React.FC = () => {
 
         {/* Below Card: Action Links in exact order (1. Mail, 2. LinkedIn, 3. Resume Link) */}
         <div className="contact-links-stack">
-          {/* 1. Mail */}
+          {/* 1. Mail (Directs to Gmail compose web interface) */}
           <a
-            href={`mailto:${contact.email}`}
+            href={gmailComposeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="contact-action-card contact-mail-card"
-            aria-label="Send email to Boopana"
+            aria-label="Send email via Gmail to Boopana"
+            title="Compose in Gmail"
             onClick={(e) => {
               e.stopPropagation();
               handleOpenMail(contact.email);
@@ -54,7 +59,7 @@ export const ContactPage: React.FC = () => {
                 <Mail size={16} />
               </div>
               <div className="contact-card-text">
-                <span className="contact-card-label">Direct Mail</span>
+                <span className="contact-card-label">Direct Mail · Gmail</span>
                 <span className="contact-card-value">{contact.email}</span>
               </div>
             </div>
