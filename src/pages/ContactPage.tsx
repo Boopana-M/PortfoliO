@@ -1,11 +1,21 @@
 import React from 'react';
-import { Mail, Send, MessageSquare, FileText, ArrowUpRight, CheckCircle, Sparkles } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from '../components/common/BrandIcons';
+import { Mail, Send, MessageSquare, FileText, ArrowUpRight } from 'lucide-react';
+import { LinkedinIcon } from '../components/common/BrandIcons';
 import { portfolio } from '../data/portfolio';
 
 export const ContactPage: React.FC = () => {
   const { contact, resume } = portfolio;
-  const resumeDriveUrl = resume.driveUrl || resume.downloadUrl || '#';
+  const resumeDriveUrl = resume.driveUrl || resume.downloadUrl || 'https://drive.google.com/drive/folders/1Q4wDEq9CTdUUuqDcsqf5AI5xxMyidS89?usp=drive_link';
+
+  const handleOpenUrl = (url: string) => {
+    if (url) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+  };
+
+  const handleOpenMail = (email: string) => {
+    window.location.href = `mailto:${email}`;
+  };
 
   return (
     <div className="page-content-wrapper contact-manuscript-page">
@@ -14,94 +24,92 @@ export const ContactPage: React.FC = () => {
       <div className="manuscript-divider">✦ ✤ ✦</div>
 
       <div className="contact-manuscript-container">
-        <div className="contact-missive-card">
+        {/* Separate Top Card: "Let's build something together" */}
+        <div className="contact-invite-card">
           <div className="contact-seal-icon">
-            <MessageSquare size={22} />
+            <MessageSquare size={20} />
           </div>
 
-          <h3 className="contact-invite-heading">“{contact.invitation}”</h3>
+          <h3 className="contact-invite-heading">“Let's build something together.”</h3>
           
           <p className="contact-missive-body">
-            {contact.message}
+            I'm always open to interesting projects, software engineering opportunities, collaborations, and conversations around technology.
           </p>
+        </div>
 
-          <div className="contact-direct-actions">
-            {/* Primary Email Dispatch Button */}
-            <a
-              href={`mailto:${contact.email}`}
-              className="contact-primary-email-btn"
-              aria-label="Send email to Boopana"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <Mail size={16} />
-              <span>{contact.email}</span>
-              <Send size={13} className="send-arrow-sigil" />
-            </a>
-
-            {/* Resume Google Drive Link Button */}
-            <a
-              href={resumeDriveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="contact-resume-drive-btn"
-              aria-label="Access Resume on Google Drive"
-              title="Open Resume Document"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="resume-btn-left">
-                <FileText size={15} className="resume-btn-icon" />
-                <span>Curriculum Vitae (Resume)</span>
+        {/* Below Card: Action Links in exact order (1. Mail, 2. LinkedIn, 3. Resume Link) */}
+        <div className="contact-links-stack">
+          {/* 1. Mail */}
+          <a
+            href={`mailto:${contact.email}`}
+            className="contact-action-card contact-mail-card"
+            aria-label="Send email to Boopana"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleOpenMail(contact.email);
+            }}
+          >
+            <div className="contact-card-left">
+              <div className="contact-card-icon-box mail-icon-box">
+                <Mail size={16} />
               </div>
-              <ArrowUpRight size={13} className="resume-btn-arrow" />
-            </a>
-
-            {/* Professional & Social Channel Connectors */}
-            <div className="contact-social-row">
-              <a
-                href={contact.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="contact-social-pill contact-linkedin-pill"
-                aria-label="LinkedIn Profile"
-                title="Connect on LinkedIn"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <LinkedinIcon size={14} />
-                <span>LinkedIn</span>
-                <ArrowUpRight size={11} className="pill-arrow" />
-              </a>
-
-              <a
-                href={contact.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="contact-social-pill contact-github-pill"
-                aria-label="GitHub Profile"
-                title="View GitHub Profile"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <GithubIcon size={14} />
-                <span>GitHub</span>
-                <ArrowUpRight size={11} className="pill-arrow" />
-              </a>
+              <div className="contact-card-text">
+                <span className="contact-card-label">Direct Mail</span>
+                <span className="contact-card-value">{contact.email}</span>
+              </div>
             </div>
-          </div>
+            <Send size={14} className="contact-card-arrow" />
+          </a>
 
-          {/* Key Competency & Credential Badges */}
-          <div className="contact-highlights-strip">
-            <span className="contact-highlight-badge">
-              <Sparkles size={11} />
-              <span>Full-Stack &amp; AI</span>
-            </span>
-            <span className="contact-highlight-badge">
-              <CheckCircle size={11} />
-              <span>{portfolio.problemSolving.totalProblemsSolved} Solved</span>
-            </span>
-            <span className="contact-highlight-badge">
-              <Sparkles size={11} />
-              <span>Open Source</span>
-            </span>
-          </div>
+          {/* 2. LinkedIn */}
+          <a
+            href={contact.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact-action-card contact-linkedin-card"
+            aria-label="Visit Boopana LinkedIn Profile"
+            title="Open LinkedIn Profile"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleOpenUrl(contact.linkedin);
+            }}
+          >
+            <div className="contact-card-left">
+              <div className="contact-card-icon-box linkedin-icon-box">
+                <LinkedinIcon size={16} />
+              </div>
+              <div className="contact-card-text">
+                <span className="contact-card-label">Professional Network</span>
+                <span className="contact-card-value">LinkedIn Profile</span>
+              </div>
+            </div>
+            <ArrowUpRight size={15} className="contact-card-arrow" />
+          </a>
+
+          {/* 3. Resume Link */}
+          <a
+            href={resumeDriveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact-action-card contact-resume-card"
+            aria-label="Access Resume on Google Drive"
+            title="Open Resume Document"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleOpenUrl(resumeDriveUrl);
+            }}
+          >
+            <div className="contact-card-left">
+              <div className="contact-card-icon-box resume-icon-box">
+                <FileText size={16} />
+              </div>
+              <div className="contact-card-text">
+                <span className="contact-card-label">Curriculum Vitae</span>
+                <span className="contact-card-value">View Resume (Google Drive)</span>
+              </div>
+            </div>
+            <ArrowUpRight size={15} className="contact-card-arrow" />
+          </a>
         </div>
       </div>
     </div>
