@@ -103,6 +103,7 @@ export interface PortfolioData {
   about: {
     chapterNumber: string;
     title: string;
+    quote?: string;
     paragraphs: string[];
   };
   education: {
@@ -200,11 +201,11 @@ export const portfolio: PortfolioData = {
   about: {
     chapterNumber: "02",
     title: "About Me",
+    quote: "True mastery is the quiet commitment to understand deeply, build thoughtfully, and improve with every iteration.",
     paragraphs: [
-      "I'm Boopana, a Computer and Communication Engineering student passionate about software engineering, AI, and problem solving.",
-      "I enjoy building full-stack applications, exploring Agentic AI and RAG systems, and solving algorithmic problems.",
-      "My experience spans web development, AI-powered applications, open-source contribution, and competitive programming.",
-      "I'm currently focused on growing as a software engineer and building products that combine strong engineering with practical impact."
+      "I am Boopana, an engineering scholar driven by an enduring passion for problem-solving, craftsmanship, and the art of translating complex ideas into purposeful, elegant creations.",
+      "My journey is shaped by deep curiosity and an instinctive desire to understand how intricate systems function from the ground up. I approach challenges not merely as tasks to complete, but as opportunities to explore fundamentals, refine logic, and discover cleaner, more resilient ways to build.",
+      "To me, engineering is both a disciplined science and a creative pursuit. It demands patience to dissect ambiguity, precision to structure solutions, and the humility to constantly learn. Whether analyzing patterns, collaborating with forward-thinking peers, or pushing the boundaries of my own knowledge, I remain dedicated to lifelong learning and building things that leave a lasting, positive impression."
     ]
   },
   education: {

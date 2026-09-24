@@ -4179,6 +4179,134 @@
   margin: 0;
 }
 
+/* -----------------------------------------
+   About Page Manuscript Layout (Filling Full Parchment)
+   ----------------------------------------- */
+.about-manuscript-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.about-manuscript-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+  gap: clamp(0.45rem, 1.1vh, 0.85rem);
+  margin-top: 0.35rem;
+}
+
+.about-manuscript-p {
+  font-family: var(--font-body);
+  font-size: clamp(0.82rem, 1.45vh, 0.93rem);
+  line-height: clamp(1.5, 2.1vh, 1.7);
+  color: #26160c;
+  text-align: justify;
+  text-justify: inter-word;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.about-manuscript-p.first-p {
+  position: relative;
+}
+
+.illuminated-initial {
+  float: left;
+  font-family: var(--font-title);
+  font-size: clamp(2.3rem, 4.4vh, 3.1rem);
+  line-height: 0.78;
+  padding-top: 4px;
+  padding-right: 8px;
+  padding-bottom: 2px;
+  color: #4a2810;
+  font-weight: 700;
+  text-shadow: 1px 1px 0 rgba(220, 185, 120, 0.7);
+}
+
+.about-quote-cartouche {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: clamp(0.45rem, 0.9vh, 0.7rem) clamp(0.6rem, 1.2vw, 1rem);
+  background: linear-gradient(135deg, rgba(185, 154, 88, 0.14) 0%, rgba(120, 90, 50, 0.06) 100%);
+  border: 1px solid rgba(185, 154, 88, 0.4);
+  border-radius: 4px;
+  box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.35), 0 2px 6px rgba(0, 0, 0, 0.06);
+  margin: 0.1rem 0;
+}
+
+.about-quote-ornament,
+.about-quote-ornament-close {
+  font-family: var(--font-title);
+  font-size: clamp(1.1rem, 2vh, 1.5rem);
+  color: var(--gold-dark);
+  line-height: 1;
+  opacity: 0.75;
+  user-select: none;
+}
+
+.about-quote-text {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: clamp(0.78rem, 1.35vh, 0.88rem);
+  line-height: 1.45;
+  color: #3b2514;
+  text-align: center;
+  margin: 0;
+}
+
+.about-closing-block {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-top: clamp(0.35rem, 0.8vh, 0.6rem);
+  border-top: 1px dashed rgba(120, 90, 50, 0.3);
+}
+
+.about-closing-valediction {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: clamp(0.74rem, 1.2vh, 0.82rem);
+  color: #5d4429;
+}
+
+.about-signature-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  margin-top: 0.1rem;
+}
+
+.about-signature-hand {
+  font-family: var(--font-handwriting);
+  font-size: clamp(1.4rem, 2.5vh, 1.85rem);
+  color: #241308;
+  font-weight: 700;
+  transform: rotate(-3deg);
+  display: inline-block;
+}
+
+.about-quill-glyph {
+  font-size: clamp(0.95rem, 1.6vh, 1.2rem);
+  color: #7d592b;
+  user-select: none;
+}
+
+.about-origin-seal {
+  font-family: var(--font-title);
+  font-size: clamp(0.62rem, 1vh, 0.7rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7b6348;
+  margin-top: 0.1rem;
+}
+
+
 
 
 
