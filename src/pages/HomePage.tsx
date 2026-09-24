@@ -6,7 +6,7 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className="page-content-wrapper home-manuscript-page">
-      <h2 className="page-title">Welcome</h2>
+      <h2 className="page-title">{portfolio.home?.title || 'Home'}</h2>
       <div className="manuscript-divider">✦ ✤ ✦</div>
 
       <div className="home-profile-container">
