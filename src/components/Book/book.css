@@ -3202,20 +3202,269 @@
 /* -----------------------------------------
    PAGE 11: Coding Stats
    ----------------------------------------- */
-.coding-stats-container {
+/* -----------------------------------------
+   PAGE 09: Problem Solving Manuscript Page
+   ----------------------------------------- */
+.problemsolving-manuscript-page {
   display: flex;
   flex-direction: column;
-  gap: clamp(6px, 1vh, 10px);
-  margin-top: 2px;
+  height: 100%;
+}
+
+.ps-top-half-section {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4px, 0.8vh, 7px);
+}
+
+.ps-grand-solved-showcase {
+  background: linear-gradient(135deg, rgba(185, 154, 88, 0.22) 0%, rgba(120, 90, 50, 0.1) 100%);
+  border: 1.5px solid rgba(185, 154, 88, 0.6);
+  border-radius: 6px;
+  padding: clamp(6px, 1.1vh, 9px) 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.35), 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.ps-grand-sparkle-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ps-grand-sparkle {
+  color: #b99a58;
+}
+
+.ps-grand-number {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: clamp(1.35rem, 2.5vh, 1.75rem);
+  font-weight: 800;
+  color: #24160a;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+}
+
+.ps-grand-label {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: clamp(0.7rem, 1.15vh, 0.8rem);
+  font-weight: 700;
+  color: #54391b;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ps-grand-subtext {
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-style: italic;
+  font-size: clamp(0.66rem, 1vh, 0.74rem);
+  color: #6e5536;
+}
+
+.ps-icons-showcase-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 1px;
+}
+
+.ps-icons-header-label {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: clamp(0.62rem, 0.95vh, 0.72rem);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #634724;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.ps-icons-badges-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 4px;
+  align-items: center;
+}
+
+.ps-icon-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 2px;
+  background: rgba(120, 90, 50, 0.08);
+  border: 1px solid rgba(185, 154, 88, 0.35);
+  border-radius: 4px;
+  gap: 2px;
+}
+
+.ps-badge-glyph {
+  color: #3b2513;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ps-badge-name {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.56rem;
+  color: #4a321d;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  text-align: center;
+}
+
+.ps-bottom-half-section {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-top: auto;
+  padding-top: 3px;
+  gap: 5px;
+}
+
+.ps-section-divider-mini {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 1px 0;
+}
+
+.ps-divider-line {
+  flex: 1;
+  height: 1px;
+  background: rgba(185, 154, 88, 0.4);
+}
+
+.ps-divider-text {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #5a3e20;
+  text-transform: uppercase;
+}
+
+.ps-bottom-platforms-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.ps-bottom-platform-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(4px, 0.8vh, 6px) 7px;
+  background: rgba(185, 154, 88, 0.12);
+  border: 1.2px solid rgba(185, 154, 88, 0.45);
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+}
+
+.ps-bottom-platform-card:hover {
+  background: rgba(185, 154, 88, 0.26);
+  border-color: #ffd88a;
+  transform: translateY(-1.5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15), 0 0 8px rgba(215, 185, 107, 0.35);
+}
+
+.ps-card-left-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.ps-card-platform-header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ps-card-icon-small {
+  color: #4a321d;
+  display: flex;
+  align-items: center;
+}
+
+.ps-card-platform-title {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #24160d;
+}
+
+.ps-card-metric-row {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.ps-card-count {
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #1e1108;
+}
+
+.ps-card-tag {
+  font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
+  font-style: italic;
+  font-size: 0.62rem;
+  color: #6d5233;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 85px;
+}
+
+.ps-card-nav-arrow-wrap {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 5px;
+  background: rgba(50, 32, 16, 0.85);
+  border: 1px solid #b99a58;
+  border-radius: 3px;
+  color: #ffd88a;
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.ps-bottom-platform-card:hover .ps-card-nav-arrow-wrap {
+  background: #24160d;
+  border-color: #ffd88a;
+  color: #ffffff;
+  transform: scale(1.04);
 }
 
 /* -----------------------------------------
-   PAGE 11: GitHub & Projects
+   PAGE 10: Coding Stats & GitHub Manuscript Page
    ----------------------------------------- */
 .codingstats-manuscript-page {
   display: flex;
   flex-direction: column;
   height: 100%;
+}
+
+.github-top-half-section {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4px, 0.8vh, 7px);
 }
 
 .github-profile-banner {
@@ -3227,8 +3476,6 @@
   border-radius: 6px;
   padding: 0.35rem 0.65rem;
   box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.4), 0 2px 6px rgba(0, 0, 0, 0.08);
-  position: relative;
-  z-index: 30 !important;
 }
 
 .github-profile-left {
@@ -3238,8 +3485,8 @@
 }
 
 .github-banner-icon-wrap {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   border-radius: 4px;
   background: rgba(185, 154, 88, 0.25);
   border: 1px solid rgba(185, 154, 88, 0.4);
@@ -3259,94 +3506,74 @@
   gap: 1px;
 }
 
-.github-profile-handle-link {
+.github-profile-handle-text {
   font-family: var(--font-title, 'Cinzel', serif);
   font-size: 0.84rem;
   font-weight: 700;
   color: #24160d;
-  text-decoration: none;
   letter-spacing: 0.02em;
-  transition: all 0.2s ease;
   line-height: 1.15;
-  position: relative;
-  z-index: 35 !important;
-  pointer-events: auto !important;
-  cursor: pointer !important;
 }
 
-.github-profile-handle-link:hover {
-  color: #8b3a00;
-  text-decoration: underline;
+.github-middle-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 5px;
 }
 
-.github-profile-nav-btn {
+.github-bottom-actions-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  padding-top: 5px;
+}
+
+.github-full-profile-btn {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 4px 10px;
-  font-family: var(--font-title, 'Cinzel', serif);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: #fff;
-  background: linear-gradient(135deg, #4a321d 0%, #2b1b0e 100%);
-  border: 1px solid #b99a58;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: clamp(6px, 1.1vh, 9px) 12px;
+  background: linear-gradient(135deg, #382414 0%, #1c1007 100%);
+  border: 1.5px solid #b99a58;
   border-radius: 4px;
+  color: #f7ebd4;
+  font-family: var(--font-title, 'Cinzel', serif);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   text-decoration: none;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(215, 185, 107, 0.3);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  cursor: pointer !important;
-  position: relative;
-  z-index: 35 !important;
-  pointer-events: auto !important;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
 }
 
-.github-profile-nav-btn:hover {
-  background: linear-gradient(135deg, #604226 0%, #3a2514 100%);
-  border-color: #d7b96b;
-  color: #f7e7c4;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3), 0 0 8px rgba(215, 185, 107, 0.4);
+.github-full-profile-btn:hover {
+  background: linear-gradient(135deg, #52361e 0%, #26170a 100%);
+  border-color: #ffd88a;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.45), 0 0 10px rgba(215, 185, 107, 0.4);
 }
 
-.github-nav-arrow {
-  color: #d7b96b;
+.github-btn-icon {
+  color: #ffd88a;
+}
+
+.github-btn-text {
+  font-weight: 700;
+}
+
+.github-btn-arrow {
+  color: #ffd88a;
   transition: transform 0.2s ease;
 }
 
-.github-profile-nav-btn:hover .github-nav-arrow {
-  transform: translate(1px, -1px);
-}
-
-.github-profile-handle-link * {
-  pointer-events: none !important;
-}
-
-.github-profile-nav-btn * {
-  pointer-events: none !important;
-}
-
-.github-badge-card {
-  position: relative;
-  z-index: 30 !important;
-  pointer-events: auto !important;
-  cursor: pointer !important;
-}
-
-.github-badge-card * {
-  pointer-events: none !important;
-}
-
-.github-org-link-card {
-  position: relative;
-  z-index: 30 !important;
-  pointer-events: auto !important;
-  cursor: pointer !important;
-}
-
-.github-org-link-card * {
-  pointer-events: none !important;
+.github-full-profile-btn:hover .github-btn-arrow {
+  transform: translate(2px, -2px);
 }
 
 .github-live-status {

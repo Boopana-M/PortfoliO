@@ -6,56 +6,41 @@ import { portfolio } from '../data/portfolio';
 export const CodingStatsPage: React.FC = () => {
   const { codingStats } = portfolio;
 
+  const handleOpenGithub = () => {
+    if (codingStats.profileUrl) {
+      window.open(codingStats.profileUrl, '_blank', 'noopener,noreferrer');
+    }
+  };
+
   return (
     <div className="page-content-wrapper codingstats-manuscript-page">
-      <h2 className="page-title">{codingStats.title}</h2>
-      <div className="page-subtitle-hint">Open Source &amp; Repository Activity</div>
-      <div className="manuscript-divider">✦ ✤ ✦</div>
+      {/* ----------------- TOP HALF: INFO & STATS ----------------- */}
+      <div className="github-top-half-section">
+        <h2 className="page-title">{codingStats.title}</h2>
+        <div className="page-subtitle-hint">Open Source &amp; Repository Activity</div>
+        <div className="manuscript-divider">✦ ✤ ✦</div>
 
-      <div className="coding-stats-container">
-        {/* Top GitHub Profile Banner with Direct Navigation Link */}
+        {/* GitHub Header Showcase Banner */}
         <div className="github-profile-banner">
           <div className="github-profile-left">
             <div className="github-banner-icon-wrap" aria-hidden="true">
               <GithubIcon size={18} className="github-icon-gold" />
             </div>
             <div className="github-banner-info">
-              <a
-                href={codingStats.profileUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="github-profile-handle-link"
-                onClick={(e) => e.stopPropagation()}
-                aria-label="Open Boopana-M GitHub Profile"
-              >
-                <span>@{codingStats.githubUsername}</span>
-              </a>
+              <span className="github-profile-handle-text">@{codingStats.githubUsername}</span>
               <div className="github-live-status">
                 <span className="live-dot" />
-                <span>Active Contributor</span>
+                <span>Active Contributor &amp; Open Source Builder</span>
               </div>
             </div>
           </div>
-
-          <a
-            href={codingStats.profileUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="github-profile-nav-btn"
-            onClick={(e) => e.stopPropagation()}
-            aria-label="Visit GitHub Profile in new tab"
-            title="Visit GitHub Profile"
-          >
-            <span>GitHub Profile</span>
-            <ArrowUpRight size={13} className="github-nav-arrow" />
-          </a>
         </div>
 
         {/* Primary Metrics Grid (Repositories & Contributions) */}
         <div className="github-core-stats-grid">
           <div className="github-core-stat-card">
             <div className="stat-card-icon-wrap">
-              <FolderGit2 size={16} className="stat-icon-gold" />
+              <FolderGit2 size={15} className="stat-icon-gold" />
             </div>
             <div className="stat-card-content">
               <span className="stat-card-number">{codingStats.totalRepositories}</span>
@@ -65,7 +50,7 @@ export const CodingStatsPage: React.FC = () => {
 
           <div className="github-core-stat-card">
             <div className="stat-card-icon-wrap">
-              <GitCommit size={16} className="stat-icon-gold" />
+              <GitCommit size={15} className="stat-icon-gold" />
             </div>
             <div className="stat-card-content">
               <span className="stat-card-number">{codingStats.totalContributions}</span>
@@ -73,36 +58,30 @@ export const CodingStatsPage: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
 
+      {/* ----------------- MIDDLE: BADGES & ORGS ----------------- */}
+      <div className="github-middle-section">
         {/* GitHub Badges / Profile Achievements */}
         <div className="github-section-block">
           <div className="github-section-header">
-            <Award size={13} className="section-header-icon" />
-            <span className="section-header-title">GitHub Profile Badges</span>
+            <Award size={12} className="section-header-icon" />
+            <span className="section-header-title">GitHub Badges &amp; Recognitions</span>
           </div>
 
           <div className="github-badges-grid">
             {codingStats.achievements.map((ach, idx) => (
-              <a
-                key={idx}
-                href={ach.badgeUrl || codingStats.profileUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="github-badge-card"
-                onClick={(e) => e.stopPropagation()}
-                aria-label={`View GitHub achievement ${ach.name}`}
-              >
+              <div key={idx} className="github-badge-card">
                 <div className="badge-card-icon">
-                  <ShieldCheck size={14} />
+                  <ShieldCheck size={13} />
                 </div>
                 <div className="badge-card-text">
                   <div className="badge-name-row">
                     <span className="badge-name">{ach.name}</span>
-                    <ExternalLink size={10} className="badge-ext-icon" />
                   </div>
                   <span className="badge-desc">{ach.description}</span>
                 </div>
-              </a>
+              </div>
             ))}
           </div>
         </div>
@@ -110,33 +89,42 @@ export const CodingStatsPage: React.FC = () => {
         {/* Organizations Contributed To */}
         <div className="github-section-block">
           <div className="github-section-header">
-            <Sparkles size={13} className="section-header-icon" />
+            <Sparkles size={12} className="section-header-icon" />
             <span className="section-header-title">Contributed Organizations</span>
           </div>
 
           <div className="github-orgs-row">
             {codingStats.organizations.map((org, idx) => (
-              <a
-                key={idx}
-                href={org.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="github-org-link-card"
-                onClick={(e) => e.stopPropagation()}
-                aria-label={`Visit repository ${org.name} - ${org.repo}`}
-              >
-                <FolderGit2 size={13} className="org-card-icon" />
+              <div key={idx} className="github-org-link-card">
+                <FolderGit2 size={12} className="org-card-icon" />
                 <div className="org-card-info">
                   <span className="org-card-name">{org.name}</span>
                   <span className="org-card-repo">{org.repo}</span>
                 </div>
-                <ExternalLink size={11} className="org-ext-icon" />
-              </a>
+              </div>
             ))}
           </div>
         </div>
       </div>
+
+      {/* ----------------- BOTTOM HALF: ACTION LINK ----------------- */}
+      <div className="github-bottom-actions-footer">
+        <a
+          href={codingStats.profileUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="github-full-profile-btn"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleOpenGithub();
+          }}
+          aria-label="Open Boopana-M GitHub Profile in new tab"
+        >
+          <GithubIcon size={16} className="github-btn-icon" />
+          <span className="github-btn-text">Visit @{codingStats.githubUsername} on GitHub</span>
+          <ArrowUpRight size={14} className="github-btn-arrow" />
+        </a>
+      </div>
     </div>
   );
 };
-
