@@ -2292,7 +2292,7 @@
   font-family: var(--font-title, 'Cinzel', serif);
   font-size: clamp(0.85rem, 1.45vh, 0.98rem);
   font-weight: 700;
-  color: #2b1c0e;
+  color: #000000;
   margin: 0;
   line-height: 1.25;
 }
@@ -2304,14 +2304,15 @@
   font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
   font-size: 0.82rem;
   font-style: italic;
-  color: #694e2b;
+  color: #1a1a1a;
+  font-weight: 600;
 }
 
 .edu-cgpa-cartouche {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: linear-gradient(90deg, rgba(60, 42, 22, 0.85) 0%, rgba(35, 23, 12, 0.8) 100%);
+  background: linear-gradient(90deg, rgba(30, 20, 10, 0.92) 0%, rgba(15, 10, 5, 0.9) 100%);
   border: 1px solid rgba(212, 181, 104, 0.6);
   border-radius: 4px;
   padding: 7px 14px;
@@ -2334,7 +2335,7 @@
   font-size: 0.74rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #c9ab73;
+  color: #e5cb87;
 }
 
 .cgpa-score {
@@ -2355,7 +2356,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  color: #694e2b;
+  color: #000000;
 }
 
 .coursework-title-text {
@@ -2378,16 +2379,17 @@
   gap: 4px;
   padding: 3px 8px;
   background: rgba(130, 95, 45, 0.08);
-  border: 1px solid rgba(130, 95, 45, 0.25);
+  border: 1px solid rgba(130, 95, 45, 0.3);
   border-radius: 3px;
   font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
   font-size: clamp(0.76rem, 1.25vh, 0.85rem);
-  color: #332212;
+  font-weight: 600;
+  color: #000000;
 }
 
 .coursework-bullet {
   font-size: 0.55rem;
-  color: #8c6835;
+  color: #000000;
 }
 
 /* -----------------------------------------
@@ -2415,7 +2417,7 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #5c4222;
+  color: #000000;
   margin: 0;
 }
 
@@ -2439,7 +2441,7 @@
   font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
   font-size: clamp(0.74rem, 1.2vh, 0.83rem);
   font-weight: 600;
-  color: #2b1b0d;
+  color: #000000;
 }
 
 /* -----------------------------------------
@@ -2476,7 +2478,7 @@
   font-family: var(--font-title, 'Cinzel', serif);
   font-size: clamp(0.78rem, 1.25vh, 0.88rem);
   font-weight: 700;
-  color: #2b1c0e;
+  color: #000000;
   margin: 0;
 }
 
@@ -2488,7 +2490,7 @@
   font-family: var(--font-title, 'Cinzel', serif);
   font-size: clamp(0.68rem, 1.1vh, 0.76rem);
   font-weight: 600;
-  color: #694e2b;
+  color: #1a1a1a;
 }
 
 .exp-period-badge {
@@ -2498,7 +2500,8 @@
   font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
   font-size: 0.74rem;
   font-style: italic;
-  color: #7d5e33;
+  color: #1a1a1a;
+  font-weight: 600;
   flex-shrink: 0;
 }
 
@@ -2518,7 +2521,8 @@
   font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
   font-size: clamp(0.76rem, 1.22vh, 0.84rem);
   line-height: 1.35;
-  color: #332212;
+  color: #000000;
+  font-weight: 500;
 }
 
 .bullet-sigil {
@@ -2540,7 +2544,7 @@
   padding: 1px 5px;
   background: rgba(140, 105, 55, 0.12);
   border-radius: 2px;
-  color: #4a341a;
+  color: #000000;
   font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
   font-weight: 600;
 }
@@ -2592,7 +2596,7 @@
   font-family: var(--font-title, 'Cinzel', serif);
   font-size: clamp(0.74rem, 1.15vh, 0.82rem);
   font-weight: 700;
-  color: #24160a;
+  color: #000000;
   margin: 0;
   line-height: 1.15;
   white-space: nowrap;
@@ -2609,7 +2613,8 @@
   font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
   font-size: 0.68rem;
   font-style: italic;
-  color: #705532;
+  color: #1a1a1a;
+  font-weight: 500;
   margin: 0;
   line-height: 1.15;
   white-space: nowrap;
@@ -2629,13 +2634,15 @@
 
 .badge-individual {
   background: rgba(76, 159, 196, 0.15);
-  color: #1e5873;
+  color: #0f4058;
+  font-weight: 700;
   border: 1px solid rgba(76, 159, 196, 0.35);
 }
 
 .badge-team {
   background: rgba(185, 154, 88, 0.18);
-  color: #694e2b;
+  color: #000000;
+  font-weight: 700;
   border: 1px solid rgba(185, 154, 88, 0.4);
 }
 
@@ -2651,14 +2658,15 @@
   padding: 1px 5px;
   background: rgba(140, 105, 55, 0.12);
   border-radius: 2px;
-  color: #4a341a;
+  color: #000000;
   font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
   font-weight: 600;
 }
 
 .project-tech-pill.tech-more {
   background: rgba(185, 154, 88, 0.22);
-  color: #5c3e1e;
+  color: #000000;
+  font-weight: 700;
 }
 
 /* -----------------------------------------
@@ -2723,7 +2731,7 @@
   font-family: var(--font-title, 'Cinzel', serif);
   font-size: clamp(0.72rem, 1.15vh, 0.82rem);
   font-weight: 700;
-  color: #24160a;
+  color: #000000;
   margin: 0;
   line-height: 1.15;
 }
@@ -2732,7 +2740,8 @@
   font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
   font-style: italic;
   font-size: 0.68rem;
-  color: #705532;
+  color: #1a1a1a;
+  font-weight: 600;
   flex-shrink: 0;
 }
 
@@ -2749,20 +2758,21 @@
   border-radius: 2px;
   background: radial-gradient(circle at 35% 35%, #fff5d8 0%, #dfb764 60%, #9e7529 100%);
   border: 1px solid #ffe18b;
-  color: #1e1205;
+  color: #000000;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
   flex-shrink: 0;
 }
 
 .award-sparkle-sigil {
-  color: #6e4c16;
+  color: #4a321d;
 }
 
 .achievement-desc-text {
   font-family: var(--font-body, 'Crimson Pro', Georgia, serif);
   font-size: clamp(0.68rem, 1.05vh, 0.74rem);
   line-height: 1.25;
-  color: #382514;
+  color: #000000;
+  font-weight: 500;
   margin: 0;
 }
 
@@ -4307,7 +4317,7 @@
   font-family: var(--font-title);
   font-size: 0.86rem;
   font-weight: 700;
-  color: #24160d;
+  color: #000000;
   letter-spacing: 0.04em;
 }
 
@@ -4315,7 +4325,8 @@
   font-family: var(--font-body);
   font-size: 0.74rem;
   font-style: italic;
-  color: #6d5435;
+  color: #1a1a1a;
+  font-weight: 500;
 }
 
 .os-organizations-list {
@@ -4360,7 +4371,7 @@
 }
 
 .os-org-icon {
-  color: var(--gold-dark);
+  color: #000000;
   flex-shrink: 0;
 }
 
@@ -4371,25 +4382,26 @@
   font-family: var(--font-title);
   font-size: 0.88rem;
   font-weight: 700;
-  color: #2a190e;
+  color: #000000;
   text-decoration: none;
   transition: all 0.2s ease;
 }
 
 .os-org-name-link:hover {
-  color: #8b3a00;
+  color: #701000;
   text-decoration: underline;
 }
 
 .os-ext-icon {
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 .os-org-role {
   font-family: var(--font-body);
   font-size: 0.76rem;
-  color: #70583d;
+  color: #1a1a1a;
   font-style: italic;
+  font-weight: 600;
   margin-left: 1.3rem;
 }
 
@@ -4399,10 +4411,10 @@
   gap: 0.3rem;
   font-family: var(--font-title);
   font-size: 0.72rem;
-  font-weight: 600;
-  color: #4a321d;
-  background: rgba(185, 154, 88, 0.18);
-  border: 1px solid rgba(185, 154, 88, 0.45);
+  font-weight: 700;
+  color: #000000;
+  background: rgba(185, 154, 88, 0.22);
+  border: 1px solid rgba(185, 154, 88, 0.5);
   border-radius: 12px;
   padding: 0.2rem 0.55rem;
   white-space: nowrap;
@@ -4412,7 +4424,8 @@
 .os-org-highlights-text {
   font-family: var(--font-body);
   font-size: 0.82rem;
-  color: var(--ink-secondary);
+  color: #000000;
+  font-weight: 500;
   line-height: 1.45;
   margin: 0;
 }
@@ -4439,7 +4452,8 @@
   font-family: var(--font-body);
   font-size: clamp(0.82rem, 1.45vh, 0.93rem);
   line-height: clamp(1.5, 2.1vh, 1.7);
-  color: #26160c;
+  color: #000000;
+  font-weight: 500;
   text-align: justify;
   text-justify: inter-word;
   margin: 0;
@@ -4458,7 +4472,7 @@
   padding-top: 4px;
   padding-right: 8px;
   padding-bottom: 2px;
-  color: #4a2810;
+  color: #000000;
   font-weight: 700;
   text-shadow: 1px 1px 0 rgba(220, 185, 120, 0.7);
 }
@@ -4470,8 +4484,8 @@
   justify-content: center;
   gap: 0.4rem;
   padding: clamp(0.45rem, 0.9vh, 0.7rem) clamp(0.6rem, 1.2vw, 1rem);
-  background: linear-gradient(135deg, rgba(185, 154, 88, 0.14) 0%, rgba(120, 90, 50, 0.06) 100%);
-  border: 1px solid rgba(185, 154, 88, 0.4);
+  background: linear-gradient(135deg, rgba(185, 154, 88, 0.18) 0%, rgba(120, 90, 50, 0.08) 100%);
+  border: 1px solid rgba(185, 154, 88, 0.45);
   border-radius: 4px;
   box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.35), 0 2px 6px rgba(0, 0, 0, 0.06);
   margin: 0.1rem 0;
@@ -4483,7 +4497,7 @@
   font-size: clamp(1.1rem, 2vh, 1.5rem);
   color: var(--gold-dark);
   line-height: 1;
-  opacity: 0.75;
+  opacity: 0.85;
   user-select: none;
 }
 
@@ -4492,7 +4506,8 @@
   font-style: italic;
   font-size: clamp(0.78rem, 1.35vh, 0.88rem);
   line-height: 1.45;
-  color: #3b2514;
+  color: #000000;
+  font-weight: 500;
   text-align: center;
   margin: 0;
 }
@@ -4503,14 +4518,15 @@
   flex-direction: column;
   align-items: flex-end;
   padding-top: clamp(0.35rem, 0.8vh, 0.6rem);
-  border-top: 1px dashed rgba(120, 90, 50, 0.3);
+  border-top: 1px dashed rgba(120, 90, 50, 0.35);
 }
 
 .about-closing-valediction {
   font-family: var(--font-body);
   font-style: italic;
   font-size: clamp(0.74rem, 1.2vh, 0.82rem);
-  color: #5d4429;
+  color: #1a1a1a;
+  font-weight: 600;
 }
 
 .about-signature-row {
@@ -4523,7 +4539,7 @@
 .about-signature-hand {
   font-family: var(--font-handwriting);
   font-size: clamp(1.4rem, 2.5vh, 1.85rem);
-  color: #241308;
+  color: #000000;
   font-weight: 700;
   transform: rotate(-3deg);
   display: inline-block;
@@ -4531,7 +4547,7 @@
 
 .about-quill-glyph {
   font-size: clamp(0.95rem, 1.6vh, 1.2rem);
-  color: #7d592b;
+  color: #4a321d;
   user-select: none;
 }
 
@@ -4540,7 +4556,8 @@
   font-size: clamp(0.62rem, 1vh, 0.7rem);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #7b6348;
+  color: #1a1a1a;
+  font-weight: 600;
   margin-top: 0.1rem;
 }
 

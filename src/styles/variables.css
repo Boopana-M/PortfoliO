@@ -1,10 +1,10 @@
 :root {
-  /* Ink & Text Colors */
-  --ink: #1f1810;
-  --ink-secondary: #423425;
-  --ink-muted: #6b563f;
-  --ink-faded: #8c7358;
-  --ink-accent: #8b2500;
+  /* Ink & Text Colors - High Contrast, Razor Sharp Black Typography */
+  --ink: #000000;
+  --ink-secondary: #0a0a0a;
+  --ink-muted: #1c1c1c;
+  --ink-faded: #2e2e2e;
+  --ink-accent: #701000;
 
   /* Parchment Colors */
   --parchment: #dfcca6;
