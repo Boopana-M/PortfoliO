@@ -39,7 +39,7 @@ export const ProblemSolvingPage: React.FC = () => {
         <span className="ps-banner-subtext">Across {problemSolving.platformsCount} Competitive Coding Platforms</span>
       </div>
 
-      {/* 4 Platform Cards Grid - Each entire card is a real native anchor link */}
+      {/* 6 Platform Cards Grid */}
       <div className="problem-solving-grid">
         {problemSolving.platforms.map((plat, idx) => (
           <a
@@ -48,20 +48,20 @@ export const ProblemSolvingPage: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
             className="ps-platform-card"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-            aria-label={`Open ${plat.platform} Profile: ${plat.url}`}
-            title={`Open ${plat.platform} Profile: ${plat.url}`}
+            aria-label={`Visit ${plat.platform} Profile (${plat.solved}, ${plat.highlight})`}
+            title={`Visit ${plat.platform} Profile`}
           >
             <div className="ps-card-top-row">
               <div className="ps-platform-brand">
-                <div className="ps-platform-icon-wrap">
+                <div className="ps-platform-icon-wrap" aria-hidden="true">
                   {getPlatformIcon(plat.platform)}
                 </div>
-                <div className="ps-platform-name-link">
+                <div className="ps-platform-name-col">
                   <span className="ps-platform-name">{plat.platform}</span>
-                  <ArrowUpRight size={13} className="ps-link-arrow" />
+                  <span className="ps-visit-link" aria-hidden="true">
+                    <span>Visit</span>
+                    <ArrowUpRight size={11} className="ps-visit-arrow" />
+                  </span>
                 </div>
               </div>
             </div>

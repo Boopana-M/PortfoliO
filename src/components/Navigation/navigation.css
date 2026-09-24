@@ -18,6 +18,7 @@
   -ms-overflow-style: none;
   animation: navEntrance 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
   user-select: none;
+  pointer-events: none; /* Never block underlying book page interactions outside buttons */
 }
 
 .side-navigation::-webkit-scrollbar {
@@ -163,6 +164,7 @@
   font-weight: 500;
   letter-spacing: 0.04em;
   cursor: pointer;
+  pointer-events: auto;
   text-align: left;
   transition: all 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
   overflow: hidden;
@@ -284,6 +286,7 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   cursor: pointer;
+  pointer-events: auto;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.8);
   transition: all 0.22s ease;
 }

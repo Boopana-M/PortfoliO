@@ -1,5 +1,5 @@
 import React from 'react';
-import { GitCommit, FolderGit2, ExternalLink, Award, Sparkles, ShieldCheck } from 'lucide-react';
+import { GitCommit, FolderGit2, ExternalLink, Award, Sparkles, ShieldCheck, ArrowUpRight } from 'lucide-react';
 import { GithubIcon } from '../components/common/BrandIcons';
 import { portfolio } from '../data/portfolio';
 
@@ -13,27 +13,42 @@ export const CodingStatsPage: React.FC = () => {
       <div className="manuscript-divider">✦ ✤ ✦</div>
 
       <div className="coding-stats-container">
-        {/* Top GitHub Profile Banner */}
+        {/* Top GitHub Profile Banner with Direct Navigation Link */}
         <div className="github-profile-banner">
           <div className="github-profile-left">
-            <GithubIcon size={20} className="github-icon-gold" />
-            <a
-              href={codingStats.profileUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="github-handle-link"
-              onClick={(e) => e.stopPropagation()}
-              aria-label="Open Boopana-M GitHub Profile"
-            >
-              <span>@{codingStats.githubUsername}</span>
-              <ExternalLink size={12} className="github-ext-icon" />
-            </a>
+            <div className="github-banner-icon-wrap" aria-hidden="true">
+              <GithubIcon size={18} className="github-icon-gold" />
+            </div>
+            <div className="github-banner-info">
+              <a
+                href={codingStats.profileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="github-profile-handle-link"
+                onClick={(e) => e.stopPropagation()}
+                aria-label="Open Boopana-M GitHub Profile"
+              >
+                <span>@{codingStats.githubUsername}</span>
+              </a>
+              <div className="github-live-status">
+                <span className="live-dot" />
+                <span>Active Contributor</span>
+              </div>
+            </div>
           </div>
 
-          <div className="github-live-status">
-            <span className="live-dot" />
-            <span>Active Contributor</span>
-          </div>
+          <a
+            href={codingStats.profileUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="github-profile-nav-btn"
+            onClick={(e) => e.stopPropagation()}
+            aria-label="Visit GitHub Profile in new tab"
+            title="Visit GitHub Profile"
+          >
+            <span>GitHub Profile</span>
+            <ArrowUpRight size={13} className="github-nav-arrow" />
+          </a>
         </div>
 
         {/* Primary Metrics Grid (Repositories & Contributions) */}

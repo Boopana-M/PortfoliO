@@ -1,9 +1,10 @@
 /* Ambient Atmospheric Effects */
 
-.candlelight-container {
+.candlelight-container,
+.candlelight-container * {
   position: absolute;
   inset: 0;
-  pointer-events: none;
+  pointer-events: none !important;
   z-index: 3;
   overflow: hidden;
 }
@@ -56,11 +57,14 @@
   z-index: 4;
 }
 
-/* Arcane Concentric Glowing Rings Aura */
+.arcane-circles-container,
+.arcane-circles-container * {
+  pointer-events: none !important;
+}
+
 .arcane-circles-container {
   position: absolute;
   inset: 0;
-  pointer-events: none;
   z-index: 6;
   display: flex;
   justify-content: center;

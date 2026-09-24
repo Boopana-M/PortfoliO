@@ -168,6 +168,7 @@ export interface PortfolioData {
     message: string;
     fileName: string;
     downloadUrl: string;
+    driveUrl?: string;
   };
   contact: {
     chapterNumber: string;
@@ -188,8 +189,8 @@ export const portfolio: PortfolioData = {
     photo: "/boopana-photo.png",
     email: "boopana608@gmail.com",
     github: "https://github.com/Boopana-M",
-    linkedin: "https://linkedin.com/in/boopana-m",
-    resumeUrl: "#",
+    linkedin: "https://www.linkedin.com/in/boopana-m-942520328/",
+    resumeUrl: "https://drive.google.com/drive/folders/1Q4wDEq9CTdUUuqDcsqf5AI5xxMyidS89?usp=drive_link",
     signature: "Boopana M."
   },
   home: {
@@ -565,9 +566,21 @@ export const portfolio: PortfolioData = {
   problemSolving: {
     chapterNumber: "09",
     title: "Problem Solving",
-    totalProblemsSolved: "300+",
-    platformsCount: 4,
+    totalProblemsSolved: "1,700+",
+    platformsCount: 6,
     platforms: [
+      {
+        platform: "SkillRack",
+        solved: "950+ Problems",
+        highlight: "Rank: 27544 · Bronze Medals",
+        url: "https://www.skillrack.com/faces/resume.xhtml?id=514731&key=329e80847a3718f4ef0d691b045f463f6ab123c0"
+      },
+      {
+        platform: "LeetCode",
+        solved: "450+ Problems",
+        highlight: "DSA & Problem Solving",
+        url: "https://leetcode.com/u/Boopana-M/"
+      },
       {
         platform: "CodeChef",
         solved: "170+ Problems",
@@ -601,7 +614,7 @@ export const portfolio: PortfolioData = {
     statement: "Currently exploring research opportunities in AI, Agentic Systems, and intelligent applications."
   },
   codingStats: {
-    chapterNumber: "11",
+    chapterNumber: "10",
     title: "GitHub & Projects",
     githubUsername: "Boopana-M",
     profileUrl: "https://github.com/Boopana-M",
@@ -633,19 +646,20 @@ export const portfolio: PortfolioData = {
     ]
   },
   resume: {
-    chapterNumber: "12",
+    chapterNumber: "11",
     title: "Resume",
-    message: "Want the complete picture? Download my resume to explore my experience, projects, skills, and achievements.",
+    message: "Want the complete picture? Access my resume to explore my experience, projects, skills, and achievements.",
     fileName: "Boopana_M_Resume.pdf",
-    downloadUrl: "/Boopana_M_Resume.pdf"
+    downloadUrl: "https://drive.google.com/drive/folders/1Q4wDEq9CTdUUuqDcsqf5AI5xxMyidS89?usp=drive_link",
+    driveUrl: "https://drive.google.com/drive/folders/1Q4wDEq9CTdUUuqDcsqf5AI5xxMyidS89?usp=drive_link"
   },
   contact: {
-    chapterNumber: "13",
+    chapterNumber: "11",
     title: "Contact",
     invitation: "Let's build something together.",
     message: "I'm always open to interesting projects, software engineering opportunities, collaborations, and conversations around technology.",
     email: "boopana608@gmail.com",
     github: "https://github.com/Boopana-M",
-    linkedin: "https://linkedin.com/in/boopana-m"
+    linkedin: "https://www.linkedin.com/in/boopana-m-942520328/"
   }
 };

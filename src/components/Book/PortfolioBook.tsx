@@ -12,9 +12,7 @@ import { ProjectsPage } from '../../pages/ProjectsPage';
 import { AchievementsPage } from '../../pages/AchievementsPage';
 import { OpenSourcePage } from '../../pages/OpenSourcePage';
 import { ProblemSolvingPage } from '../../pages/ProblemSolvingPage';
-import { ResearchPage } from '../../pages/ResearchPage';
 import { CodingStatsPage } from '../../pages/CodingStatsPage';
-import { ResumePage } from '../../pages/ResumePage';
 import { ContactPage } from '../../pages/ContactPage';
 import { EpiloguePage } from '../../pages/EpiloguePage';
 import { ExperienceProjection } from '../Experience/ExperienceProjection';
@@ -162,9 +160,9 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
         mobileScrollSupport: false,
         swipeDistance: 30,
         clickEventForward: true,
-        useMouseEvents: true,
-        showPageCorners: true,
-        disableFlipByClick: true, // Prevents body/button clicks from causing accidental flips while preserving corner page flips
+        useMouseEvents: false, // Prevents PageFlip from capturing mouse events and blocking top corner cards (SkillRack / LeetCode)
+        showPageCorners: false, // Disables corner hover folding canvas that obstructed top-corner links
+        disableFlipByClick: true,
       });
 
       const pageElements = container.querySelectorAll<HTMLElement>('.grimoire-page-sheet');
@@ -272,9 +270,29 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
     const container = bookContainerRef.current;
     if (!container) return;
 
+    // Capture-phase listener on container intercepts interactions before PageFlip can preventDefault()
+    const handleCaptureInteractive = (e: Event) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+
+      const interactive = target.closest(
+        'a, button, [role="button"], input, select, textarea, .ps-platform-card, .github-profile-nav-btn, .github-profile-handle-link, .github-badge-card, .github-org-link-card, .grimoire-resume-download-btn, .contact-resume-drive-btn, .contact-primary-email-btn, .contact-social-pill, .achievement-proof-btn, .exp-view-detailed-btn, .os-contributions-btn'
+      );
+
+      if (interactive) {
+        // Prevent PageFlip library gesture listeners on parent/window from capturing or cancelling
+        e.stopPropagation();
+      }
+    };
+
+    const events = ['pointerdown', 'mousedown', 'mouseup', 'touchstart', 'touchend'];
+    events.forEach((evt) => {
+      container.addEventListener(evt, handleCaptureInteractive, { capture: true, passive: false });
+    });
+
     const attachShieldToButtons = () => {
       const interactives = container.querySelectorAll<HTMLElement>(
-        'button, a, [role="button"], input, select, textarea, .exp-view-detailed-btn, .achievement-proof-btn, .grimoire-resume-download-btn, .contact-primary-email-btn, .contact-social-pill, .os-contributions-btn, .ps-platform-card, .ps-platform-nav-link'
+        'button, a, [role="button"], input, select, textarea, .exp-view-detailed-btn, .achievement-proof-btn, .grimoire-resume-download-btn, .contact-resume-drive-btn, .contact-primary-email-btn, .contact-social-pill, .os-contributions-btn, .ps-visit-link, .ps-platform-nav-link, .github-profile-nav-btn, .github-profile-handle-link, .ps-platform-card'
       );
       interactives.forEach((el) => {
         if ((el as any)._hasFlipShield) return;
@@ -284,7 +302,7 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
           e.stopPropagation();
         };
 
-        ['pointerdown', 'mousedown', 'mouseup', 'touchstart', 'touchend'].forEach((evt) => {
+        events.forEach((evt) => {
           el.addEventListener(evt, stop, false);
         });
       });
@@ -295,9 +313,12 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
     const observer = new MutationObserver(() => {
       attachShieldToButtons();
     });
-    observer.observe(container, { childList: true, subtree: true });
+    observer.observe(container, { childList: true, subtree: true, attributes: true });
 
     return () => {
+      events.forEach((evt) => {
+        container.removeEventListener(evt, handleCaptureInteractive, { capture: true });
+      });
       observer.disconnect();
     };
   }, [isBookReady]);
@@ -394,7 +415,7 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
                 </BookPage>
               </div>
 
-              {/* SPREAD 6: Problem Solving (p.09) & Research & Conference Submissions (p.10) */}
+              {/* SPREAD 6: Problem Solving (p.09) & GitHub / Coding Stats (p.10) */}
               <div className="grimoire-page-sheet" data-density="soft">
                 <BookPage side="left" pageNumber={9}>
                   <ProblemSolvingPage />
@@ -402,30 +423,18 @@ export const PortfolioBook: React.FC<PortfolioBookProps> = ({
               </div>
               <div className="grimoire-page-sheet" data-density="soft">
                 <BookPage side="right" pageNumber={10}>
-                  <ResearchPage />
-                </BookPage>
-              </div>
-
-              {/* SPREAD 7: GitHub / Coding Stats (p.11) & Resume Download (p.12) */}
-              <div className="grimoire-page-sheet" data-density="soft">
-                <BookPage side="left" pageNumber={11}>
                   <CodingStatsPage />
                 </BookPage>
               </div>
-              <div className="grimoire-page-sheet" data-density="soft">
-                <BookPage side="right" pageNumber={12}>
-                  <ResumePage />
-                </BookPage>
-              </div>
 
-              {/* SPREAD 8: Contact (p.13) & Epilogue (p.14) */}
+              {/* SPREAD 7: Contact & Resume (p.11) & Epilogue (p.12) */}
               <div className="grimoire-page-sheet" data-density="soft">
-                <BookPage side="left" pageNumber={13}>
+                <BookPage side="left" pageNumber={11}>
                   <ContactPage />
                 </BookPage>
               </div>
               <div className="grimoire-page-sheet" data-density="soft">
-                <BookPage side="right" pageNumber={14}>
+                <BookPage side="right" pageNumber={12}>
                   <EpiloguePage />
                 </BookPage>
               </div>
