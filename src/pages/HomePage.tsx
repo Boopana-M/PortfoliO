@@ -6,32 +6,37 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className="page-content-wrapper home-manuscript-page">
-      <h2 className="page-title">{portfolio.home?.title || 'Home'}</h2>
-      <div className="manuscript-divider">✦ ✤ ✦</div>
-
-      <div className="home-profile-container">
-        {/* Ornate Gilded Portrait Frame */}
-        <div className="home-portrait-wrapper">
-          <div className="portrait-gilded-ring" />
+      <div className="home-full-portrait-container">
+        {/* Full-Page Professional Framed Photograph */}
+        <div className="home-professional-photo-frame">
           <img
             src={person.photo}
             alt={person.name}
-            className="home-portrait-img"
+            className="home-full-photo-img"
           />
-          <div className="portrait-inner-sheen" />
-        </div>
+          
+          {/* Subtle cinematic gradient overlay for depth and contrast */}
+          <div className="home-photo-vignette-overlay" aria-hidden="true" />
 
-        {/* Name & Identity */}
-        <div className="home-identity-block">
-          <h3 className="home-author-name">{person.name}</h3>
-          <p className="home-author-role">{person.role}</p>
-        </div>
+          {/* Corner Filigree Accents */}
+          <div className="photo-corner photo-corner-tl" aria-hidden="true">✤</div>
+          <div className="photo-corner photo-corner-tr" aria-hidden="true">✤</div>
 
-        {/* Tagline */}
-        <div className="home-tagline-cartouche">
-          <p className="home-tagline-text">
-            “{person.tagline}”
-          </p>
+          {/* Lower Identification Plaque */}
+          <div className="home-photo-id-plate">
+            <div className="home-plate-divider" aria-hidden="true">
+              <span className="plate-divider-line" />
+              <span className="plate-divider-sigil">✦</span>
+              <span className="plate-divider-line" />
+            </div>
+
+            <h2 className="home-plate-name">{person.name}</h2>
+            <p className="home-plate-role">{person.role}</p>
+
+            <div className="home-plate-tagline">
+              “{person.tagline}”
+            </div>
+          </div>
         </div>
       </div>
     </div>
