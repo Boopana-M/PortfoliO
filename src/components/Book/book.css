@@ -1811,22 +1811,24 @@
 }
 
 /* -----------------------------------------
-   11. Bottom Right Cartouche Controls & Share Button
+   11. Bottom Right Cartouche Controls (PREV PAGE / NEXT PAGE)
    ----------------------------------------- */
 .book-bottom-controls {
   position: absolute;
-  bottom: max(14px, 2.2vh);
-  right: max(20px, 3vw);
+  bottom: max(12px, 2vh);
+  right: max(10px, 1.4vw);
   display: flex;
   align-items: center;
-  gap: clamp(0.5rem, 1vw, 0.85rem);
-  z-index: 50;
+  gap: clamp(0.4rem, 0.8vw, 0.65rem);
+  z-index: 150 !important;
+  pointer-events: auto;
 }
 
-/* Antique Ornate Cartouche NEXT PAGE Button */
+/* Antique Ornate Cartouche Navigation Buttons */
 .cartouche-nav-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: clamp(0.35rem, 0.6vw, 0.6rem);
   background: #0f0b08;
   border: 1.5px solid var(--gold);
@@ -1836,30 +1838,33 @@
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  padding: clamp(0.42rem, 0.9vh, 0.55rem) clamp(0.75rem, 1.2vw, 1.15rem);
+  padding: clamp(0.44rem, 0.95vh, 0.56rem) clamp(0.8rem, 1.25vw, 1.15rem);
   cursor: pointer;
   box-shadow:
-    0 4px 16px rgba(0, 0, 0, 0.8),
-    inset 0 0 6px rgba(185, 154, 88, 0.2);
+    0 4px 18px rgba(0, 0, 0, 0.9),
+    inset 0 0 6px rgba(185, 154, 88, 0.25);
   clip-path: polygon(6px 0%, calc(100% - 6px) 0%, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0% calc(100% - 6px), 0% 6px);
   transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
   white-space: nowrap;
+  position: relative;
+  z-index: 150 !important;
 }
 
 .cartouche-nav-btn:hover:not(:disabled) {
-  background: #20150b;
+  background: #24160a;
   border-color: #ffd88a;
-  color: #fff4d4;
+  color: #ffffff;
   box-shadow:
-    0 0 16px rgba(215, 185, 107, 0.5),
-    0 4px 16px rgba(0, 0, 0, 0.9);
+    0 0 18px rgba(215, 185, 107, 0.6),
+    0 6px 20px rgba(0, 0, 0, 0.95);
   transform: translateY(-2px);
 }
 
 .cartouche-nav-btn:disabled {
-  opacity: 0.35;
+  opacity: 0.3;
   cursor: not-allowed;
   filter: grayscale(0.8);
+  pointer-events: none;
 }
 
 /* Antique Round Share Button */

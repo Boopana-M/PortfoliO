@@ -21,18 +21,16 @@ export const PageTurnControls: React.FC<PageTurnControlsProps> = ({
 
   return (
     <div className="book-bottom-controls" role="toolbar" aria-label="Book page navigation">
-      {canGoPrev && (
-        <button
-          type="button"
-          className="cartouche-nav-btn prev-cartouche-btn"
-          onClick={onPrev}
-          disabled={isTurning || !canGoPrev}
-          aria-label="Turn to previous page"
-        >
-          <ArrowLeft size={15} aria-hidden="true" />
-          <span>PREV PAGE</span>
-        </button>
-      )}
+      <button
+        type="button"
+        className="cartouche-nav-btn prev-cartouche-btn"
+        onClick={onPrev}
+        disabled={isTurning || !canGoPrev}
+        aria-label="Turn to previous page"
+      >
+        <ArrowLeft size={15} aria-hidden="true" />
+        <span>PREV PAGE</span>
+      </button>
 
       <button
         type="button"
