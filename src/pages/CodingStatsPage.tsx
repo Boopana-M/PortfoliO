@@ -1,5 +1,5 @@
 import React from 'react';
-import { GitCommit, FolderGit2, ExternalLink, Award, Sparkles, ShieldCheck, ArrowUpRight } from 'lucide-react';
+import { GitCommit, FolderGit2, Award, Sparkles, ShieldCheck, ArrowUpRight } from 'lucide-react';
 import { GithubIcon } from '../components/common/BrandIcons';
 import { portfolio } from '../data/portfolio';
 
